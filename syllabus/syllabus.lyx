@@ -131,7 +131,8 @@ Informal prerequisites: If you are not a statistics or biostatistics graduate
  necessary a UNIX variant).
  Furthermore, I'm expecting you will know the basics of R, at the level
  of the material in the R bootcamp offered Aug.
- 23-24, 2014.
+ 23-24, 2014 [specifically the material through Unit 6, but don't worry
+ about environments and scoping].
  If you don't have that background you'll need to spend time in the initial
  couple weeks getting up to speed.
  All the material and screencasts from the bootcamp will be available, and
@@ -532,9 +533,9 @@ Most work for the course can be done on your laptop.
  that should eliminate any issues with installation and getting the necessary
  software.
  If you wish to do your assignments on your own machine rather than on the
- VM, keep in mind that required programs/packages may be stored on the VM,
- and it is your responsibility to get the required resources working on
- the your own computer.
+ VM, keep in mind that it is your responsibility to get the required resources
+ (such as being able to work in UNIX terminal window) working on the your
+ own computer.
  To use the VM, go to 
 \begin_inset CommandInset href
 LatexCommand href
@@ -543,6 +544,9 @@ target "http://collaboratool.berkeley.edu/using-virtualbox.html"
 \end_inset
 
 .
+ We can try to help with Windows-related issues but this help will necessarily
+ be limited by our limited experience with Windows.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -556,13 +560,24 @@ Those of you in Statistics can also make use of the Statistical Computing
 \end_layout
 
 \begin_layout Standard
-Also, assignments and topics are oriented towards the UNIX (i.e., Linux or
- Mac) operating system, so if you wish to use a non-UNIX computer, you should
- make sure that the necessary resources are available (and in some cases,
- you will need to use a UNIX-based system).
- We can try to help with Windows-related issues but this help will necessarily
- be limited by our limited experience with Windows.
- 
+The software needed for the course is as follows:
+\end_layout
+
+\begin_layout Itemize
+Access to the UNIX command line (e.g., the Linux virtual machine, an SCF machine,
+ or a Mac laptop)
+\end_layout
+
+\begin_layout Itemize
+Git
+\end_layout
+
+\begin_layout Itemize
+R (RStudio is recommended but by no means required)
+\end_layout
+
+\begin_layout Itemize
+Python (later in the course)
 \end_layout
 
 \begin_layout Standard
