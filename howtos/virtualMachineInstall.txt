@@ -1,0 +1,7 @@
+Please see:
+
+http://collaboratool.berkeley.edu/using-virtualbox.html
+
+Windows users may encounter some trouble. Try using VirtualBox version 4.3.12 [https://www.virtualbox.org/wiki/Download_Old_Builds_4_3] or 4.3.15 and not 4.3.14.
+
+You may also need to enable virtualization in your VirtualBox settings (Settings -> System -> Acceleration and check "Enable VT-x/AMD-V" or possibly enable virtualization in your BIOS.
