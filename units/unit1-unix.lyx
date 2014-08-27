@@ -106,7 +106,15 @@ See the file
 \emph on
 remoteConnect.pdf
 \emph default
- in the howtos folder in the repository.
+ in the howtos folder in the repository, 
+\begin_inset CommandInset href
+LatexCommand href
+name "https://github.com/berkeley-stat243/stat243-fall-2014/blob/master/howtos/remoteConnect.pdf"
+target "https://github.com/berkeley-stat243/stat243-fall-2014/blob/master/howtos/remoteConnect.pdf"
+
+\end_inset
+
+.
  While those instructions are focused on connecting remotely to the SCF
  [only relevant for those of you with an SCF account], the same general
  tools can be used for connecting to any remote machine.
@@ -570,6 +578,63 @@ To see how much space you are using out of your overall quota
 \end_deeper
 \end_deeper
 \begin_layout Section
+Version control
+\end_layout
+
+\begin_layout Standard
+We'll be using Git extensively to do version control.
+ Git stores the files for a project in a 
+\emph on
+repository
+\emph default
+.
+ 
+\end_layout
+
+\begin_layout Enumerate
+To clone (i.e., copy) a repository (in this case from Github) [
+\emph on
+berkeley-stat243
+\emph default
+ is the project and 
+\emph on
+stat243-fall-2014
+\emph default
+ is the repository]:
+\begin_inset Newline newline
+\end_inset
+
+> 
+\family typewriter
+git clone https://github.com/berkeley-stat243/stat243-fall-2014
+\end_layout
+
+\begin_layout Enumerate
+To update a repository to reflect changes made in a remote copy of the repositor
+y:
+\begin_inset Newline newline
+\end_inset
+
+> 
+\family typewriter
+cd /to/a/directory/within/the/local/repository
+\family default
+
+\begin_inset Newline newline
+\end_inset
+
+>
+\family typewriter
+ git pull
+\end_layout
+
+\begin_layout Standard
+We'll see a lot more about Git in section, where you'll learn to set up
+ a repository, make changes to repositories and work with local and remote
+ versons of the repository.
+\end_layout
+
+\begin_layout Section
 A variety of UNIX tools/capabilities
 \end_layout
 
@@ -632,11 +697,6 @@ Cloud storage: Dropbox and other services will mirror directories on multiple
 
 \end_deeper
 \begin_layout Enumerate
-Version control: We'll be using Git extensively to do version control.
- 
-\end_layout
-
-\begin_layout Enumerate
 To do something at the UNIX command line from within R, use the 
 \family typewriter
 system()
@@ -661,14 +721,78 @@ ls -al
 
 \end_deeper
 \begin_layout Enumerate
-Editors
+Files that provide info about a UNIX machine:
 \end_layout
 
 \begin_deeper
+\begin_layout Itemize
+
+\emph on
+/proc/meminfo 
+\emph default
+[in particular the 
+\emph on
+MemTotal
+\emph default
+ value]
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+/proc/cpuinfo
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+/etc/issue
+\end_layout
+
+\begin_layout Itemize
+Example: to find out how many processors a machine has: 
+\begin_inset Newline newline
+\end_inset
+
+
+\family typewriter
+> grep processor /proc/cpuinfo 
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+There are (free) tools in UNIX to convert files between lots of formats
+ (pdf, ps, html, latex, jpg).
+ This is particularly handy when preparing figures for a publication.
+ My 
+\begin_inset CommandInset href
+LatexCommand href
+name "computing tips"
+target "http://www.stat.berkeley.edu/~paciorek/computingTips/File_Conversion_pdf_postscr.html"
+
+\end_inset
+
+ page lists a number of these.
+ On a related note 
+\emph on
+pandoc
+\emph default
+ is a program for converting between markup formats, including Markdown,
+ HTML, Latex and MS Word.
+\end_layout
+
+\begin_layout Section
+Editors
+\end_layout
+
 \begin_layout Standard
 For statistical computing, we need an editor, not a word processor, because
  we're going to be operating on files of code and data files, for which
  word processing formatting gets in the way.
+\end_layout
+
+\begin_layout Subsection
+Some useful editors
 \end_layout
 
 \begin_layout Itemize
@@ -701,12 +825,10 @@ Be careful in Windows - file suffixes are often hidden
 RStudio provides a built-in editor for R code files
 \end_layout
 
-\end_deeper
-\begin_layout Enumerate
-Basic emacs:
+\begin_layout Subsection
+Basic emacs
 \end_layout
 
-\begin_deeper
 \begin_layout Itemize
 
 \emph on
@@ -739,16 +861,11 @@ To open emacs in the terminal window rather than as a new window, which
 > emacs -nw file.txt 
 \end_layout
 
-\end_deeper
 \begin_layout Standard
 \begin_inset Float table
 wide false
 sideways false
 status open
-
-\begin_layout Plain Layout
-
-\end_layout
 
 \begin_layout Plain Layout
 \begin_inset Caption
@@ -1089,66 +1206,5 @@ Paste from kill buffer ('y' is for 'yank')
 \end_layout
 
 \end_deeper
-\begin_layout Enumerate
-Files that provide info about a UNIX machine:
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-
-\emph on
-/proc/meminfo 
-\emph default
-[in particular the 
-\emph on
-MemTotal
-\emph default
- value]
-\end_layout
-
-\begin_layout Itemize
-
-\emph on
-/proc/cpuinfo
-\end_layout
-
-\begin_layout Itemize
-
-\emph on
-/etc/issue
-\end_layout
-
-\begin_layout Itemize
-Example: to find out how many processors a machine has: 
-\begin_inset Newline newline
-\end_inset
-
-
-\family typewriter
-> grep processor /proc/cpuinfo 
-\end_layout
-
-\end_deeper
-\begin_layout Enumerate
-There are (free) tools in UNIX to convert files between lots of formats
- (pdf, ps, html, latex, jpg).
- This is particularly handy when preparing figures for a publication.
- My 
-\begin_inset CommandInset href
-LatexCommand href
-name "computing tips"
-target "http://www.stat.berkeley.edu/~paciorek/computingTips/File_Conversion_pdf_postscr.html"
-
-\end_inset
-
- page lists a number of these.
- On a related note 
-\emph on
-pandoc
-\emph default
- is a program for converting between markup formats, including Markdown,
- HTML, Latex and MS Word.
-\end_layout
-
 \end_body
 \end_document
