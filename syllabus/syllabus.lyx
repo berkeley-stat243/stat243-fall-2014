@@ -1015,6 +1015,20 @@ Numerical integration and differentiation (1 day)
 Graphics (2 days)
 \end_layout
 
+\begin_layout Standard
+If you want to get a sense of what material we will cover in more detail,
+ in advance, you can take a look at the materials in the lectures directory
+ of Github repository from last year.
+ Material will be quite similar though I'll be making modifications along
+ the way and it's possible unit numbers will have changed.
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+git clone https://github.com/paciorek/stat243-fall-2013
+\end_layout
+
 \begin_layout Section*
 Campus Honor Code
 \end_layout
