@@ -1,5 +1,16 @@
 #######################################
-# 2: Files and directories
+# 2: Version control
+#######################################
+
+# initial download
+git clone https://github.com/berkeley-stat243/stat243-fall-2014
+
+# updating local copy to reflect changes in the remote copy
+cd /to/a/directory/within/the/local/repository
+git pull
+
+#######################################
+# 3: Files and directories
 #######################################
 
 # login and copying to a remote machine
@@ -10,6 +21,9 @@ ssh -X paciorek@radagast.berkeley.edu
 pwd
 
 ls
+ls -a
+ls -l
+ls -lrt
 
 cd /accounts/gen/vis/paciorek/teaching/243
 cd ~paciorek/teaching/243
@@ -53,7 +67,7 @@ du -h
 quota -s
 
 ##########################################
-# 3: A variety of UNIX tools/capabilities
+# 4: A variety of UNIX tools/capabilities
 ##########################################
 
 man cp

@@ -132,6 +132,63 @@ target "http://statistics.berkeley.edu/computing/ssh-keys"
 \end_layout
 
 \begin_layout Section
+Version control
+\end_layout
+
+\begin_layout Standard
+We'll be using Git extensively to do version control.
+ Git stores the files for a project in a 
+\emph on
+repository
+\emph default
+.
+ 
+\end_layout
+
+\begin_layout Enumerate
+To clone (i.e., copy) a repository (in this case from Github) [
+\emph on
+berkeley-stat243
+\emph default
+ is the project and 
+\emph on
+stat243-fall-2014
+\emph default
+ is the repository]:
+\begin_inset Newline newline
+\end_inset
+
+> 
+\family typewriter
+git clone https://github.com/berkeley-stat243/stat243-fall-2014
+\end_layout
+
+\begin_layout Enumerate
+To update a repository to reflect changes made in a remote copy of the repositor
+y:
+\begin_inset Newline newline
+\end_inset
+
+> 
+\family typewriter
+cd /to/a/directory/within/the/local/repository
+\family default
+
+\begin_inset Newline newline
+\end_inset
+
+>
+\family typewriter
+ git pull
+\end_layout
+
+\begin_layout Standard
+We'll see a lot more about Git in section, where you'll learn to set up
+ a repository, make changes to repositories and work with local and remote
+ versons of the repository.
+\end_layout
+
+\begin_layout Section
 Files and directories
 \end_layout
 
@@ -204,6 +261,10 @@ What's in a directory?
 
 \family typewriter
 > ls -al
+\begin_inset Newline newline
+\end_inset
+
+> ls -lrt
 \end_layout
 
 \end_deeper
@@ -577,63 +638,6 @@ To see how much space you are using out of your overall quota
 
 \end_deeper
 \end_deeper
-\begin_layout Section
-Version control
-\end_layout
-
-\begin_layout Standard
-We'll be using Git extensively to do version control.
- Git stores the files for a project in a 
-\emph on
-repository
-\emph default
-.
- 
-\end_layout
-
-\begin_layout Enumerate
-To clone (i.e., copy) a repository (in this case from Github) [
-\emph on
-berkeley-stat243
-\emph default
- is the project and 
-\emph on
-stat243-fall-2014
-\emph default
- is the repository]:
-\begin_inset Newline newline
-\end_inset
-
-> 
-\family typewriter
-git clone https://github.com/berkeley-stat243/stat243-fall-2014
-\end_layout
-
-\begin_layout Enumerate
-To update a repository to reflect changes made in a remote copy of the repositor
-y:
-\begin_inset Newline newline
-\end_inset
-
-> 
-\family typewriter
-cd /to/a/directory/within/the/local/repository
-\family default
-
-\begin_inset Newline newline
-\end_inset
-
->
-\family typewriter
- git pull
-\end_layout
-
-\begin_layout Standard
-We'll see a lot more about Git in section, where you'll learn to set up
- a repository, make changes to repositories and work with local and remote
- versons of the repository.
-\end_layout
-
 \begin_layout Section
 A variety of UNIX tools/capabilities
 \end_layout
