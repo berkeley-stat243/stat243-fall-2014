@@ -1070,6 +1070,13 @@ grep 7.*7 dat.txt # returns lines with two sevens separated by any number
 \end_layout
 
 \begin_layout Standard
+
+\family typewriter
+grep -o 7.*7 dat.txt # returns only the content matching the pattern from
+ the relevant lines
+\end_layout
+
+\begin_layout Standard
 Note that the first argument to grep is the pattern you are looking for.
  The syntax is different from that used for wildcards in file names.
  Also, you can use regular expressions in the pattern.
@@ -1483,8 +1490,8 @@ S
 \end_inset
 
  values in certain fields (fixed width) of a set of files (note I did this
- on 22,000 files (5 Gb or so) in about 15 minutes on my old desktop; it
- would have taken much more time to read the data into R):
+ on 22,000 files (5 Gb or so) in about 5 minutes on my desktop; it would
+ have taken much more time to read the data into R):
 \end_layout
 
 \begin_layout Standard
