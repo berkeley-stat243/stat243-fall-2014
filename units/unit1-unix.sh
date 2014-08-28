@@ -4,8 +4,8 @@
 
 # login and copying to a remote machine
 
-ssh -X arwen
-ssh -X paciorek@arwen.berkeley.edu
+ssh -X radagast
+ssh -X paciorek@radagast.berkeley.edu
 
 pwd
 
@@ -27,8 +27,8 @@ rm -r  # recursively remove a whole directory structure
 rm -rf # CAREFUL! In particular, make sure you know what directory you are in
 
 # file transfer between machines
-scp file.txt paciorek@arwen.berkeley.edu:~/research/.
-scp paciorek@arwen.berkeley.edu:/data/file.txt ~/research/renamed.txt
+scp file.txt paciorek@radagast.berkeley.edu:~/research/.
+scp paciorek@radagast.berkeley.edu:/data/file.txt ~/research/renamed.txt
 
 # changing permissions on a file
 chmod ugo+x myProg # myProg should be compiled code or a shell script

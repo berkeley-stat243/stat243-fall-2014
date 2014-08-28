@@ -312,13 +312,13 @@ cp
 \begin_layout Standard
 
 \family typewriter
-> scp file.txt paciorek@arwen.berkeley.edu:~/research/.
+> scp file.txt paciorek@radagast.berkeley.edu:~/research/.
 \end_layout
 
 \begin_layout Standard
 
 \family typewriter
-> scp paciorek@arwen.berkeley.edu:/data/file.txt 
+> scp paciorek@radagast.berkeley.edu:/data/file.txt 
 \begin_inset Newline newline
 \end_inset
 
