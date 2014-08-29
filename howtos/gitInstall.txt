@@ -17,3 +17,5 @@ On MacOS X, you can locate the executable by executing the following in Terminal
   which git
  
 Once you locate the executable, you may then need to navigate RStudio's menu (maybe something like "Options->Git/SVN->Git executable") and confirm it has the correct information about the location of the git executable.
+
+If you're on a Mac with Mac OS X 10.7 or older, you may need to install an older version of Git. Try a version that starts with the numbers 1.7 here: https://code.google.com/p/git-osx-installer/
