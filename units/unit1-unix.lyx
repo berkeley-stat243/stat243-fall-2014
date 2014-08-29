@@ -744,7 +744,13 @@ MemTotal
 \begin_layout Itemize
 
 \emph on
-/proc/cpuinfo
+/proc/cpuinfo 
+\emph default
+[or use 
+\emph on
+nproc
+\emph default
+]
 \end_layout
 
 \begin_layout Itemize
