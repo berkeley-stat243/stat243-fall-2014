@@ -285,7 +285,7 @@ th previous command
 \begin_layout Standard
 
 \family typewriter
-> !xt # runs the last command that started with 'xt'
+> !gi # runs the last command that started with 'gi'
 \end_layout
 
 \begin_layout Standard
@@ -303,7 +303,7 @@ If you're not sure what command you're going to recall, you can append
 \begin_layout Standard
 
 \family typewriter
-> !xt:p
+> !gi:p
 \family default
 
 \begin_inset Newline newline
@@ -688,10 +688,18 @@ Table 2 shows some basic UNIX programs, which are sometimes referred to
 For example, 
 \family typewriter
 \series bold
+
+\begin_inset Newline newline
+\end_inset
+
 > grep -i graphics file.txt
 \family default
 \series default
- looks for 
+ 
+\begin_inset Newline newline
+\end_inset
+
+looks for 
 \emph on
 graphics
 \emph default
@@ -707,11 +715,19 @@ file.txt
  
 \family typewriter
 \series bold
+
+\begin_inset Newline newline
+\end_inset
+
 > less file.txt
 \family default
 \series default
- simply pages through a text file (you can navigate up and down) so you
- can get a feel for what's in it.
+ 
+\begin_inset Newline newline
+\end_inset
+
+simply pages through a text file (you can navigate up and down) so you can
+ get a feel for what's in it.
 \end_layout
 
 \begin_layout Standard
@@ -875,7 +891,11 @@ finds patterns in files
 \begin_layout Plain Layout
 
 \emph on
-wget or curl
+wget 
+\emph default
+or
+\emph on
+ curl
 \end_layout
 
 \end_inset
@@ -1023,17 +1043,29 @@ R --no-save
 \family default
 \series default
 .
- Here's another example that tells 
+ Here are some examples using 
 \emph on
 tail
 \emph default
- to keep refreshing as the file changes:
+ :
 \end_layout
 
 \begin_layout Standard
 
 \family typewriter
-tail -f dat.txt
+tail --help
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+tail -n 10 dat.txt # last 10 lines of dat.txt
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+tail -f dat.txt # shows end of file, continually refreshing
 \end_layout
 
 \begin_layout Standard
@@ -1105,7 +1137,7 @@ George .* Bush
 
 \begin_layout Standard
 More generally in UNIX, enclosing a string in quotes is often useful to
- indicate that it is a single entity.
+ indicate that it is a single argument/value.
 \end_layout
 
 \begin_layout Standard
@@ -1176,7 +1208,7 @@ grep
 cut
 \emph default
 ), then you can do it really fast from the UNIX command line, rather than
- reading it with R, SAS, Perl, etc.
+ reading it with R, SAS, Python, etc.
 \end_layout
 
 \begin_layout Standard
