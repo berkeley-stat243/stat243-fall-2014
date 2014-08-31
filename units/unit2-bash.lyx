@@ -80,6 +80,19 @@ The bash shell, UNIX utilities, and version control
 \end_layout
 
 \begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Before making PDF, need to create the berkeley-243/test repository w/o README
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 Note that it can be difficult to distinguish what is shell-specific and
  what is just part of UNIX.
  Some of the material here is not bash-specific but general to UNIX.
@@ -671,6 +684,18 @@ Basic UNIX utilities
 \end_layout
 
 \begin_layout Standard
+In some of what follows, we'll use the 
+\emph on
+cpds.csv
+\emph default
+ file in the 
+\emph on
+data
+\emph default
+ directory of the class repository.
+\end_layout
+
+\begin_layout Standard
 Table 2 shows some basic UNIX programs, which are sometimes referred to
  as filters.
  The general syntax for a UNIX program is
@@ -692,10 +717,14 @@ For example,
 \begin_inset Newline newline
 \end_inset
 
+
+\series default
 > grep -i graphics file.txt
 \family default
-\series default
+\series bold
  
+\series default
+
 \begin_inset Newline newline
 \end_inset
 
@@ -719,10 +748,14 @@ file.txt
 \begin_inset Newline newline
 \end_inset
 
+
+\series default
 > less file.txt
 \family default
-\series default
+\series bold
  
+\series default
+
 \begin_inset Newline newline
 \end_inset
 
@@ -1038,10 +1071,8 @@ UNIX programs often take options that are identified with a minus followed
  specific option is fine).
  Options may also involve two dashes, e.g., 
 \family typewriter
-\series bold
 R --no-save
 \family default
-\series default
 .
  Here are some examples using 
 \emph on
@@ -1053,19 +1084,19 @@ tail
 \begin_layout Standard
 
 \family typewriter
-tail --help
+> tail --help
 \end_layout
 
 \begin_layout Standard
 
 \family typewriter
-tail -n 10 dat.txt # last 10 lines of dat.txt
+> tail -n 10 cpds.csv # last 10 lines of cpds.csv
 \end_layout
 
 \begin_layout Standard
 
 \family typewriter
-tail -f dat.txt # shows end of file, continually refreshing
+> tail -f cpds.csv # shows end of file, continually refreshing
 \end_layout
 
 \begin_layout Standard
@@ -1079,32 +1110,32 @@ grep
 \begin_layout Standard
 
 \family typewriter
-grep ^read code.r # returns lines that start with 'read'
+> grep ^2001 cpds.csv # returns lines that start with '2001'
 \end_layout
 
 \begin_layout Standard
 
 \family typewriter
-grep dat$ code.r # returns lines that end with 'dat'
+> grep 0$ cpds.csv # returns lines that end with '0'
 \end_layout
 
 \begin_layout Standard
 
 \family typewriter
-grep 7.7 dat.txt # returns lines with two sevens separated by a single character
+> grep 19.0 cpds.csv # returns lines with '19' separated from '0' by a single
+ character
 \end_layout
 
 \begin_layout Standard
 
 \family typewriter
-grep 7.*7 dat.txt # returns lines with two sevens separated by any number
- of characters
+> grep 19.*0 cpds.csv # now separated by any number of characters
 \end_layout
 
 \begin_layout Standard
 
 \family typewriter
-grep -o 7.*7 dat.txt # returns only the content matching the pattern from
+> grep -o 19.0 cpds.csv # returns only the content matching the pattern from
  the relevant lines
 \end_layout
 
@@ -1124,15 +1155,7 @@ It is sometimes helpful to put the pattern inside double quotes, e.g., if
 \begin_layout Standard
 
 \family typewriter
-grep 
-\begin_inset Quotes eld
-\end_inset
-
-George .* Bush
-\begin_inset Quotes erd
-\end_inset
-
- dat.txt
+> grep "George .* Bush" cpds.csv
 \end_layout
 
 \begin_layout Standard
@@ -1157,45 +1180,27 @@ escape
  them by preceding with a back-slash.
  For example to look for 
 \emph on
-She said, 
+
 \begin_inset Quotes eld
 \end_inset
 
-Hello
+Canada
 \begin_inset Quotes erd
 \end_inset
 
 
 \emph default
-.
+, including the quotes.
 \end_layout
 
 \begin_layout Standard
 
 \family typewriter
-grep 
-\begin_inset Quotes eld
-\end_inset
-
-She said, 
+> grep "
 \backslash
-
-\begin_inset Quotes erd
-\end_inset
-
-Hello
+"Canada
 \backslash
-
-\begin_inset Quotes erd
-\end_inset
-
-
-\backslash
-.
-\begin_inset Quotes erd
-\end_inset
-
- dat.txt
+"." cpds.csv
 \end_layout
 
 \begin_layout Standard
@@ -1507,12 +1512,16 @@ Here's an example of finding out how many unique entries there are in the
 \begin_layout Standard
 
 \family typewriter
-cut -d',' -f2 mileage2009.csv | sort | uniq | wc
-\begin_inset Newline newline
-\end_inset
+> cut -d',' -f2 cpds.csv | sort | uniq | wc
+\end_layout
 
+\begin_layout Standard
 
-\family default
+\family typewriter
+> cut -d',' -f2 cpds.csv | sort | uniq > countries.txt
+\end_layout
+
+\begin_layout Standard
 To see if there are any 
 \begin_inset Quotes eld
 \end_inset
@@ -1629,30 +1638,31 @@ xargs
 \begin_layout Standard
 
 \family typewriter
-> which bash | xargs chsh
+> ls -t *.{R,r} | head -4 | xargs grep pdf
 \end_layout
 
 \begin_layout Standard
-And you can redirect output into a shell variable (see section 9) by putting
- the command that produces the output in parentheses and preceding with
- a 
-\emph on
-$
-\emph default
-.
- Here's an example:
+And you can redirect output into a shell variable (see section 9) using
+ backticks in a similar manner to that done above:
 \end_layout
 
 \begin_layout Standard
 
 \family typewriter
-> files=$(ls) # NOTE - don't put any spaces around the '='
+> files=`ls -t *.{R,r} | head -4` # NOTE - don't put any spaces around the
+ '='
 \end_layout
 
 \begin_layout Standard
 
 \family typewriter
 > echo $files
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+> grep pdf $files
 \end_layout
 
 \begin_layout Section
@@ -1667,22 +1677,18 @@ Starting a job
 When you run a command in a shell by simply typing its name, you are said
  to be running in the foreground.
  When a job is running in the foreground, you can't type additional commands
- into that shell, but there are two signals that can be sent to the running
- job through the keyboard.
+ into that shell session, but there are two signals that can be sent to
+ the running job through the keyboard.
  To interrupt a program running in the foreground, use 
 \family typewriter
-\series bold
 C-c
 \family default
-\series default
 ; to quit a program, use 
 \family typewriter
-\series bold
 C-
 \backslash
 
 \family default
-\series default
 .
  While modern windowed systems have lessened the inconvenience of tying
  up a shell with foreground processes, there are some situations where running
@@ -1721,7 +1727,7 @@ R CMD BATCH
 \begin_layout Standard
 
 \family typewriter
-> R --no-save <code.R >code.Rout 2>&1 &
+> R --no-save < code.R > code.Rout 2>&1 &
 \family default
 
 \begin_inset Newline newline
@@ -2100,9 +2106,9 @@ lly nice your jobs.
 \begin_layout Standard
 
 \family typewriter
-> nice -19 R CMD BATCH --no-save in.R out.Rout
+> nice -19 R CMD BATCH --no-save code.R code.Rout &
 \family default
- &
+
 \begin_inset Newline newline
 \end_inset
 
@@ -2149,7 +2155,7 @@ On many larger UNIX cluster computers, all jobs are submitted via a job
 \begin_layout Standard
 
 \family typewriter
-> bsub -q long R CMD BATCH --no-save in.R out.Rout # just an example; this
+> bsub -q long R CMD BATCH --no-save code.R code.Rout # just an example; this
  will not work on the SCF network
 \end_layout
 
@@ -2180,15 +2186,7 @@ exit
 \begin_layout Standard
 
 \family typewriter
-> alias q=
-\begin_inset Quotes erd
-\end_inset
-
-exit
-\begin_inset Quotes erd
-\end_inset
-
-
+> alias q="exit"
 \family default
  
 \begin_inset Newline newline
@@ -2227,15 +2225,7 @@ ls
 \begin_layout Standard
 
 \family typewriter
-> alias ls=
-\begin_inset Quotes erd
-\end_inset
-
-ls -F
-\begin_inset Quotes erd
-\end_inset
-
- 
+> alias ls="ls -F" 
 \family default
 
 \begin_inset Newline newline
@@ -2309,17 +2299,9 @@ We can define shell variables that will help us when writing shell scripts.
 \begin_layout Standard
 
 \family typewriter
-> name=
-\begin_inset Quotes erd
-\end_inset
-
-chris
-\begin_inset Quotes erd
-\end_inset
-
-
+> myDir="~/stat243-fall-2014/units
 \family default
-
+"
 \begin_inset Newline newline
 \end_inset
 
@@ -2334,12 +2316,16 @@ $
 \begin_layout Standard
 
 \family typewriter
-> echo $
-\family default
-name
-\begin_inset Newline newline
-\end_inset
+> echo $myDir
+\end_layout
 
+\begin_layout Standard
+
+\family typewriter
+> cd $myDir
+\end_layout
+
+\begin_layout Standard
 You can also enclose the variable name in curly brackets, which comes in
  handy when we're embedding a variable within a line of code to make sure
  the shell knows where the variable name ends:
@@ -2348,7 +2334,13 @@ You can also enclose the variable name in curly brackets, which comes in
 \begin_layout Standard
 
 \family typewriter
-> echo ${name}
+> echo ${myDir}
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+> touch ${myDir}/tmp.txt
 \end_layout
 
 \begin_layout Standard
@@ -2369,15 +2361,7 @@ to see them.
 \begin_layout Standard
 
 \family typewriter
-> export NAME=
-\begin_inset Quotes erd
-\end_inset
-
-chris
-\begin_inset Quotes erd
-\end_inset
-
-
+> export myDir="~/stat243-fall-2014/units"
 \family default
 
 \begin_inset Newline newline
@@ -2392,7 +2376,7 @@ export
  Without the export command, any shell variables that are set will only
  be modified within the current shell.
  More generally, if one wants a variable to always be accessible, one would
- include the definition of a variable with an 
+ include the definition of the variable with an 
 \emph on
 export
 \emph default
@@ -2404,50 +2388,19 @@ export
 \end_layout
 
 \begin_layout Standard
-Here's an example of modifying an environment variable:
-\end_layout
-
-\begin_layout Standard
-
-\family typewriter
-> export CDPATH=.:~/research:~/teaching
-\family default
-
-\begin_inset Newline newline
-\end_inset
-
-Now if you have a subdirectory 
-\emph on
-bootstrap
-\emph default
- in your 
-\emph on
-research
-\emph default
- directory, you can type 
-\family typewriter
-\series bold
-cd bootstrap
-\family default
-\series default
- no matter what your pwd is and it will move you to 
-\emph on
-~/research/bootstrap
-\emph default
-.
- Similarly for any subdirectory within the 
-\emph on
-teaching
-\emph default
- directory.
-\end_layout
-
-\begin_layout Standard
-Here's another example of an environment variable that puts the username,
- hostname, and pwd in your prompt.
+Here's an example of an environment variable that controls what your prompt
+ looks like.
+ We can modify it so that it puts the username, hostname, and pwd in your
+ prompt.
  This is handy so you know what machine you're on and where in the filesystem
  you are.
- 
+ [Note that on the VM, PS1 is already set in a very similar manner.] 
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+> echo $PS1
 \end_layout
 
 \begin_layout Standard
@@ -2500,22 +2453,27 @@ Finally, a note about using single vs.
 \end_layout
 
 \begin_layout Chunk
+
 <<chunkQuotes, engine='bash'>>=
 \end_layout
 
 \begin_layout Chunk
+
 name="chris"
 \end_layout
 
 \begin_layout Chunk
+
 echo "My name is $name"
 \end_layout
 
 \begin_layout Chunk
+
 echo 'My name is $name'
 \end_layout
 
 \begin_layout Chunk
+
 echo "He said, 
 \backslash
 "My name is $name.
@@ -2524,6 +2482,7 @@ echo "He said,
 \end_layout
 
 \begin_layout Chunk
+
 @
 \end_layout
 
@@ -2577,7 +2536,7 @@ function putscf() {
 \begin_inset space ~
 \end_inset
 
-scp $1 paciorek@bilbo.berkeley.edu:~/$2 
+scp $1 paciorek@radagast.berkeley.edu:~/$2 
 \end_layout
 
 \begin_layout Standard
@@ -2604,7 +2563,7 @@ unit1.pdf
 \begin_layout Standard
 
 \family typewriter
-> putscf unit1.pdf teaching/243/.
+> putscf unit1-unix.pdf Desktop/.
 \end_layout
 
 \begin_layout Standard
@@ -2653,7 +2612,7 @@ for
 \begin_layout Standard
 
 \family typewriter
-for file in $(ls *txt)
+for file in $(ls *.txt)
 \end_layout
 
 \begin_layout Standard
@@ -2705,7 +2664,7 @@ done
 \begin_layout Standard
 You could also have done that with 
 \family typewriter
-for file in `ls *txt`
+for file in `ls *.txt`
 \end_layout
 
 \begin_layout Standard
@@ -2743,8 +2702,9 @@ system()
  This will enable you to avoid dealing with a lot of shell programming syntax
  (but you'll still need to know how to use UNIX utilities, wildcards, and
  pipes to be effective).
- Example: a fellow student in grad school programmed a tool in R to extract
- concert information from the web for bands appearing in her iTunes library.
+ Example: a fellow student when I was in grad school programmed a tool in
+ R to extract concert information from the web for bands appearing in her
+ iTunes library.
  Not the most elegant solution, but it got the job done.
 \end_layout
 
@@ -2757,6 +2717,10 @@ For more extensive shell programming, it's probably worth learning Python
 
 \begin_layout Section
 Version Control 
+\end_layout
+
+\begin_layout Standard
+Note: Jarrod will cover the material on version control during Section.
 \end_layout
 
 \begin_layout Standard
@@ -2916,22 +2880,27 @@ Recall that we have been using Git in a very simple fashion.
 \end_layout
 
 \begin_layout Chunk
+
 <<chunk0, engine='bash', eval=FALSE>>=
 \end_layout
 
 \begin_layout Chunk
+
 cd /tmp
 \end_layout
 
 \begin_layout Chunk
+
 git clone https://github.com/berkeley-stat243/stat243-fall-2014
 \end_layout
 
 \begin_layout Chunk
+
 git pull
 \end_layout
 
 \begin_layout Chunk
+
 @
 \end_layout
 
@@ -2956,62 +2925,76 @@ A toy "implementation"
 \end_layout
 
 \begin_layout Chunk
+
 <<chunk1>>=
 \end_layout
 
 \begin_layout Chunk
+
 library('digest')
 \end_layout
 
 \begin_layout Chunk
+
 # first commit 
 \end_layout
 
 \begin_layout Chunk
+
 data1 <- 'This is the start of my paper2.' 
 \end_layout
 
 \begin_layout Chunk
+
 meta1 <- 'date: 8/20/13' 
 \end_layout
 
 \begin_layout Chunk
+
 hash1 <- digest(c(data1,meta1), algo="sha1") 
 \end_layout
 
 \begin_layout Chunk
+
 cat('Hash:', hash1, '
 \backslash
 n')
 \end_layout
 
 \begin_layout Chunk
+
 # second commit, linked to the first 
 \end_layout
 
 \begin_layout Chunk
+
 data2 <- 'Some more text in my paper...' 
 \end_layout
 
 \begin_layout Chunk
+
 meta2 <- 'date: 8/20/13' 
 \end_layout
 
 \begin_layout Chunk
+
 # Note we add the parent hash here! q
 \end_layout
 
 \begin_layout Chunk
+
 hash2 <- digest(c(data2,meta2,hash1), algo="sha1") 
 \end_layout
 
 \begin_layout Chunk
+
 cat('Hash:', hash2, '
 \backslash
 n')
 \end_layout
 
 \begin_layout Chunk
+
 @
 \end_layout
 
@@ -3038,14 +3021,17 @@ git help
 \end_layout
 
 \begin_layout Chunk
+
 <<chunk2, engine='bash'>>= 
 \end_layout
 
 \begin_layout Chunk
+
 git help 
 \end_layout
 
 \begin_layout Chunk
+
 @
 \end_layout
 
@@ -3062,22 +3048,27 @@ git init
 \end_layout
 
 \begin_layout Chunk
+
 <<chunk3, engine='bash'>>= 
 \end_layout
 
 \begin_layout Chunk
+
 cd /tmp 
 \end_layout
 
 \begin_layout Chunk
+
 rm -rf git-demo 
 \end_layout
 
 \begin_layout Chunk
+
 git init git-demo 
 \end_layout
 
 \begin_layout Chunk
+
 @
 \end_layout
 
@@ -3086,22 +3077,27 @@ Let's look at what git did:
 \end_layout
 
 \begin_layout Chunk
+
 <<chunk4, engine='bash'>>= 
 \end_layout
 
 \begin_layout Chunk
+
 cd /tmp/git-demo 
 \end_layout
 
 \begin_layout Chunk
+
 ls -al
 \end_layout
 
 \begin_layout Chunk
+
 ls -al .git
 \end_layout
 
 \begin_layout Chunk
+
 @
 \end_layout
 
@@ -3116,18 +3112,22 @@ Now let's edit our first file in the test directory with a text editor...
 \end_layout
 
 \begin_layout Chunk
+
 <<chunk5, engine='bash'>>= 
 \end_layout
 
 \begin_layout Chunk
+
 cd /tmp/git-demo 
 \end_layout
 
 \begin_layout Chunk
+
 echo "My first bit of text" > file1.txt 
 \end_layout
 
 \begin_layout Chunk
+
 @
 \end_layout
 
@@ -3140,18 +3140,22 @@ add
 \end_layout
 
 \begin_layout Chunk
+
 <<chunk6, engine='bash'>>= 
 \end_layout
 
 \begin_layout Chunk
+
 cd /tmp/git-demo 
 \end_layout
 
 \begin_layout Chunk
+
 git add file1.txt 
 \end_layout
 
 \begin_layout Chunk
+
 @
 \end_layout
 
@@ -3164,18 +3168,22 @@ status
 \end_layout
 
 \begin_layout Chunk
+
 <<chunk7, engine='bash'>>= 
 \end_layout
 
 \begin_layout Chunk
+
 cd /tmp/git-demo 
 \end_layout
 
 \begin_layout Chunk
+
 git status 
 \end_layout
 
 \begin_layout Chunk
+
 @
 \end_layout
 
@@ -3208,22 +3216,27 @@ index
 \end_layout
 
 \begin_layout Chunk
+
 <<chunk8, engine='bash'>>= 
 \end_layout
 
 \begin_layout Chunk
+
 cd /tmp/git-demo 
 \end_layout
 
 \begin_layout Chunk
+
 git commit -am"This is our first commit"
 \end_layout
 
 \begin_layout Chunk
+
 git status
 \end_layout
 
 \begin_layout Chunk
+
 @
 \end_layout
 
@@ -3242,18 +3255,22 @@ We can use git log to see what has been committed to the repository so far:
 \end_layout
 
 \begin_layout Chunk
+
 <<chunk9, engine='bash'>>= 
 \end_layout
 
 \begin_layout Chunk
+
 cd /tmp/git-demo 
 \end_layout
 
 \begin_layout Chunk
+
 git log 
 \end_layout
 
 \begin_layout Chunk
+
 @
 \end_layout
 
@@ -3265,18 +3282,22 @@ Let's do a little bit more work...
 \end_layout
 
 \begin_layout Chunk
+
 <<chunk10, engine='bash'>>= 
 \end_layout
 
 \begin_layout Chunk
+
 cd /tmp/git-demo 
 \end_layout
 
 \begin_layout Chunk
+
 echo "And now some more text..." >> file1.txt 
 \end_layout
 
 \begin_layout Chunk
+
 @
 \end_layout
 
@@ -3285,18 +3306,22 @@ And now we can ask git what is different:
 \end_layout
 
 \begin_layout Chunk
+
 <<chunk11, engine='bash'>>= 
 \end_layout
 
 \begin_layout Chunk
+
 cd /tmp/git-demo 
 \end_layout
 
 \begin_layout Chunk
+
 git diff 
 \end_layout
 
 \begin_layout Chunk
+
 @
 \end_layout
 
@@ -3305,18 +3330,22 @@ So the cycle of work in a git context is: work, commit, work, commit, ...
 \end_layout
 
 \begin_layout Chunk
+
 <<chunk12, engine='bash'>>= 
 \end_layout
 
 \begin_layout Chunk
+
 cd /tmp/git-demo 
 \end_layout
 
 \begin_layout Chunk
+
 git commit -am"I have made great progress on this critical matter." 
 \end_layout
 
 \begin_layout Chunk
+
 @
 \end_layout
 
@@ -3325,18 +3354,22 @@ Now let's see what the log shows us now:
 \end_layout
 
 \begin_layout Chunk
+
 <<chunk13, engine='bash'>>= 
 \end_layout
 
 \begin_layout Chunk
+
 cd /tmp/git-demo 
 \end_layout
 
 \begin_layout Chunk
+
 git log 
 \end_layout
 
 \begin_layout Chunk
+
 @
 \end_layout
 
@@ -3345,18 +3378,22 @@ Sometimes it's handy to see a very summarized version of the log:
 \end_layout
 
 \begin_layout Chunk
+
 <<chunk14, engine='bash'>>= 
 \end_layout
 
 \begin_layout Chunk
+
 cd /tmp/git-demo 
 \end_layout
 
 \begin_layout Chunk
+
 git log --oneline --topo-order --graph 
 \end_layout
 
 \begin_layout Chunk
+
 @
 \end_layout
 
@@ -3374,31 +3411,38 @@ git slog
 \end_layout
 
 \begin_layout Chunk
+
 <<chunk15, engine='bash'>>= 
 \end_layout
 
 \begin_layout Chunk
+
 cd /tmp/git-demo 
 \end_layout
 
 \begin_layout Chunk
+
 # We create our alias (this saves it in git's permanent configuration file):
  
 \end_layout
 
 \begin_layout Chunk
+
 git config --global alias.slog "log --oneline --topo-order --graph" 
 \end_layout
 
 \begin_layout Chunk
+
 # And now we can use it 
 \end_layout
 
 \begin_layout Chunk
+
 git slog 
 \end_layout
 
 \begin_layout Chunk
+
 @
 \end_layout
 
@@ -3421,22 +3465,27 @@ rm
 \end_layout
 
 \begin_layout Chunk
+
 <<chunk16, engine='bash'>>= 
 \end_layout
 
 \begin_layout Chunk
+
 cd /tmp/git-demo
 \end_layout
 
 \begin_layout Chunk
+
 git mv file1.txt file-newname.txt 
 \end_layout
 
 \begin_layout Chunk
+
 git status 
 \end_layout
 
 \begin_layout Chunk
+
 @
 \end_layout
 
@@ -3447,22 +3496,27 @@ Note that these changes must be committed too, to become permanent! In git's
 \end_layout
 
 \begin_layout Chunk
+
 <<chunk17, engine='bash'>>= 
 \end_layout
 
 \begin_layout Chunk
+
 cd /tmp/git-demo 
 \end_layout
 
 \begin_layout Chunk
+
 git commit -am"I like this new name better" 
 \end_layout
 
 \begin_layout Chunk
+
 git slog 
 \end_layout
 
 \begin_layout Chunk
+
 @
 \end_layout
 
@@ -3476,30 +3530,37 @@ git rm
 \end_layout
 
 \begin_layout Chunk
+
 <<chunk18, engine='bash'>>= 
 \end_layout
 
 \begin_layout Chunk
+
 cd /tmp/git-demo 
 \end_layout
 
 \begin_layout Chunk
+
 echo 'stuff' > test.txt
 \end_layout
 
 \begin_layout Chunk
+
 git add test.txt
 \end_layout
 
 \begin_layout Chunk
+
 git commit -am'added test file'
 \end_layout
 
 \begin_layout Chunk
+
 ls -l test*
 \end_layout
 
 \begin_layout Chunk
+
 @
 \end_layout
 
@@ -3508,34 +3569,42 @@ Now let's do the removal.
 \end_layout
 
 \begin_layout Chunk
+
 <<chunk18a, engine='bash'>>=
 \end_layout
 
 \begin_layout Chunk
+
 cd /tmp/git-demo
 \end_layout
 
 \begin_layout Chunk
+
 git rm test.txt
 \end_layout
 
 \begin_layout Chunk
+
 ls -l test*
 \end_layout
 
 \begin_layout Chunk
+
 git status
 \end_layout
 
 \begin_layout Chunk
+
 git commit -am'removed test file'
 \end_layout
 
 \begin_layout Chunk
+
 git status
 \end_layout
 
 \begin_layout Chunk
+
 @
 \end_layout
 
@@ -3564,34 +3633,42 @@ First, let's remove a file.
 \end_layout
 
 \begin_layout Chunk
+
 <<chunk19, engine='bash'>>= 
 \end_layout
 
 \begin_layout Chunk
+
 cd /tmp/git-demo 
 \end_layout
 
 \begin_layout Chunk
+
 echo 'stuff' > test.txt
 \end_layout
 
 \begin_layout Chunk
+
 git add test.txt
 \end_layout
 
 \begin_layout Chunk
+
 git commit -am'added test file'
 \end_layout
 
 \begin_layout Chunk
+
 git rm test.txt
 \end_layout
 
 \begin_layout Chunk
+
 git status
 \end_layout
 
 \begin_layout Chunk
+
 @
 \end_layout
 
@@ -3604,30 +3681,37 @@ test.txt
 \end_layout
 
 \begin_layout Chunk
+
 <<chunk19a, engine='bash'>>=
 \end_layout
 
 \begin_layout Chunk
+
 cd /tmp/git-demo
 \end_layout
 
 \begin_layout Chunk
+
 git reset -- test.txt # restore file in index (unstage)
 \end_layout
 
 \begin_layout Chunk
+
 git checkout -- test.txt # get a copy of the file back
 \end_layout
 
 \begin_layout Chunk
+
 ls -l test*
 \end_layout
 
 \begin_layout Chunk
+
 git status
 \end_layout
 
 \begin_layout Chunk
+
 @
 \end_layout
 
@@ -3769,22 +3853,27 @@ Let's now illustrate all of this with a concrete example.
 \end_layout
 
 \begin_layout Chunk
+
 <<chunk20, engine='bash'>>= 
 \end_layout
 
 \begin_layout Chunk
+
 cd /tmp/git-demo 
 \end_layout
 
 \begin_layout Chunk
+
 git status 
 \end_layout
 
 \begin_layout Chunk
+
 ls -l
 \end_layout
 
 \begin_layout Chunk
+
 @
 \end_layout
 
@@ -3806,42 +3895,52 @@ master
 \end_layout
 
 \begin_layout Chunk
+
 <<chunk21, engine='bash'>>= 
 \end_layout
 
 \begin_layout Chunk
+
 cd /tmp/git-demo 
 \end_layout
 
 \begin_layout Chunk
+
 git branch experiment # creating new branch
 \end_layout
 
 \begin_layout Chunk
+
 git checkout experiment  # switch to it
 \end_layout
 
 \begin_layout Chunk
+
 echo "Some crazy idea" > experiment.txt 
 \end_layout
 
 \begin_layout Chunk
+
 git add experiment.txt 
 \end_layout
 
 \begin_layout Chunk
+
 git commit -am"Trying something new" 
 \end_layout
 
 \begin_layout Chunk
+
 ls -l
 \end_layout
 
 \begin_layout Chunk
+
 git slog 
 \end_layout
 
 \begin_layout Chunk
+
 @
 \end_layout
 
@@ -3859,26 +3958,32 @@ experiment.txt
 \end_layout
 
 \begin_layout Chunk
+
 <<chunk21a, engine='bash'>>=
 \end_layout
 
 \begin_layout Chunk
+
 cd /tmp/git-demo 
 \end_layout
 
 \begin_layout Chunk
+
 git branch
 \end_layout
 
 \begin_layout Chunk
+
 git checkout master 
 \end_layout
 
 \begin_layout Chunk
+
 ls -l # notice the lack of 'experiment.txt'
 \end_layout
 
 \begin_layout Chunk
+
 @
 \end_layout
 
@@ -3887,30 +3992,37 @@ Now, let's make a different change to the master branch.
 \end_layout
 
 \begin_layout Chunk
+
 <<chunk22, engine='bash'>>= 
 \end_layout
 
 \begin_layout Chunk
+
 cd /tmp/git-demo
 \end_layout
 
 \begin_layout Chunk
+
 echo "All the while, more work goes on in master..." >> progress.txt
 \end_layout
 
 \begin_layout Chunk
+
 git add progress.txt
 \end_layout
 
 \begin_layout Chunk
+
 git commit -am"The mainline keeps moving" 
 \end_layout
 
 \begin_layout Chunk
+
 git slog 
 \end_layout
 
 \begin_layout Chunk
+
 @
 \end_layout
 
@@ -3921,30 +4033,37 @@ Now we'll merge the two together.
 \end_layout
 
 \begin_layout Chunk
+
 <<chunk23, engine='bash'>>= 
 \end_layout
 
 \begin_layout Chunk
+
 cd /tmp/git-demo 
 \end_layout
 
 \begin_layout Chunk
+
 git checkout master
 \end_layout
 
 \begin_layout Chunk
+
 git merge experiment 
 \end_layout
 
 \begin_layout Chunk
+
 git slog 
 \end_layout
 
 \begin_layout Chunk
+
 ls -l
 \end_layout
 
 \begin_layout Chunk
+
 @
 \end_layout
 
@@ -3983,22 +4102,27 @@ target "statistics.berkeley.edu/computing/git"
 \end_layout
 
 \begin_layout Chunk
+
 <<chunk24, engine='bash'>>= 
 \end_layout
 
 \begin_layout Chunk
+
 cd /tmp/git-demo 
 \end_layout
 
 \begin_layout Chunk
+
 # Let's see if we have any remote repositories here
 \end_layout
 
 \begin_layout Chunk
+
 git remote -v 
 \end_layout
 
 \begin_layout Chunk
+
 @
 \end_layout
 
@@ -4046,26 +4170,32 @@ We can now follow the instructions from the next page:
 \end_layout
 
 \begin_layout Chunk
+
 <<chunk25, engine='bash'>>= 
 \end_layout
 
 \begin_layout Chunk
+
 cd /tmp/git-demo 
 \end_layout
 
 \begin_layout Chunk
+
 git remote add origin git@github.com:berkeley-stat243/test.git 
 \end_layout
 
 \begin_layout Chunk
+
 git push -u origin master 
 \end_layout
 
 \begin_layout Chunk
+
 git remote -v
 \end_layout
 
 \begin_layout Chunk
+
 @
 \end_layout
 
@@ -4088,35 +4218,43 @@ Let's see how this can be useful for backup and syncing work between two
 \end_layout
 
 \begin_layout Chunk
+
 <<chunk26, engine='bash'>>= 
 \end_layout
 
 \begin_layout Chunk
+
 cd /tmp # Here I clone my 'test' repo but with a different name, test2,
  to simulate a 2nd computer
 \end_layout
 
 \begin_layout Chunk
+
 # in class we'll actually do this on a separate computer
 \end_layout
 
 \begin_layout Chunk
+
 git clone git@github.com:berkeley-stat243/test.git test2 
 \end_layout
 
 \begin_layout Chunk
+
 cd test2 
 \end_layout
 
 \begin_layout Chunk
+
 ls -l
 \end_layout
 
 \begin_layout Chunk
+
 git remote -v
 \end_layout
 
 \begin_layout Chunk
+
 @
 \end_layout
 
@@ -4125,22 +4263,27 @@ Let's now make some changes in one computer.
 \end_layout
 
 \begin_layout Chunk
+
 <<chunk27, engine='bash'>>= 
 \end_layout
 
 \begin_layout Chunk
+
 cd /tmp/test2 # working on computer #2 
 \end_layout
 
 \begin_layout Chunk
+
 echo "More new content on my experiment" >> experiment.txt 
 \end_layout
 
 \begin_layout Chunk
+
 git commit -am"More work, on machine #2" 
 \end_layout
 
 \begin_layout Chunk
+
 @
 \end_layout
 
@@ -4150,22 +4293,27 @@ Now we put this new work up on the github server so it's available from
 \end_layout
 
 \begin_layout Chunk
+
 <<chunk28, engine='bash'>>= 
 \end_layout
 
 \begin_layout Chunk
+
 cd /tmp/test2 
 \end_layout
 
 \begin_layout Chunk
+
 # working on computer #2 
 \end_layout
 
 \begin_layout Chunk
+
 git push 
 \end_layout
 
 \begin_layout Chunk
+
 @
 \end_layout
 
@@ -4174,22 +4322,27 @@ Now let's fetch that work from machine #1:
 \end_layout
 
 \begin_layout Chunk
+
 <<chunk29, engine='bash'>>= 
 \end_layout
 
 \begin_layout Chunk
+
 cd /tmp/git-demo 
 \end_layout
 
 \begin_layout Chunk
+
 git pull 
 \end_layout
 
 \begin_layout Chunk
+
 cat experiment.txt
 \end_layout
 
 \begin_layout Chunk
+
 @
 \end_layout
 
@@ -4212,30 +4365,37 @@ We start by creating a branch and making a change to our experiment file:
 \end_layout
 
 \begin_layout Chunk
+
 <<chunk30, engine='bash'>>= 
 \end_layout
 
 \begin_layout Chunk
+
 cd /tmp/git-demo 
 \end_layout
 
 \begin_layout Chunk
+
 git branch trouble 
 \end_layout
 
 \begin_layout Chunk
+
 git checkout trouble 
 \end_layout
 
 \begin_layout Chunk
+
 echo "This is going to be a problem..." >> experiment.txt 
 \end_layout
 
 \begin_layout Chunk
+
 git commit -am"Changes in the trouble branch" 
 \end_layout
 
 \begin_layout Chunk
+
 @
 \end_layout
 
@@ -4248,26 +4408,32 @@ same
 \end_layout
 
 \begin_layout Chunk
+
 <<chunk31, engine='bash'>>= 
 \end_layout
 
 \begin_layout Chunk
+
 cd /tmp/git-demo 
 \end_layout
 
 \begin_layout Chunk
+
 git checkout master 
 \end_layout
 
 \begin_layout Chunk
+
 echo "More work on the master branch..." >> experiment.txt 
 \end_layout
 
 \begin_layout Chunk
+
 git commit -am"Mainline work" 
 \end_layout
 
 \begin_layout Chunk
+
 @
 \end_layout
 
@@ -4277,18 +4443,22 @@ So now let's see what happens if we try to merge the `trouble` branch into
 \end_layout
 
 \begin_layout Chunk
+
 <<chunk32, engine='bash'>>= 
 \end_layout
 
 \begin_layout Chunk
+
 cd /tmp/git-demo 
 \end_layout
 
 \begin_layout Chunk
+
 git merge trouble
 \end_layout
 
 \begin_layout Chunk
+
 @
 \end_layout
 
@@ -4297,18 +4467,22 @@ Let's see what git has put into our file:
 \end_layout
 
 \begin_layout Chunk
+
 <<chunk33, engine='bash'>>= 
 \end_layout
 
 \begin_layout Chunk
+
 cd /tmp/git-demo 
 \end_layout
 
 \begin_layout Chunk
+
 cat experiment.txt 
 \end_layout
 
 \begin_layout Chunk
+
 @
 \end_layout
 
@@ -4319,30 +4493,37 @@ At this point, we go into the file with a text editor, decide which changes
 \end_layout
 
 \begin_layout Chunk
+
 <<chunk34, engine='bash'>>= 
 \end_layout
 
 \begin_layout Chunk
+
 cd /tmp/git-demo 
 \end_layout
 
 \begin_layout Chunk
+
 sed -i '/^</d' experiment.txt 
 \end_layout
 
 \begin_layout Chunk
+
 sed -i '/^>/d' experiment.txt 
 \end_layout
 
 \begin_layout Chunk
+
 sed -i '/^=/d' experiment.txt 
 \end_layout
 
 \begin_layout Chunk
+
 cat experiment.txt
 \end_layout
 
 \begin_layout Chunk
+
 @
 \end_layout
 
@@ -4356,23 +4537,28 @@ Let's then make our new commit:
 \end_layout
 
 \begin_layout Chunk
+
 <<chunk35, engine='bash'>>= 
 \end_layout
 
 \begin_layout Chunk
+
 cd /tmp/git-demo 
 \end_layout
 
 \begin_layout Chunk
+
 git commit -am"Completed merge of trouble, fixing conflicts along the way"
  
 \end_layout
 
 \begin_layout Chunk
+
 git slog 
 \end_layout
 
 \begin_layout Chunk
+
 @
 \end_layout
 

@@ -17,15 +17,15 @@ which bash
 #####################
 # 3 Command history
 #####################
-!ls
+!gi
 !-1
-!-1:p
+!gi:p
 
 ####################
 # 4 Wildcards
 ####################
 
-cd stat243-fall-2014/units
+ssh paciorek@radagast
 
 ls *{pdf,sh}
 
@@ -41,14 +41,22 @@ echo cp filename{,old}
 # 5 Utilities
 #####################
 
-cd stat243-fall-2014/units
-grep ls *sh
-grep ^ls *sh
-grep ls.- *sh
 
-# in R
-# for(i in 1:10000)  write(mean(rpois(100, 1)), file = 'clt.txt', append = TRUE)
-tail -f clt.txt
+cd stat243-fall-2014/data
+
+tail --help
+
+tail -n 10 cpds.csv # last 10 lines of cpds.csv
+tail -f cpds.csv # shows end of file, continually refreshing
+
+grep ^2001 cpds.csv # returns lines that start with '2001'
+grep 0$ cpds.csv # returns lines that end with '0'
+grep 19.0 cpds.csv # returns lines with '19' separated from '0' by a single character
+
+grep 19.*0 cpds.csv # now separated by any number of characters
+grep -o 19.0 cpds.csv # returns only t
+
+grep "\"Canada\"." cpds.csv
 
 
 #####################
@@ -57,51 +65,54 @@ tail -f clt.txt
 
 # ls 
 
-grep ls *sh > lsStuff.txt
+cut -d',' -f2 cpds.csv | sort | uniq | wc
+cut -d',' -f2 cpds.csv | sort | uniq | nl
+cut -d',' -f2 cpds.csv | sort | uniq > countries.txt
 
 ls | head -5
 
-cut -d',' -f2 mileage2009.csv | sort | uniq | wc
-cut -d',' -f2 mileage2009.csv | sort | uniq | nl 
-
 # you won't be able to replicate this as it uses files on my SCF machine
+ssh paciorek@radagast
 cd /scratch/users/paciorek/extremes/ghcn/ghcnd_all
 cut -b1,2,3,4,5,6,7,8,9,10,11,29,37,45,53,61,69,77,85,93,101,109,117,125,133,141,149,157,165,173,181,189,197,205,213,221,229,237,245,253,261,269  AE000041196.dly | grep "S" | less
 cut -b29,37,45,53,61,69,77,85,93,101,109,117,125,133,141,149,157,165,173,181,189,197,205,213,221,229,237,245,253,261,269 USC*.dly | grep "S" | less
 
+cd  # back to my home directory for the purpose of the example here
 
-ls -lt *sh | head -3
-grep for `ls -lt *sh | head -4`
+ls -t *.{R,r} | head -4 
 
-files=$(ls)
+grep pdf `ls -t *.{R,r} | head -4` 
+
+ls -t *.{R,r} | head -4 | xargs grep pdf
+files=`ls -t *.{R,r} | head -4` # NOTE - don't put any spaces around the '='
 echo $files
-
+grep pdf $files
 
 
 #####################
 # 7 Job control
 #####################
 
-R
-# i = 0; while(i < 1) print(i)
+echo "for(i in 1:100000) print(mean(rnorm(1e7)))" > code.R
+
+R --no-save < code.R > code.Rout
+
 C-c
 C-\
 
 matlab -nodesktop -nodisplay < simulate.m > simulate.out & # let's parse what this will do
+
 R --no-save < code.q > code.Rout &   # "R CMD BATCH" is more standard, but this works too
 
-ssh arwen
 ps -aux | grep R
 
-# in R
-echo 'for(i in 1:1000){' > tmp.R
-echo 'x = matrix(rnorm(5000*5000), nr = 5000, nc = 5000)' >> tmp.R
-echo ' y = crossprod(x)}' >> tmp.R
+# nicing
+nice -19 R CMD BATCH code.R code.Rout
+R CMD BATCH code.R code.Rout2
 
-nice -19 R CMD BATCH tmp.R tmp.Rout &
 
 # monitor on top and watch CPU and memory use
-# notice the priority is 39 = 20 + 19
+# notice the priority is 39 = 20 + 19 for the first job
 
 ########################
 # 8 Aliases
@@ -119,22 +130,26 @@ alias res="cd ~/research"
 alias todo="emacs ~/todo &"
 alias r="R --no-save"  
 alias myjobs="ps -eafl | grep paciorek"
-alias scf="ssh -X legolas.berkeley.edu"
+alias scf="ssh -X radagast.berkeley.edu"
 
 
 #########################
 # 9 Shell variables
 #########################
 
-name="chris"
-echo $name
+myDir="~/stat243-fall-2014/units"
+
+echo $myDir
+cd $myDir
+
+echo ${myDir}
+touch ${myDir}/tmp.txt
+
 env
 echo $HOSTNAME
 echo $HOME
 
-cd lectures
-export CDPATH=.:~/research:~/teaching:~/teaching/243
-cd lectures
+export myDir="~/stat243-fall-2014/units"
 
 # I put the following in my .bashrc
 export PS1="\u@\h:\w> "
@@ -152,21 +167,15 @@ echo "He said, \"My name is $name.\""
 
 
 function putscf() {
-   scp $1 paciorek@bilbo.berkeley.edu:~/$2 
+   scp $1 paciorek@radagast.berkeley.edu:~/$2 
 }
 
-echo 'a' >> file.txt
-putscf file.txt teaching/243/garbage.txt
+putscf unit1-unix.pdf Desktop/.
 
 # a few functions from my .bashrc
 
-function mounts(){  # remotely mount filesystems I have access to
-    sshfs carver.nersc.gov /accounts/gen/vis/paciorek/nersc
-    sshfs bilbo.berkeley.edu: /accounts/gen/vis/paciorek/scf
-}
-
 function putweb() {
-    scp $1 paciorek@bilbo.berkeley.edu:/mirror/data/pub/users/paciorek/$2
+    scp $1 paciorek@radagast.berkeley.edu:/mirror/data/pub/users/paciorek/$2
 }
 
 function e() {
