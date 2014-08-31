@@ -11,7 +11,7 @@ which bash
 
 # create a shell script and try to execute it; the first line tells the operating system what shell to use to run the script
 #!/bin/bash  
-# ls -al *pdf > myPdfs.txt
+# ls -al *pdf 
 # we might need to change the permissions (recall from Unit 1)
 
 #####################
