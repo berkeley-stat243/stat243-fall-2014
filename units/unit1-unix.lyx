@@ -748,7 +748,7 @@ MemTotal
 \emph default
 [or use 
 \emph on
-nproc
+nproc --all
 \emph default
 ]
 \end_layout
