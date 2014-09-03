@@ -2169,16 +2169,12 @@ ity or to insure that certain options are always used when you call an existing
  command.
  For example, I'm lazy and would rather type 
 \family typewriter
-\series bold
 q
 \family default
-\series default
  instead of 
 \family typewriter
-\series bold
 exit
 \family default
-\series default
  to terminate a shell window.
  You could create the alias as follow 
 \end_layout
