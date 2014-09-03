@@ -2,6 +2,8 @@ Please see:
 
 http://collaboratool.berkeley.edu/using-virtualbox.html
 
+Make sure you get the full file. If the download is interrupted you may get an error message when you try to import the appliance. The current VM is version 0.1.3 and is 2.8 Gb. If the file you download looks smaller, your download probably didn't finish.
+
 Windows users may encounter some trouble. Try using VirtualBox version 4.3.12 [https://www.virtualbox.org/wiki/Download_Old_Builds_4_3] or 4.3.15 and not 4.3.14.
 
 You may also need to enable virtualization in your VirtualBox settings (Settings -> System -> Acceleration and check "Enable VT-x/AMD-V" or possibly enable virtualization in your BIOS.
