@@ -1,33 +1,35 @@
+##################################################
+### Demo code for Unit 3 of Stat243, "Reading and Writing to/from R"
+### Chris Paciorek, September 2014
+##################################################
+
+#####################################################
+# 2: Reading data from text files into R
+#####################################################
+
+getwd()  # a common error is not knowing what directory R is looking at
+setwd('../data')
+dat <- read.table('RTADataSub.csv', sep = ',', head = TRUE)
+sapply(dat, class)
+levels(dat[ ,2])
+dat2 <- read.table('RTADataSub.csv', sep = ',', head = TRUE,
+   na.strings = c("NA", "x"), stringsAsFactors = FALSE)
+unique(dat2[ ,2])
+## hmmm, what happened to the blank values this time?
+which(dat[ ,2] == "")
+dat2[which(dat[, 2] == "")[1], ] # deconstruct it!
+sequ <- read.table('hivSequ.csv', sep = ',', header = TRUE,
+  colClasses = c('integer','integer','character',
+    'character','numeric','integer'))
+## let's make sure the coercion worked - sometimes R is obstinant
+sapply(sequ, class)
+## that made use of the fact that a data frame is a list
 
 
-## I use = but I can replace it with <-; set code/output width to be 68
-options(replace.assign=TRUE, width=56)
 
-
-
-## getwd()  # a common error is not knowing what directory R is looking at
-## setwd('../data')
-## dat <- read.table('RTADataSub.csv', sep = ',', head = TRUE)
-## lapply(dat, class)
-## levels(dat[ ,2])
-## dat2 <- read.table('RTADataSub.csv', sep = ',', head = TRUE,
-##    na.strings = c("NA", "x"), stringsAsFactors = FALSE)
-## unique(dat2[ ,2])
-## # hmmm, what happened to the blank values this time?
-## which(dat[ ,2] == "")
-## dat2[which(dat[, 2] == "")[1], ] # deconstruct it!
-## sequ <- read.table('hivSequ.csv', sep = ',', header = TRUE,
-##   colClasses = c('integer','integer','character',
-##     'character','numeric','integer'))
-## # let's make sure the coercion worked - sometimes R is obstinant
-## lapply(sequ, class)
-## # that made use of the fact that a data frame is a list
-
-
-
-dat <- readLines('../data/precip.txt')
+dat <- readLines('precip.txt')
 id <- as.factor(substring(dat, 4, 11) )
-year <- substring(dat, 17, 20)
+year <- substring(dat, 18, 21)
 year[1:5]
 class(year)
 year <- as.integer(substring(dat, 18, 21))
@@ -36,36 +38,39 @@ nvalues <- as.integer(substring(dat, 28, 30))
 
 
 
-## dat <- readLines(pipe("ls -al"))
+dat <- readLines(pipe("ls -al"))
 ## dat <- read.table(pipe("unzip dat.zip"))
 ## dat <- read.csv(gzfile("dat.csv.gz"))
 ## dat <- readLines("http://www.stat.berkeley.edu/~paciorek/index.html")
 
 
 
-## con <- file("../data/precip.txt", "r") # "r" for 'read' - you can also open files for writing with "w" (or "a" for appending)
-## class(con)
-## blockSize <- 1000 # obviously this would be large in any real application
-## nLines <- 300000
-## for(i in 1:ceiling(nLines / blockSize)){
-## 	lines <- readLines(con, n = blockSize)
-## 	# manipulate the lines and store the key stuff
-## }
-## close(con)
+con <- file("precip.txt", "r") # "r" for 'read' - you can also open files for writing with "w" (or "a" for appending)
+class(con)
+blockSize <- 1000 # obviously this would be large in any real application
+nLines <- 300000
+for(i in 1:ceiling(nLines / blockSize)){
+	lines <- readLines(con, n = blockSize)
+	# manipulate the lines and store the key stuff
+}
+close(con)
 
 
 
-dat <- readLines('../data/precip.txt')
+dat <- readLines('precip.txt')
 con <- textConnection(dat[1], "r")
 read.fwf(con, c(3,8,4,2,4,2))
 
 
-
+## install.packages('XML')
 library(XML)
 URL <- "http://en.wikipedia.org/wiki/Brad_Pitt_filmography" 
 pitt <- readHTMLTable(URL, stringsAsFactors = FALSE) 
 pittFilm <- pitt[[2]] 
 
+#####################################################
+# 3: Output from R
+#####################################################
 
 
 val <- 1.5
@@ -73,44 +78,46 @@ cat('My value is ', val, '.\n', sep = '')
 print(paste('My value is ', val, '.', sep = ''))
 
 
+## input
+x <- 7
+n <- 5
+## display powers
+cat("Powers of", x, "\n")
+cat("exponent   result\n\n")
+result <- 1
+for (i in 1:n) {
+ 	result <- result * x
+	cat(format(i, width = 8), format(result, width = 10),"\n", sep = "")
+}
 
-## # input
-## x <- 7
-## n <- 5
-## # display powers
-## cat("Powers of", x, "\n")
-## cat("exponent   result\n\n")
-## result <- 1
-## for (i in 1:n) {
-## 	result <- result * x
-## 	cat(format(i, width = 8), format(result, width = 10),"\n", sep = "")
-## }
-## x <- 7
-## n <- 5
-## # display powers
-## cat("Powers of", x, "\n")
-## cat("exponent result\n\n")
-## result <- 1
-## for (i in 1:n) {
-## 	result <- result * x
-## 	cat(i, '\t', result, '\n', sep = '')
-## }
+x <- 7
+n <- 5
+## display powers
+cat("Powers of", x, "\n")
+cat("exponent result\n\n")
+result <- 1
+for (i in 1:n) {
+	result <- result * x
+	cat(i, '\t', result, '\n', sep = '')
+}
 
 
 
 temps <- c(12.5, 37.234324, 1342434324.79997234, 2.3456e-6, 1e10)
 sprintf("%9.4f C", temps)
 city <- "Boston"
+sprintf("The temperature in %s was %.4f C.", city, temps[1])
 sprintf("The temperature in %s was %9.4f C.", city, temps[1])
 
-
+#####################################################
+# 4: File and string encodings
+#####################################################
 
 Sys.getlocale()
 
-
-
 text <- "_Melhore sua seguran\xe7a_"
-iconv(text, from = "latin1", to = "UTF-8")
+textUTF8 <- iconv(text, from = "latin1", to = "UTF-8")
+textUTF8
 iconv(text, from = "latin1", to = "ASCII", sub = "???")
 
 
@@ -125,17 +132,25 @@ x
 
 
 
-load('../data/IPs.RData') # loads in an object named 'text'
+load('IPs.RData') # loads in an object named 'text'
 tmp <- substring(text, 1, 15)
 # the issue occurs with the 6402th element (found by trial and error):
 tmp <- substring(text[1:6401],1,15)
 tmp <- substring(text[1:6402],1,15)
 text[6402] # note the Latin-1 character
+# Interesting:
+table(Encoding(text))
+
+# Option 1
+Encoding(text) <- "latin1"
+tmp <- substring(text, 1, 15)
+
+# Option 2
+load('IPs.RData') # loads in an object named 'text'
+tmp <- substring(text, 1, 15)
 text <- iconv(text, from = "latin1", to = "UTF-8")
 text[6402]
 tmp <- substring(text, 1, 15)
-tmp[6402]
-# Interesting:
-table(Encoding(text))
+
 
 

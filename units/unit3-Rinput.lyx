@@ -94,7 +94,7 @@ status open
 
 \begin_layout Plain Layout
 
-options(replace.assign=TRUE, width=56)
+options(replace.assign=TRUE, width=55)
 \end_layout
 
 \begin_layout Plain Layout
@@ -457,7 +457,7 @@ dat <- read.table('RTADataSub.csv', sep = ',', head = TRUE)
 
 \begin_layout Chunk
 
-lapply(dat, class)
+sapply(dat, class)
 \end_layout
 
 \begin_layout Chunk
@@ -482,7 +482,7 @@ unique(dat2[ ,2])
 
 \begin_layout Chunk
 
-# hmmm, what happened to the blank values this time?
+## hmmm, what happened to the blank values this time?
 \end_layout
 
 \begin_layout Chunk
@@ -512,17 +512,17 @@ sequ <- read.table('hivSequ.csv', sep = ',', header = TRUE,
 
 \begin_layout Chunk
 
-# let's make sure the coercion worked - sometimes R is obstinant
+## let's make sure the coercion worked - sometimes R is obstinant
 \end_layout
 
 \begin_layout Chunk
 
-lapply(sequ, class) 
+sapply(sequ, class) 
 \end_layout
 
 \begin_layout Chunk
 
-# that made use of the fact that a data frame is a list
+## that made use of the fact that a data frame is a list
 \end_layout
 
 \begin_layout Chunk
@@ -723,8 +723,13 @@ readLines()
 
 \begin_layout Chunk
 
-con <- file("../data/precip.txt", "r") # "r" for 'read' - you can also open
- files for writing with "w" (or "a" for appending) 
+con <- file("../data/precip.txt", "r") 
+\end_layout
+
+\begin_layout Chunk
+
+# "r" for 'read' - you can also open files for writing with "w" (or "a"
+ for appending) 
 \end_layout
 
 \begin_layout Chunk
@@ -1092,7 +1097,7 @@ n <- 5
 
 \begin_layout Chunk
 
-# display powers
+## display powers
 \end_layout
 
 \begin_layout Chunk
@@ -1150,7 +1155,7 @@ n <- 5
 
 \begin_layout Chunk
 
-# display powers
+## display powers
 \end_layout
 
 \begin_layout Chunk
@@ -1282,6 +1287,11 @@ city <- "Boston"
 
 \begin_layout Chunk
 
+sprintf("The temperature in %s was %.4f C.", city, temps[1])
+\end_layout
+
+\begin_layout Chunk
+
 sprintf("The temperature in %s was %9.4f C.", city, temps[1])
 \end_layout
 
@@ -1393,7 +1403,17 @@ xe7a_"
 
 \begin_layout Chunk
 
-iconv(text, from = "latin1", to = "UTF-8")
+textUTF8 <- iconv(text, from = "latin1", to = "UTF-8")
+\end_layout
+
+\begin_layout Chunk
+
+Encoding(textUTF8)
+\end_layout
+
+\begin_layout Chunk
+
+textUTF8
 \end_layout
 
 \begin_layout Chunk
@@ -1435,7 +1455,7 @@ x
 
 \begin_layout Chunk
 
-# playing around...
+## playing around...
  
 \end_layout
 
@@ -1495,7 +1515,7 @@ tmp <- substring(text, 1, 15)
 
 \begin_layout Chunk
 
-# the issue occurs with the 6402th element (found by trial and error):
+## the issue occurs with the 6402th element (found by trial and error):
 \end_layout
 
 \begin_layout Chunk
@@ -1515,12 +1535,22 @@ text[6402] # note the Latin-1 character
 
 \begin_layout Chunk
 
-text <- iconv(text, from = "latin1", to = "UTF-8")
+## Interesting:
 \end_layout
 
 \begin_layout Chunk
 
-text[6402]
+table(Encoding(text))
+\end_layout
+
+\begin_layout Chunk
+
+## Option 1
+\end_layout
+
+\begin_layout Chunk
+
+Encoding(text) <- "latin1"
 \end_layout
 
 \begin_layout Chunk
@@ -1530,17 +1560,27 @@ tmp <- substring(text, 1, 15)
 
 \begin_layout Chunk
 
-tmp[6402]
+## Option 2
 \end_layout
 
 \begin_layout Chunk
 
-# Interesting:
+load('../data/IPs.RData') # loads in an object named 'text'
 \end_layout
 
 \begin_layout Chunk
 
-table(Encoding(text))
+tmp <- substring(text, 1, 15)
+\end_layout
+
+\begin_layout Chunk
+
+text <- iconv(text, from = "latin1", to = "UTF-8")
+\end_layout
+
+\begin_layout Chunk
+
+tmp <- substring(text, 1, 15)
 \end_layout
 
 \begin_layout Chunk
