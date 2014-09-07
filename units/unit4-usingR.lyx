@@ -1617,10 +1617,6 @@ print(object.size(dat), units = "Mb") # this seems pretty clunky!
 
 \begin_layout Chunk
 
-\end_layout
-
-\begin_layout Chunk
-
 @
 \end_layout
 
@@ -3432,10 +3428,8 @@ If statements
 If statements are at the core of programming.
  In R, the syntax is 
 \family typewriter
-\series bold
 if(condition) statement else other_statement
 \family default
-\series default
 , e.g.,
 \end_layout
 
@@ -3899,10 +3893,8 @@ for
 \emph default
  loop, which as the syntax: 
 \family typewriter
-\series bold
 for(var in sequence) statement
 \family default
-\series default
 , where, as with the 
 \emph on
 if
@@ -4091,9 +4083,9 @@ for(i in 1:5){
 while
 \emph default
  loops are used less frequently, but can be handy: 
-\series bold
+\family typewriter
 while(condition) statement
-\series default
+\family default
 , e.g.
  in optimization.
  See p.

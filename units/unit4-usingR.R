@@ -25,13 +25,13 @@ list.files(file.path("..", "data"))
 
 Sys.info()
 
-# options()  # this would print out a long list of options
+## options()  # this would print out a long list of options
 
 options()[1:5]
 
 options()[c('width', 'digits')]
 
-# options(width = 120) # often nice to have more characters on screen
+## options(width = 120) # often nice to have more characters on screen
 
 options(width = 55)  # for purpose of making the pdf of this document
 
@@ -63,7 +63,7 @@ sessionInfo()
 
 library(fields)
 library(help = fields)
-# library()  # I don't want to run this on SCF because so many are installed
+## library()  # I don't want to run this on SCF because so many are installed
 
 .libPaths()
 searchpaths()
@@ -71,8 +71,8 @@ searchpaths()
 ## install.packages('fields', lib = '~/Rlibs') # ~/Rlibs needs to exist!
 
 search()
-# ls(pos = 7) # for the stats package
-ls(pos = 7)[1:5] # just show the first few
+## ls(pos = 8) # for the stats package
+ls(pos = 8)[1:5] # just show the first few
 ls("package:stats")[1:5] # equivalent
 
 #####################################################
@@ -83,7 +83,7 @@ ls("package:stats")[1:5] # equivalent
 
 out = mean(rnorm(7)) # OK
 system.time(out = rnorm(10000)) 
-# NOT OK, system.time() expects its argument to be a complete R expression
+## NOT OK, system.time() expects its argument to be a complete R expression
 system.time(out <- rnorm(10000))
 
 
@@ -99,7 +99,7 @@ out <- mean(y <- c(3,7))
 
 mat <- matrix(c(1, NA, 2, 3), nrow = 2, ncol = 2)
 apply(mat, 1, sum.isna <- function(vec) {return(sum(is.na(vec)))})
-# What is the side effect of what I have done here?
+## What is the side effect of what I have done here?
 apply(mat, 1, sum.isna = function(vec) {return(sum(is.na(vec)))}) # NOPE
 
 
@@ -131,7 +131,7 @@ myVec[indices]
 n <- 5
 df <- data.frame(rep('a', n), rnorm(n), rnorm(n))
 apply(df, 1, function(x) x[2] + x[3])
-# why does that not work?
+## why does that not work?
 apply(df[ , 2:3], 1, function(x) x[1] + x[2])
 df2 <- data.frame(cbind(rep('a', n), rnorm(n), rnorm(5)))
 apply(df2[ , 2:3], 1, function(x) x[1] + x[2])
@@ -163,7 +163,7 @@ mat <- matrix(1:4, 2)
 class(mat)
 typeof(mat)
 length(mat) 
-# recall that a matrix can be thought of as a vector with dimensions
+## recall that a matrix can be thought of as a vector with dimensions
 attributes(mat)
 dim(mat)
 
@@ -191,26 +191,26 @@ vec['first']
 
 ### 3.4 The workspace
 
-# objects() # what objects are in my workspace
+## objects() # what objects are in my workspace
 identical(ls(), objects()) # synonymous
 dat <- 7; dat2 <- 9; subdat <- 3; obj <- 5; obj2 <- 7
 objects(pattern = "^dat") 
 rm(dat2, subdat)
 rm(list = c("obj", "obj2")) 
-# a bit confusing - the 'list' argument should be a character vector
+## a bit confusing - the 'list' argument should be a character vector
 rm(list = ls(pattern = "^dat")) 
 exists('dat') # can be helpful when programming
 rm(list = ls()) # what does this do?
 dat <- rnorm(500000)
 object.size(dat)
 print(object.size(dat), units = "Mb") # this seems pretty clunky!
-# but we'll understand why when we see S3 classes in detail
+## but we'll understand why when we see S3 classes in detail
 
 
 ### 3.5 Some other details
 
 rnorm(10)
-# .Last.value  # this should return the 10 random normals but knitr is messing things up, commented out here
+## .Last.value  # this should return the 10 random normals but knitr is messing things up, commented out here
 
 
 x <- 1e5
@@ -237,10 +237,10 @@ ch3 <- "He said, \"hello.\"\n"
 
 x <- list(a = 1:2, b = 3:4, sam = rnorm(4))
 x[[2]] # extracts the indicated component, which can be anything, 
-# in this case just an integer vector
+## in this case just an integer vector
 x[2]
 x[c(1, 3)] # extracts subvectors, which since it is a list, 
-# will also be a list
+## will also be a list
 
 
 lapply(x, length)
@@ -258,7 +258,7 @@ tapply(mtcars$mpg, mtcars$cyl, mean)
 tapply(mtcars$mpg, list(mtcars$cyl, mtcars$gear), mean)
 
 aggregate(mtcars, by = list(cyl = mtcars$cyl), mean) 
-# this uses the function on each column of mtcars, split by the 'by' argument
+## this uses the function on each column of mtcars, split by the 'by' argument
 by(warpbreaks, warpbreaks$tension, function(x) {lm(breaks ~ wool, data = x)})
 
 splt <- split(mtcars, mtcars$cyl)
@@ -303,7 +303,7 @@ row.names(mtcars) %in% set
 which(row.names(mtcars) %in% set)
 match(row.names(mtcars), set)
 
-# different ways to subset:
+## different ways to subset:
 set.seed(0)
 vec <- rnorm(8); mat <- matrix(rnorm(9), 3)
 vec; mat
@@ -326,7 +326,7 @@ vec[vec == 1L] # in general, not safe with numeric vectors
 vec[vec != 3L] # nor this
 
 
-# subsetting with a two-column matrix of {row,col} indices
+## subsetting with a two-column matrix of {row,col} indices
 mat <- matrix(rnorm(25), 5)
 rowInd <- c(1, 3, 5); colInd <- c(1, 1, 4)
 mat[cbind(rowInd, colInd)]
@@ -348,11 +348,11 @@ apply(x, 2, min) # by column
 x <- array(1:24, c(2, 3, 4))
 apply(x, 2, min) # for(j in 1:3) print(min(x[ , j, ]))
 apply(x, c(2, 3), min) 
-#  equivalent to: 
-#  for(j in 1:3) {
-#   for(k in 1:4) { 
-#     print(min(x[ , j, k]))
-#   }}
+##  equivalent to: 
+##  for(j in 1:3) {
+##   for(k in 1:4) { 
+##     print(min(x[ , j, k]))
+##   }}
 
 
 
@@ -394,7 +394,7 @@ X %*% Y # matrix multiplication
 X * Y # direct product
 x %o% y # outer product of vectors x, y: x times t(y)
 outer(x, y) # same thing
-# evaluation of f(x,y) for all pairs of x,y values:
+## evaluation of f(x,y) for all pairs of x,y values:
 outer(x, y, function(x, y) cos(y)/(1 + x^2))
 crossprod(X, Y) # same as but faster than t(X) %*% Y!
 
@@ -472,13 +472,13 @@ truncx
 
 vals <- c(1, 2, NA); eps <- 1e-9 
 
-# now pretend vals comes from some other chunk of code that we don't control
+## now pretend vals comes from some other chunk of code that we don't control
 
 if(min(vals) > eps) # not good practice
 
    { print(vals) } 
 
-# better practice:
+## better practice:
 
 minval <- min(vals) 
 
@@ -528,7 +528,7 @@ for(i in 1:5){
 	print(i)
 }
 
-# while loop example - MLE for zero-truncated Poisson, from p. 59 of Venables and Ripley, 4th edition
+## while loop example - MLE for zero-truncated Poisson, from p. 59 of Venables and Ripley, 4th edition
 
 yp = rpois(50, lambda = 1)
 y = yp[yp > 0]
@@ -558,7 +558,7 @@ resp <- 'y ~'
 covTerms <- 'x1'
 for(i in 2:5){ covTerms <- paste(covTerms, '+ x', i, sep='')}
 form <- as.formula(paste(resp, covTerms, sep = ''))
-# lm(form, data = dat)
+## lm(form, data = dat)
 form
 class(form)
 
@@ -568,7 +568,7 @@ resp <- 'y ~'
 covTerms <- paste('x', 1:5, sep = '', collapse = ' + ')
 form <- as.formula(paste(resp, covTerms))
 form
-# lm(form, data = dat)
+## lm(form, data = dat)
 
 #####################################################
 # 7: Functions, variable scoping, and frames
@@ -601,15 +601,15 @@ tmpf = function(x, shape, rate = 1, scale = 1/rate, log = FALSE){
 tmpf(1, 2, rate = 3)
 tmpf(1, 2, scale = 5)
 dgamma(1, 2, scale = 5)
-# does it matter that the rate and scale are inconsistent?
+## does it matter that the rate and scale are inconsistent?
 dgamma
-# why can't we use "rate = 1/scale, scale = 1/rate"? or can we?
+## why can't we use "rate = 1/scale, scale = 1/rate"? or can we?
 
 
 mat <- matrix(1:9, 3)
 apply(mat, 2, function(vec) vec - vec[1])
 apply(mat, 1, function(vec) vec - vec[1]) 
-# explain why the result of the last expression is transposed
+## explain why the result of the last expression is transposed
 
 
 f <- function(x, y = 2, z = 3 / y) { x + y + z }
@@ -657,7 +657,7 @@ f <- function() {x <- x^2; print(x)}
 f(x)
 x # what do you expect?
 f <- function() {assign('x', x^2, env = .GlobalEnv)}
-# careful, this could be dangerous as a variable is changed as a side effect
+## careful, this could be dangerous as a variable is changed as a side effect
 
 x <- 3
 f <- function() {
@@ -688,11 +688,11 @@ f <- function(){
 	g <- function(x) x + y
 	return(g)
 }
-# you can think of f() as a function constructor
+## you can think of f() as a function constructor
 h <- f()
 h(3)
 
-# expanding on the example in response to a Piazza question
+## expanding on the example in response to a Piazza question
 
 y <- 100
 f <- function(){
@@ -701,7 +701,7 @@ f <- function(){
 	g <- function(x) x + y
 	return(g)
 }
-# you can think of f() as a function constructor
+## you can think of f() as a function constructor
 h <- f()
 h
 h(3)
@@ -780,7 +780,7 @@ f2()
 
 
 
-# exploring functions that give us information the frames in the stack
+## exploring functions that give us information the frames in the stack
 g <- function(y) {
   gg <- function() {
     # this gives us the information from sys.calls(), sys.parents() and sys.frames() as one object
@@ -819,12 +819,12 @@ gsub("98", "04", vars)
 
 ### 8.2 Regular expressions (regexp/regex)
 
-# Character sets and character classes
+## Character sets and character classes
 
 addresses <- c("john@att.com", "stat243@bspace.berkeley.edu", "john_smith@att.com")
 grep("[[:digit:]_]", addresses, perl = TRUE)
 
-# Location-specific matches
+## Location-specific matches
 
 text <- c("john","jennifer pierce","Juan carlos rey")
 grep("^[[:upper:]]", text) # finds text starting with upper case letter
@@ -843,13 +843,13 @@ text <- c("john","jennifer pierce","Juan carlos rey")
 matches <- gregexpr("^[[:upper:]][[:lower:]]+ ", text)
 regmatches(text, matches)
 
-# Repetitions
+## Repetitions
 
 text <- c("hi John", "V1@gra", "here's the problem set")
 grep("[[:alpha:]]+[[:digit:][:punct:]]+[[:alpha:]]*", text) 
 # ok, so that doesn't quite work...
 
-# Grouping and references
+## Grouping and references
 
 ## grep("([[:digit:]]{1,3}\\.){3}[[:digit:]]{1,3}", text)
 
@@ -861,7 +861,7 @@ gsub("([^\",]),", "\\1", text)
 
 gregexpr("(http|ftp):\\/\\/", c("at the site http://www.ibm.com", "other text", "ftp://ibm.com"))
 
-# Greedy matching
+## Greedy matching
 
 text <- "Students may participate in an internship <b> in place
    </b> of <b> one </b> of their courses."
@@ -869,7 +869,7 @@ gsub("<.*>", "", text)
 
 gsub("<.*?>", "", text)
 
-# Regular expressions in other contexts
+## Regular expressions in other contexts
 
 line <- "a dog\tjumped\nover \tthe moon."
 cat(line)

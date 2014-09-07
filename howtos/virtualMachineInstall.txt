@@ -6,7 +6,7 @@ Make sure you get the full file. If the download is interrupted you may get an e
 
 Windows users may encounter some trouble. Try using VirtualBox version 4.3.12 [https://www.virtualbox.org/wiki/Download_Old_Builds_4_3] or 4.3.15 and not 4.3.14.
 
-You may also need to enable virtualization in your VirtualBox settings (Settings -> System -> Acceleration and check "Enable VT-x/AMD-V". If this is greyed out, it probably means you need to enable virtualization in your BIOS.  Accessing the BIOS settings varies by the manufacturer and model, so try Googling your machine model and "BIOS settings". Once you get into the settings, you should see one of the options to enable virtualization.
+You may also need to enable virtualization in your VirtualBox settings (Settings -> System -> Acceleration and check "Enable VT-x/AMD-V". If this is greyed out, it probably means you need to enable virtualization in your BIOS.  Accessing the BIOS settings varies by the manufacturer and model, so try Googling your machine model and "BIOS settings". Once you get into the settings, you should see one of the options to enable virtualization. [This might be useful for accessing the BIOS: http://acer--uk.custhelp.com/app/answers/detail/a_id/27102/~/accessing-the-uefi-(bios)-setup-on-a-windows-8-system.]
 
 Finally, if you get a text-based screen with some wording about a UEFI shell, try going to the "Settings" page for the virtual machine, and click "System". Under the "motherboard" options, be sure that "Enable EFI (special OSes only)" is unchecked. Then click "OK", and try to boot the machine again. 
 
