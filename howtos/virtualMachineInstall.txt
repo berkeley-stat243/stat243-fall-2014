@@ -8,4 +8,6 @@ Windows users may encounter some trouble. Try using VirtualBox version 4.3.12 [h
 
 You may also need to enable virtualization in your VirtualBox settings (Settings -> System -> Acceleration and check "Enable VT-x/AMD-V". If this is greyed out, it probably means you need to enable virtualization in your BIOS.  Accessing the BIOS settings varies by the manufacturer and model, so try Googling your machine model and "BIOS settings". Once you get into the settings, you should see one of the options to enable virtualization.
 
+Finally, if you get a text-based screen with some wording about a UEFI shell, try going to the "Settings" page for the virtual machine, and click "System". Under the "motherboard" options, be sure that "Enable EFI (special OSes only)" is unchecked. Then click "OK", and try to boot the machine again. 
+
 To copy files between your machine and the VM, you can use shared folders, as deescribed at http://collaboratool.berkeley.edu/using-virtualbox.html. You can also drag files and folders from your machine onto/into the window of the VM.
