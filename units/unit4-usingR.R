@@ -618,7 +618,8 @@ formals(f)
 class(formals(f))
 
 
-match.call(mean, quote(mean(y, na.rm = TRUE))) 
+match.call(definition = mean,
+           call = quote(mean(y, na.rm = TRUE))) 
 # what do you think quote does? Why is it needed?
 
 
@@ -712,6 +713,17 @@ h(3)
 environment(h)$y <- 1
 h(3)
 
+environment(h)  # enclosing environment of h()
+ls(environment(h)) # objects in that environment
+f <- function(){
+	print(environment()) # environment of f()
+	y <- 10
+	g <- function(x) x + y
+	return(g)
+}
+environment(h)$y
+# advanced: explain this:
+environment(h)$g
 
 
 
@@ -719,6 +731,18 @@ z <- 3
 x <- 100
 f <- function(x, y = x*3) {x+y}
 f(z*5)
+
+## comprehension check
+set.seed(0) 
+rnorm(1) 
+save(.Random.seed, file = 'tmp.Rda') 
+rnorm(1)
+tmp <- function() { 
+  load('tmp.Rda') 
+  print(rnorm(1)) 
+}
+tmp()
+
 
 ### 7.4 Environments and the search path
 
@@ -728,24 +752,24 @@ searchpaths()
 
 
 x <- .GlobalEnv
-parent.env(x)
+parent.env(x)  # poorly-named - this returns the enclosing env't
 while (environmentName(x) != environmentName(emptyenv())) {
-	print(environmentName(parent.env(x)))
+	print(environmentName(x))
 	x <- parent.env(x)
 }
 
 
 
-ls(pos = 7)[1:5] # what does this do?
+ls(pos = 8)[1:5] # what does this do?
 ls("package:stats")[1:5]
 environment(lm)
 
 
 
 x <- environment(lm)
-parent.env(x)
+x
 while (environmentName(x) != environmentName(emptyenv())) {
-	print(environmentName(parent.env(x)))
+	print(environmentName(x))
 	x <- parent.env(x)
 }
 
@@ -755,6 +779,8 @@ lm <- function() {return(NULL)} # this seems dangerous but isn't
 x <- 1:3; y <- rnorm(3); mod <- lm(y ~ x)
 mod <- get('lm', pos = 'package:stats')(y ~ x)
 mod <- stats::lm(y ~ x) # an alternative
+rm(lm)
+lm(y ~ x)
 
 ### 7.5 Frames and the call stack
 

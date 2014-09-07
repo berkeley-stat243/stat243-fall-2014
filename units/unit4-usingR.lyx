@@ -4676,7 +4676,11 @@ apply()
 \emph on
 anonymous function
 \emph default
-:
+ (also called a 
+\emph on
+lambda function
+\emph default
+ in some languages such as Python):
 \end_layout
 
 \begin_layout Chunk
@@ -4771,7 +4775,12 @@ match.call()
 
 \begin_layout Chunk
 
-match.call(mean, quote(mean(y, na.rm = TRUE))) 
+match.call(definition = mean, 
+\end_layout
+
+\begin_layout Chunk
+
+  call = quote(mean(y, na.rm = TRUE))) 
 \end_layout
 
 \begin_layout Chunk
@@ -4820,7 +4829,7 @@ pass by reference
  like the idea that a function could have the side effect of changing an
  object.
  However, passing by reference can sometimes be very helpful, and we'll
- see ways of passing by reference in the R programming unit.
+ see ways of passing by reference in Unit 6 on R programming.
 \end_layout
 
 \begin_layout Standard
@@ -4833,7 +4842,8 @@ par()
 \emph on
 par()
 \emph default
- in a user-defined function, they are changed permanently.
+ in a user-defined function, they are changed permanently outside of the
+ function.
  One trick is as follows:
 \end_layout
 
@@ -5047,13 +5057,25 @@ environment
 frame
 \emph default
 .
+ Environments and frames are closely related.
+ 
 \end_layout
 
-\begin_layout Standard
-Environments and frames are closely related.
- An environment is a collection of named objects (a frame), with a pointer
- to the 'enclosing environment', i.e., the next environment to look for something
- in, also called the parent.
+\begin_layout Itemize
+A 
+\emph on
+frame
+\emph default
+ is a collection of named objects.
+\end_layout
+
+\begin_layout Itemize
+An 
+\emph on
+environment
+\emph default
+ is a frame, with a pointer to the 'enclosing environment', i.e., the next
+ environment to look for something in.
  (Be careful as this is different than the parent frame of a function.)
 \end_layout
 
@@ -5345,6 +5367,80 @@ h()
 ?
 \end_layout
 
+\begin_layout Standard
+This code helps explain things, but it's a bit confusing because 
+\emph on
+environment()
+\emph default
+ gives back different results depending on whether it is given a function
+ as its argument.
+\end_layout
+
+\begin_layout Chunk
+
+<<chunk55a>>=
+\end_layout
+
+\begin_layout Chunk
+
+environment(h)  # enclosing environment of h()
+\end_layout
+
+\begin_layout Chunk
+
+ls(environment(h)) # objects in that environment
+\end_layout
+
+\begin_layout Chunk
+
+f <- function(){
+\end_layout
+
+\begin_layout Chunk
+
+	print(environment()) # environment of f()
+\end_layout
+
+\begin_layout Chunk
+
+	y <- 10
+\end_layout
+
+\begin_layout Chunk
+
+	g <- function(x) x + y
+\end_layout
+
+\begin_layout Chunk
+
+	return(g)
+\end_layout
+
+\begin_layout Chunk
+
+}
+\end_layout
+
+\begin_layout Chunk
+
+environment(h)$y
+\end_layout
+
+\begin_layout Chunk
+
+# advanced: explain this:
+\end_layout
+
+\begin_layout Chunk
+
+environment(h)$g
+\end_layout
+
+\begin_layout Chunk
+
+@
+\end_layout
+
 \begin_layout Paragraph
 Where are arguments evaluated?
 \end_layout
@@ -5393,7 +5489,11 @@ f()
 \emph on
 z
 \emph default
- is evaluated in the calling frame and assigned to 
+ is evaluated in the calling frame and 
+\family typewriter
+z*5
+\family default
+ is assigned to 
 \emph on
 x
 \emph default
@@ -5405,7 +5505,12 @@ y = x*3
 \end_layout
 
 \begin_layout Paragraph
-Test problem
+Comprehension problem
+\end_layout
+
+\begin_layout Standard
+Here's a case where something I tried failed and I had to think more carefully
+ about scoping to understand why.
 \end_layout
 
 \begin_layout Chunk
@@ -5464,7 +5569,7 @@ tmp()
 \end_layout
 
 \begin_layout Standard
-Question: what am I hoping that code to do, and why doesn't it work? 
+Question: what was I hoping that code to do, and why didn't it work? 
 \end_layout
 
 \begin_layout Standard
@@ -5493,8 +5598,12 @@ So far we've seen lexical scoping in action primarily in terms of finding
  (in the form of a symbol), it starts in the current environment (e.g., the
  frame/environment of a function) and then runs up through the enclosing
  environments, until it reaches the global environment, which is where R
- starts when you start it (it actually continues further up; see below).
- In general, as we've seen, these are not the frames on the stack.
+ starts when you open R (it actually continues further up; see below).
+ In general, as we've seen, these are 
+\emph on
+not
+\emph default
+ the frames on the stack (see the next Section).
  
 \end_layout
 
@@ -5520,8 +5629,12 @@ lm()
 \emph on
 lm()
 \emph default
- is defined), then in packages imported by the stats package, then the base
- package, and then the global environment.
+ is defined and is therefore the enclosing environment for 
+\emph on
+lm()
+\emph default
+), then in packages imported by the stats package, then the base package,
+ and then the global environment.
 \end_layout
 
 \begin_layout Standard
@@ -5538,11 +5651,23 @@ t, as we see based on
 search()
 \emph default
 .
- Data frames or list that you attach using 
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Data frames or list that you attach using 
 \emph on
 attach()
 \emph default
  generally are placed just after the global environment.
+ [BAD practice so don't mention, but do try to remember when it is ok to
+ use attach - Martin Maechler's 2014 useR talk?]
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Chunk
@@ -5586,7 +5711,7 @@ x <- .GlobalEnv
 
 \begin_layout Chunk
 
-parent.env(x)
+parent.env(x)  # poorly-named - this returns the enclosing env't
 \end_layout
 
 \begin_layout Chunk
@@ -5596,7 +5721,7 @@ while (environmentName(x) != environmentName(emptyenv())) {
 
 \begin_layout Chunk
 
-	print(environmentName(parent.env(x)))
+	print(environmentName(x))
 \end_layout
 
 \begin_layout Chunk
@@ -5626,7 +5751,12 @@ parent
 \series bold
 is
 \series default
- referring to the enclosing environment.
+ referring to the enclosing environment, even though it is best to talk
+ about 
+\emph on
+enclosing environment
+\emph default
+ rather than parent environment.
 \end_layout
 
 \begin_layout Standard
@@ -5640,7 +5770,7 @@ We can look at the objects of an environment as follows:
 
 \begin_layout Chunk
 
-ls(pos = 7)[1:5] # what does this do?
+ls(pos = 8)[1:5] # what does this do?
 \end_layout
 
 \begin_layout Chunk
@@ -5675,7 +5805,7 @@ x <- environment(lm)
 
 \begin_layout Chunk
 
-parent.env(x)
+x
 \end_layout
 
 \begin_layout Chunk
@@ -5685,7 +5815,7 @@ while (environmentName(x) != environmentName(emptyenv())) {
 
 \begin_layout Chunk
 
-	print(environmentName(parent.env(x)))
+	print(environmentName(x))
 \end_layout
 
 \begin_layout Chunk
@@ -5730,6 +5860,16 @@ mod <- get('lm', pos = 'package:stats')(y ~ x)
 \begin_layout Chunk
 
 mod <- stats::lm(y ~ x) # an alternative
+\end_layout
+
+\begin_layout Chunk
+
+rm(lm)
+\end_layout
+
+\begin_layout Chunk
+
+mod <- lm(y ~ x)
 \end_layout
 
 \begin_layout Chunk
