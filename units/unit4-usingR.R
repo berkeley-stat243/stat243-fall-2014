@@ -693,20 +693,6 @@ f <- function(){
 h <- f()
 h(3)
 
-## expanding on the example in response to a Piazza question
-
-y <- 100
-f <- function(){
-	y <- 10
-        print(sys.frame(sys.nframe()))
-	g <- function(x) x + y
-	return(g)
-}
-## you can think of f() as a function constructor
-h <- f()
-h
-h(3)
-
 assign("y", 5, envir = environment(h))
 h(3)
 
@@ -721,6 +707,9 @@ f <- function(){
 	g <- function(x) x + y
 	return(g)
 }
+h <- f()
+environment(h)
+h(3)
 environment(h)$y
 # advanced: explain this:
 environment(h)$g
@@ -806,7 +795,8 @@ f2()
 
 
 
-## exploring functions that give us information the frames in the stack
+## exploring functions that give us information about the frames in the stack
+
 g <- function(y) {
   gg <- function() {
     # this gives us the information from sys.calls(), sys.parents() and sys.frames() as one object

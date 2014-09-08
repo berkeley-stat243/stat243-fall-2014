@@ -5422,6 +5422,18 @@ f <- function(){
 \end_layout
 
 \begin_layout Chunk
+h <- f()
+\end_layout
+
+\begin_layout Chunk
+environment(h)
+\end_layout
+
+\begin_layout Chunk
+h(3)
+\end_layout
+
+\begin_layout Chunk
 
 environment(h)$y
 \end_layout
@@ -5910,14 +5922,14 @@ sys.nframe()
 \emph on
 sys.parent()
 \emph default
- the number of the parent, while parent.frame() gives the name of the parent
- environment.
+ the number of the parent, while parent.frame() gives the name of the environment
+ of the parent frame.
  Careful: here, 
 \emph on
 parent
 \emph default
- now refers to the parent in terms of the call stack, not the enclosing
- environment.
+ refers to the parent in terms of the call stack and has nothing to do with
+ enclosing environments.
  
 \emph on
 sys.frame()
@@ -5936,6 +5948,12 @@ knitr
 \begin_layout Chunk
 
 <<chunk57, eval=FALSE>>=
+\end_layout
+
+\begin_layout Chunk
+
+## NOTE: run this chunk outside RStudio as it seems to inject additional
+ frames
 \end_layout
 
 \begin_layout Chunk
@@ -6127,6 +6145,14 @@ g(3)
 \begin_layout Chunk
 
 @
+\end_layout
+
+\begin_layout Standard
+Challenge: why did I not do 
+\family typewriter
+print(sys.status())
+\family default
+ directly?
 \end_layout
 
 \begin_layout Standard
