@@ -1,6 +1,25 @@
 You will need to create a private repository on GitHub for submitting your
 problem sets.
 
+1. If you don't have a GitHub account, you will need to create one:
+https://github.com/join
+
+You can choose a silly name, but I **recommend** choosing something
+straightforward and informative. For instance, my GitHub username is
+`jarrodmillman`, which is my real name. You should register using your
+`@berkeley.edu` account (you will need to have a verified *.edu email address
+for step 2).
+
+2. Once you have a GitHub account you will need to request an educational
+discount so that you can create private repos for this class. If you don't have
+private accounts already (if you don't know if you do or not, you don't),
+please request one here: https://education.github.com/
+
+You are a `Student` and you want an `Individual account`.
+
+Once you have a GitHub account and the ability to create private GitHub
+repos, you will need to complete the following steps:
+
 1. Create a private repository on GitHub called "stat243" (without the quotes).
 You will need to use this exact name (no space, no capital letters, etc.).
 Select "Initialize this repository with a README" and choose "R" in the
