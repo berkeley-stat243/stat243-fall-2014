@@ -655,7 +655,7 @@ is.list(mod)
 
 x <- 3
 f <- function() {x <- x^2; print(x)}
-f(x)
+f()
 x # what do you expect?
 f <- function() {assign('x', x^2, env = .GlobalEnv)}
 ## careful, this could be dangerous as a variable is changed as a side effect
