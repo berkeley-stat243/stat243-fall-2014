@@ -833,57 +833,82 @@ grep("98", vars)
 gregexpr("98", vars)
 gsub("98", "04", vars)
 
-### 8.2 Regular expressions (regexp/regex)
+### 8.2 Using stringr
+
+require(stringr)
+str <- c("Apple", "Basic", "applied")
+str_locate(str, ignore.case("app"))
+
+
+### 8.3 Regular expressions (regexp/regex)
 
 ## Character sets and character classes
 
 addresses <- c("john@att.com", "stat243@bspace.berkeley.edu", "john_smith@att.com")
-grep("[[:digit:]_]", addresses, perl = TRUE)
+str_detect(addresses, perl("[[:digit:]_]"))
+## grep("[[:digit:]_]", addresses, perl = TRUE)
+
+text <- c("john","jennifer pierce","Juan carlos rey")
+str_detect(text, "[ \t]")
+## grep("[ \t]", text)
+str_locate_all(text, "[ \t]")
+## gregexpr("[ \t]", text)
+str_extract_all(text, "^[[:upper:]][[:lower:]]+ ")
+## matches <- gregexpr("^[[:upper:]][[:lower:]]+ ", text)
+## regmatches(text, matches)
+str_replace_all(text, "^j", "J")
+## gsub("^j", "J", text)
+
 
 ## Location-specific matches
 
-text <- c("john","jennifer pierce","Juan carlos rey")
-grep("^[[:upper:]]", text) # finds text starting with upper case letter
-grep("[[:digit:]]$", text) # finds text with a number at the end
+text <- c("john","jennifer  pierce","Juan carlos rey")
+str_detect(text, "^[[:upper:]]") # text starting with upper case letter
+## grep("^[[:upper:]]", text) 
+str_detect(text, "[[:digit:]]$") # text with a number at the end
+## grep("[[:digit:]]$", text) 
 
 
-
-text <- c("john","jennifer pierce","Juan carlos rey")
-grep("[ \t]", text)
-gregexpr("[ \t]", text)
-gsub("^j", "J", text)
-
-
-
-text <- c("john","jennifer pierce","Juan carlos rey")
-matches <- gregexpr("^[[:upper:]][[:lower:]]+ ", text)
-regmatches(text, matches)
 
 ## Repetitions
 
-text <- c("hi John", "V1@gra", "here's the problem set")
-grep("[[:alpha:]]+[[:digit:][:punct:]]+[[:alpha:]]*", text) 
-# ok, so that doesn't quite work...
+text <- c("Here's my number: 919-543-3300.", "hi John, good to meet you", "They bought 731 bananas", "Please call 919.554.3800")
+pattern <- "[[:digit:]]{3}[-\\.][[:digit:]]{3}[-\\.][[:digit:]]{4}"
+str_extract_all(text, pattern)
+## matches <- gregexpr(pattern, text)
+## regmatches(text, matches)
+
 
 ## Grouping and references
 
-## grep("([[:digit:]]{1,3}\\.){3}[[:digit:]]{1,3}", text)
+text <- c("Here's my number: 919-543-3300.", "hi John, good to meet you", "They bought 731 bananas", "Please call 1.919.554.3800", "I think he said it was 337.4355")
+str_extract_all(text, "(1[-\\.])?([[:digit:]]{3}[-\\.]){1,2}[[:digit:]]{4}")
+## matches <- gregexpr("(1[-\\.])?([[:digit:]]{3}[-\\.]){1,2}[[:digit:]]{4}", text)
+## regmatches(text, matches)
 
+text <- c("at the site http://www.ibm.com", "other text", "ftp://ibm.com")
+str_locate(text, "(http|ftp):\\/\\/")
+## gregexpr("(http|ftp):\\/\\/", text)
 
 
 text <- ('"H4NY07011","ACKERMAN, GARY L.","H","$13,242",,,')
 gsub("([^\",]),", "\\1", text)
 
 
-gregexpr("(http|ftp):\\/\\/", c("at the site http://www.ibm.com", "other text", "ftp://ibm.com"))
+text <- ('"H4NY07011","ACKERMAN, GARY L.","H","$13,242",,,')
+str_replace_all(text, "([^\",]),", "\\1")
+## gsub("([^\",]),", "\\1", text)
+
 
 ## Greedy matching
 
-text <- "Students may participate in an internship <b> in place
-   </b> of <b> one </b> of their courses."
-gsub("<.*>", "", text)
+text <- "Do an internship <b> in place </b> of <b> one </b> course."
+str_replace_all(text, "<.*>", "")
+## gsub("<.*>", "", text)
 
-gsub("<.*?>", "", text)
+str_replace_all(text, "<.*?>", "")
+## gsub("<.*?>", "", text)
+
 
 ## Regular expressions in other contexts
 

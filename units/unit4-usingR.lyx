@@ -5705,56 +5705,288 @@ gsub("98", "04", vars)
 @
 \end_layout
 
+\begin_layout Subsection
+Using 
+\emph on
+stringr
+\end_layout
+
 \begin_layout Standard
 The 
 \emph on
 stringr
 \emph default
- package is also handy for string manipulation.
-\end_layout
-
-\begin_layout Subsection
-Webscraping
+ package wraps the various core string manipulation functions to provide
+ a common interface.
+ It also removes some of the clunkiness involved in some of the string operation
+s with the base string functions, such as having to to call 
+\emph on
+gregexpr()
+\emph default
+ and then 
+\emph on
+regmatches()
+\emph default
+ to pull out the matched strings.
+ For PS3 and your future endeavors, I'd suggest using 
+\emph on
+stringr
+\emph default
+ functions in place of R's base string functions.
 \end_layout
 
 \begin_layout Standard
-Two members of the RugBcn have developed a package for R that ease the path
- for webscraping .
- Among the current packages, we highlight the well known RCurl and XML packages.
- Both are enough for most situations, but they have a limitation dealing
- with situations where there is some javascript between the user and the
- information.
- For instance when the only way of getting to the desired page is by means
- of clicking buttons, selecting in menus, ….
-\end_layout
-
-\begin_layout Standard
-Relenium has imported the java module Selenium (implemented in many languages,
- though) which has been traditionally used for web testing, via the package
- rJava.
- Its use is very intuitive, since reproduces the actions that a human would
- perform on a web page.
- The webpage of the project can be found here.
- There is an example explaining in detail how to use it.
- The package is still in development, so any comments/suggestions are welcome.
+The basic interface is 
+\family typewriter
+function(strings, pattern, [replace])
+\family default
+.
  
 \end_layout
 
 \begin_layout Standard
-reading an html table directly:
+Table 1 provides an overview of the key functions, which are basically wrappers
+ for 
+\emph on
+grep()
+\emph default
+, 
+\emph on
+gsub()
+\emph default
+, 
+\emph on
+gregexpr()
+\emph default
+, etc.
 \end_layout
 
 \begin_layout Standard
-library(XML)
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Dictionary of stringr functions
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="5in">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Function
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+What it does
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+str_detect
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+detects pattern, returning TRUE/FALSE
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+str_count
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+counts matches
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+str_locate/str_locate_all
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+detects pattern, returning positions of matching characters
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+str_extract/str_extract_all
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+detects pattern, returning matches
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+str_replace/str_replace_all
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+detects pattern and replaces matches
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-URL = "http://en.wikipedia.org/wiki/Michael_Caine_filmography" dfCaine = readHTMLT
-able(URL, stringsAsFactors = FALSE) dfCaine = dfCaine[[1]] 
+The analogue of 
+\emph on
+regexpr()
+\emph default
+ vs.
+ 
+\emph on
+gregexpr()
+\emph default
+ and 
+\emph on
+sub()
+\emph default
+ vs.
+ 
+\emph on
+gsub()
+\emph default
+ is that most of the functions have versions that return all the matches,
+ not just the first match, e.g.
+ 
+\emph on
+str_locate_all()
+\emph default
+, 
+\emph on
+str_extract_all(), 
+\emph default
+etc.
+ Note that the _all functions return lists while the non-_all functions
+ return vectors.
 \end_layout
 
 \begin_layout Standard
-integrate the urls.txt and regExprExample.q into lecture notes?
+To specify options, you can wrap these functions around the pattern argument:
+ 
+\family typewriter
+fixed(pattern)
+\family default
+, 
+\family typewriter
+ignore.case(pattern)
+\family default
+, and 
+\family typewriter
+perl(pattern)
+\family default
+.
+ For example, 
+\end_layout
+
+\begin_layout Chunk
+<<chunk86a>>=
+\end_layout
+
+\begin_layout Chunk
+require(stringr)
+\end_layout
+
+\begin_layout Chunk
+str <- c("Apple", "Basic", "applied")
+\end_layout
+
+\begin_layout Chunk
+str_locate(str, ignore.case("app"))
+\end_layout
+
+\begin_layout Chunk
+@
 \end_layout
 
 \begin_layout Subsection
@@ -5767,19 +5999,6 @@ status open
 
 \begin_layout Plain Layout
 (see CK slides 25/26) as homework
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-see stringr
 \end_layout
 
 \end_inset
@@ -5804,7 +6023,11 @@ gregexpr()
 \emph on
 gsub()
 \emph default
- functions are more powerful when used with regular expressions.
+ functions and their 
+\emph on
+stringr 
+\emph default
+analogs are more powerful when used with regular expressions.
  Regular expressions are a domain-specific language for finding patterns
  and are one of the key functionalities in scripting languages such as Perl
  and Python, as well as the UNIX utilities 
@@ -5841,6 +6064,14 @@ extended regular expression
 \family typewriter
 Perl=TRUE
 \family default
+ or 
+\family typewriter
+perl(pattern)
+\family default
+ in 
+\emph on
+stringr
+\emph default
 , you can get Perl-style regular expressions.
  At the level we'll consider them, the syntax is quite similar.
 \end_layout
@@ -6062,7 +6293,11 @@ addresses <- c("john@att.com", "stat243@bspace.berkeley.edu", "john_smith@att.co
 \end_layout
 
 \begin_layout Chunk
-grep("[[:digit:]_]", addresses, perl = TRUE)
+str_detect(addresses, perl("[[:digit:]_]"))
+\end_layout
+
+\begin_layout Chunk
+## grep("[[:digit:]_]", addresses, perl = TRUE)
 \end_layout
 
 \begin_layout Chunk
@@ -6142,16 +6377,72 @@ S
 \end_layout
 
 \begin_layout Standard
+Here are some more examples showing a wide range of string functionality:
+\end_layout
+
+\begin_layout Chunk
+<<chunk89>>=
+\end_layout
+
+\begin_layout Chunk
+text <- c("john","jennifer pierce","Juan carlos rey")
+\end_layout
+
+\begin_layout Chunk
+str_detect(text, "[ 
+\backslash
+t]")
+\end_layout
+
+\begin_layout Chunk
+## grep("[ 
+\backslash
+t]", text)
+\end_layout
+
+\begin_layout Chunk
+str_locate_all(text, "[ 
+\backslash
+t]")
+\end_layout
+
+\begin_layout Chunk
+## gregexpr("[ 
+\backslash
+t]", text)
+\end_layout
+
+\begin_layout Chunk
+str_extract_all(text, "^[[:upper:]][[:lower:]]+ ")
+\end_layout
+
+\begin_layout Chunk
+## matches <- gregexpr("^[[:upper:]][[:lower:]]+ ", text)
+\end_layout
+
+\begin_layout Chunk
+## regmatches(text, matches)
+\end_layout
+
+\begin_layout Chunk
+str_replace_all(text, "^j", "J")
+\end_layout
+
+\begin_layout Chunk
+## gsub("^j", "J", text)
+\end_layout
+
+\begin_layout Chunk
+@
+\end_layout
+
+\begin_layout Standard
 
 \series bold
 Challenge
 \series default
 : how would we find a spam-like pattern with digits or non-letters inside
- a word? E.g., I want to find 
-\end_layout
-
-\begin_layout Standard
-"V1agra" or "Fancy repl!c@ted watches".
+ a word? E.g., I want to find "V1agra" or "Fancy repl!c@ted watches".
  
 \begin_inset Note Note
 status open
@@ -6180,15 +6471,23 @@ To find a pattern at the beginning of the string, we use ^ (note this was
 \end_layout
 
 \begin_layout Chunk
-text <- c("john","jennifer pierce","Juan carlos rey")
+text <- c("john","jennifer  pierce","Juan carlos rey")
 \end_layout
 
 \begin_layout Chunk
-grep("^[[:upper:]]", text) # finds text starting with upper case letter
+str_detect(text, "^[[:upper:]]") # text starting with upper case letter
 \end_layout
 
 \begin_layout Chunk
-grep("[[:digit:]]$", text) # finds text with a number at the end
+## grep("^[[:upper:]]", text) 
+\end_layout
+
+\begin_layout Chunk
+str_detect(text, "[[:digit:]]$") # text with a number at the end
+\end_layout
+
+\begin_layout Chunk
+## grep("[[:digit:]]$", text) 
 \end_layout
 
 \begin_layout Chunk
@@ -6203,100 +6502,14 @@ What does this match:
  ?
 \end_layout
 
-\begin_layout Standard
-Here are some more examples, illustrating the use of regexp in 
-\emph on
-grep()
-\emph default
-, 
-\emph on
-gregexpr(),
-\emph default
- and 
-\emph on
-gsub()
-\emph default
-.
-\end_layout
-
-\begin_layout Chunk
-<<chunk89>>=
-\end_layout
-
-\begin_layout Chunk
-text <- c("john","jennifer pierce","Juan carlos rey")
-\end_layout
-
-\begin_layout Chunk
-grep("[ 
-\backslash
-t]", text)
-\end_layout
-
-\begin_layout Chunk
-gregexpr("[ 
-\backslash
-t]", text)
-\end_layout
-
-\begin_layout Chunk
-gsub("^j", "J", text)
-\end_layout
-
-\begin_layout Chunk
-@
-\end_layout
-
-\begin_layout LyX-Code
-
-\family roman
-To extract the actual matching sequences and not just which elements match
- and where they match, you can use 
-\emph on
-regmatches()
-\emph default
-:
-\end_layout
-
-\begin_layout Chunk
-<<chunk89b>>=
-\end_layout
-
-\begin_layout Chunk
-text <- c("john","jennifer pierce","Juan carlos rey")
-\end_layout
-
-\begin_layout Chunk
-matches <- gregexpr("^[[:upper:]][[:lower:]]+ ", text)
-\end_layout
-
-\begin_layout Chunk
-regmatches(text, matches)
-\end_layout
-
-\begin_layout Chunk
-@
-\end_layout
-
-\begin_layout LyX-Code
-
-\end_layout
-
 \begin_layout Paragraph
 Repetitions
 \end_layout
 
 \begin_layout Standard
-Now suppose I wanted to be able to detect 
-\begin_inset Quotes eld
-\end_inset
-
-V1@gra
-\begin_inset Quotes erd
-\end_inset
-
- as well.
- I need to be able to deal with repetitions of character sets.
+Now suppose I wanted to be able to detect phone numbers, email addresses,
+ etc.
+ I often need to be able to deal with repetitions of character sets.
 \end_layout
 
 \begin_layout Standard
@@ -6344,7 +6557,7 @@ An example is that
 \end_layout
 
 \begin_layout Standard
-So the spam search might become: 
+So a search for US/Canadian/Caribbean phone numbers might become: 
 \end_layout
 
 \begin_layout Chunk
@@ -6352,19 +6565,70 @@ So the spam search might become:
 \end_layout
 
 \begin_layout Chunk
-text <- c("hi John", "V1@gra", "here's the problem set")
+text <- c("Here's my number: 919-543-3300.", "hi John, good to meet you",
+ "They bought 731 bananas", "Please call 919.554.3800")
 \end_layout
 
 \begin_layout Chunk
-grep("[[:alpha:]]+[[:digit:][:punct:]]+[[:alpha:]]*", text) 
+pattern <- "[[:digit:]]{3}[-
+\backslash
+
+\backslash
+.][[:digit:]]{3}[-
+\backslash
+
+\backslash
+.][[:digit:]]{4}"
 \end_layout
 
 \begin_layout Chunk
-# ok, so that doesn't quite work...
+str_extract_all(text, pattern)
+\end_layout
+
+\begin_layout Chunk
+## matches <- gregexpr(pattern, text)
+\end_layout
+
+\begin_layout Chunk
+
+\end_layout
+
+\begin_layout Chunk
+## regmatches(text, matches)
 \end_layout
 
 \begin_layout Chunk
 @
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Challenge
+\series default
+: How would I extract an email address from an arbitrary text string? 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+[[:alphanum:]_]+@[[:alphanum:]_
+\backslash
+
+\backslash
+.]+
+\backslash
+
+\backslash
+.[[:alphanum:]_
+\backslash
+
+\backslash
+.]{2,}; how deal with begin/end?
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Paragraph
@@ -6375,35 +6639,51 @@ Grouping and references
 We often want to be able to look for multi-character patterns and to be
  able to refer back to the patterns that are found.
  Both are accomplished with parentheses.
- We can search for a group of characters as follows by putting the group
- in parentheses, such as 
-\family typewriter
-([[:digit:]]{1,3}
-\backslash
-
-\backslash
-.)
-\family default
- to find a 1 to 3 digit number followed by a period.
- Here's an example of searching for an IP number:
-\end_layout
-
-\begin_layout Standard
-[take this out?]take out the answre to the IP address question and clarify
- fact that IP address question under character class still needs repetition
- operators to work fully 
+ For example, the phone number detection problem could have been done a
+ bit more compactly (and more generally, in case the area code is omitted
+ or a 1 is included) as:
 \end_layout
 
 \begin_layout Chunk
-<<chunk90a, eval=FALSE>>=
+<<chunk90a>>=
 \end_layout
 
 \begin_layout Chunk
-grep("([[:digit:]]{1,3}
+text <- c("Here's my number: 919-543-3300.", "hi John, good to meet you",
+ "They bought 731 bananas", "Please call 1.919.554.3800", "I think he said
+ it was 337.4355")
+\end_layout
+
+\begin_layout Chunk
+str_extract_all(text, "(1[-
 \backslash
 
 \backslash
-.){3}[[:digit:]]{1,3}", text)
+.])?([[:digit:]]{3}[-
+\backslash
+
+\backslash
+.]){1,2}[[:digit:]]{4}")
+\end_layout
+
+\begin_layout Chunk
+## matches <- gregexpr("(1[-
+\backslash
+
+\backslash
+.])?([[:digit:]]{3}[-
+\backslash
+
+\backslash
+.]){1,2}[[:digit:]]{4}", text)
+\end_layout
+
+\begin_layout Chunk
+
+\end_layout
+
+\begin_layout Chunk
+## regmatches(text, matches)
 \end_layout
 
 \begin_layout Chunk
@@ -6424,21 +6704,55 @@ see regExpExample.q from stat243fall11 and ps2prep.q from stat243fall12
 \end_layout
 
 \begin_layout Standard
+Parentheses are also used with a pipe (|) to indicate any one of a set of
+ multi-character sequences, such as 
+\family typewriter
+(http|ftp)
+\family default
+.
+\end_layout
+
+\begin_layout Chunk
+<<chunk92>>=
+\end_layout
+
+\begin_layout Chunk
+text <- c("at the site http://www.ibm.com", "other text", "ftp://ibm.com")
+\end_layout
+
+\begin_layout Chunk
+str_locate(text, "(http|ftp):
+\backslash
+
+\backslash
+/
+\backslash
+
+\backslash
+/")
+\end_layout
+
+\begin_layout Chunk
+## gregexpr("(http|ftp):
+\backslash
+
+\backslash
+/
+\backslash
+
+\backslash
+/", text)
+\end_layout
+
+\begin_layout Chunk
+@
+\end_layout
+
+\begin_layout Standard
 It's often helpful to be able to save a pattern as a variable and refer
  back to it.
  Here's an example that might have been helpful in dealing with the extra
- commas in the comma-delimited FAO file in PS1: 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-We saw an example of this in the sed syntax I gave you in PS1.
- Let's translate that syntax here:
-\end_layout
-
-\end_inset
-
-
+ commas in the comma-delimited FEC elections data file in PS1: 
 \end_layout
 
 \begin_layout Chunk
@@ -6450,7 +6764,17 @@ text <- ('"H4NY07011","ACKERMAN, GARY L.","H","$13,242",,,')
 \end_layout
 
 \begin_layout Chunk
-gsub("([^
+str_replace_all(text, "([^
+\backslash
+",]),", "
+\backslash
+
+\backslash
+1")
+\end_layout
+
+\begin_layout Chunk
+## gsub("([^
 \backslash
 ",]),", "
 \backslash
@@ -6481,82 +6805,6 @@ We can have multiple sets of parentheses, referred to using
 2
 \family default
 , etc.
-\end_layout
-
-\begin_layout Standard
-We can indicate any one of a set of multi-character sequences as: 
-\family typewriter
-(http|ftp)
-\family default
-.
-\end_layout
-
-\begin_layout Chunk
-<<chunk92>>=
-\end_layout
-
-\begin_layout Chunk
-gregexpr("(http|ftp):
-\backslash
-
-\backslash
-/
-\backslash
-
-\backslash
-/", c("at the site http://www.ibm.com", "other text", "ftp://ibm.com"))
-\end_layout
-
-\begin_layout Chunk
-@
-\end_layout
-
-\begin_layout Standard
-
-\series bold
-Challenge
-\series default
-: How would I extract an email address from an arbitrary text string? Comment:
- if you want to just return the address using 
-\family typewriter
-gsub(pattern, 
-\begin_inset Quotes eld
-\end_inset
-
-
-\backslash
-
-\backslash
-1
-\begin_inset Quotes erd
-\end_inset
-
-, text)
-\family default
- will not do the trick.
- Why not? 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-[[:alphanum:]_]+@[[:alphanum:]_
-\backslash
-
-\backslash
-.]+
-\backslash
-
-\backslash
-.[[:alphanum:]_
-\backslash
-
-\backslash
-.]{2,}[[:space:]]+
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
@@ -6603,7 +6851,7 @@ May-9
 status open
 
 \begin_layout Plain Layout
-gsub(
+str_replace_all(text, 
 \begin_inset Quotes eld
 \end_inset
 
@@ -6627,7 +6875,7 @@ gsub(
 \begin_inset Quotes erd
 \end_inset
 
-, text)
+)
 \end_layout
 
 \end_inset
@@ -6653,19 +6901,23 @@ Suppose we want to strip out html tags as follows:
 \end_layout
 
 \begin_layout Chunk
-text <- "Students may participate in an internship <b> in place
+text <- "Do an internship <b> in place </b> of <b> one </b> course."
 \end_layout
 
 \begin_layout Chunk
-   </b> of <b> one </b> of their courses."
+str_replace_all(text, "<.*>", "")
 \end_layout
 
 \begin_layout Chunk
-gsub("<.*>", "", text)
+## gsub("<.*>", "", text)
 \end_layout
 
 \begin_layout Chunk
 @
+\end_layout
+
+\begin_layout Standard
+What went wrong?
 \end_layout
 
 \begin_layout Standard
@@ -6679,7 +6931,11 @@ One solution is to append a ? to the repetition syntax to cause the matching
 \end_layout
 
 \begin_layout Chunk
-gsub("<.*?>", "", text)
+str_replace_all(text, "<.*?>", "")
+\end_layout
+
+\begin_layout Chunk
+## gsub("<.*?>", "", text)
 \end_layout
 
 \begin_layout Chunk
@@ -6687,8 +6943,12 @@ gsub("<.*?>", "", text)
 \end_layout
 
 \begin_layout Standard
-However, one can also avoid greedy matching by being more clever.
+However, one can often avoid greedy matching by being more clever.
  
+\end_layout
+
+\begin_layout Standard
+
 \series bold
 Challenge
 \series default
@@ -6778,7 +7038,7 @@ Summary
 \end_layout
 
 \begin_layout Standard
-Table 1 summarizes the key syntax in regular expressions.
+Table 2 summarizes the key syntax in regular expressions.
 \begin_inset Float table
 wide false
 sideways false
@@ -7182,6 +7442,40 @@ double backslashes are used if we want to search for a meta-character used
 \end_inset
 
 
+\end_layout
+
+\begin_layout Subsection
+Webscraping
+\end_layout
+
+\begin_layout Standard
+A couple useful packages for this are 
+\emph on
+RCurl
+\emph default
+ and 
+\emph on
+XML
+\emph default
+.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+RCurl
+\emph default
+ allows one to interact with webpages, making HTTP requests, downloading
+ information, submitting forms, etc.
+\end_layout
+
+\begin_layout Itemize
+We've already seen the use of the 
+\emph on
+XML
+\emph default
+ package to process HTML in Unit 3.
 \end_layout
 
 \end_body
