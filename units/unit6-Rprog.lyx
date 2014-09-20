@@ -90,7 +90,7 @@ status open
 
 \begin_layout Plain Layout
 
-options(replace.assign=TRUE, width=60)
+options(replace.assign=TRUE, width=56)
 \end_layout
 
 \begin_layout Plain Layout
@@ -1874,23 +1874,36 @@ For our purposes here, hashing can allow one to look up values by their
 \end_layout
 
 \begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
 
 \backslash
 begin{verbatim}
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
+
 hash = hashfunc(key) 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
+
 index = hash %% array_size # %% is modulo operator - it gives the remainder
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
+
 
 \backslash
 end{verbatim}
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -2386,7 +2399,12 @@ for (i in 1:n) {
 
 \begin_layout Chunk
 
-          q[i, j, z] <- theta.old[i, z]*theta.old[j, z]/Theta.old[i, j] 
+          q[i, j, z] <- theta.old[i, z]*theta.old[j, z] /
+\end_layout
+
+\begin_layout Chunk
+
+               Theta.old[i, j] 
 \end_layout
 
 \begin_layout Chunk
@@ -4982,7 +5000,12 @@ b <- a
 
 \begin_layout Chunk
 
-b[1] <- 1      
+b[1] <- 1  
+\end_layout
+
+\begin_layout Chunk
+
+## result when done through knitr is not as in plain R   
 \end_layout
 
 \begin_layout Chunk
@@ -5778,7 +5801,12 @@ summarize.bear <- function(object)
 
 	" whose name is ", firstname, " ", surname, ".
 \backslash
-n",sep = "")))
+n",
+\end_layout
+
+\begin_layout Chunk
+
+    sep = "")))
 \end_layout
 
 \begin_layout Chunk
