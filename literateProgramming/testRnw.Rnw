@@ -161,6 +161,8 @@ Having the chunk get its code from an R file (in Sweave+knitr or Lyx+knitr) work
     
 \item Second item
  
+  <<chunk6>>=
+  @
 
 \end{enumerate}
 
