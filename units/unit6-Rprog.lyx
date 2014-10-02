@@ -375,32 +375,26 @@ system.time()
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk001>>=
 \end_layout
 
 \begin_layout Chunk
-
 n <- 1000
 \end_layout
 
 \begin_layout Chunk
-
 x <- matrix(rnorm(n^2), n)
 \end_layout
 
 \begin_layout Chunk
-
 system.time({mns <- rep(NA, n); for(i in 1:n) mns[i] <- mean(x[i , ])})
 \end_layout
 
 \begin_layout Chunk
-
 system.time(rowMeans(x))
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -418,63 +412,51 @@ benchmark()
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk002>>=
 \end_layout
 
 \begin_layout Chunk
-
 library(rbenchmark)
 \end_layout
 
 \begin_layout Chunk
-
 # speed of one calculation
 \end_layout
 
 \begin_layout Chunk
-
 n <- 1000
 \end_layout
 
 \begin_layout Chunk
-
 x <- matrix(rnorm(n^2), n)
 \end_layout
 
 \begin_layout Chunk
-
 benchmark(crossprod(x), replications = 10, columns=c('test', 'elapsed',
  'replications'))
 \end_layout
 
 \begin_layout Chunk
-
 # comparing different approaches to a task
 \end_layout
 
 \begin_layout Chunk
-
 benchmark(
 \end_layout
 
 \begin_layout Chunk
-
 {mns <- rep(NA, n); for(i in 1:n) mns[i] <- mean(x[i , ])},
 \end_layout
 
 \begin_layout Chunk
-
 rowMeans(x), 
 \end_layout
 
 \begin_layout Chunk
-
 replications = 10, columns=c('test', 'elapsed', 'replications'))
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -511,87 +493,70 @@ Here's a function that works with a correlation matrix such as one might
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk003a, eval=FALSE>>=
 \end_layout
 
 \begin_layout Chunk
-
 makeTS <- function(param, len){
 \end_layout
 
 \begin_layout Chunk
-
 	times <- seq(0, 1, length = len)
 \end_layout
 
 \begin_layout Chunk
-
 	dd <- rdist(times)
 \end_layout
 
 \begin_layout Chunk
-
 	C <- exp(-dd/param)
 \end_layout
 
 \begin_layout Chunk
-
 	U <- chol(C)
 \end_layout
 
 \begin_layout Chunk
-
 	white <- rnorm(len)
 \end_layout
 
 \begin_layout Chunk
-
 	return(crossprod(U, white))
 \end_layout
 
 \begin_layout Chunk
-
 }
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk003, eval=FALSE>>=
 \end_layout
 
 \begin_layout Chunk
-
 library(fields)
 \end_layout
 
 \begin_layout Chunk
-
 Rprof("makeTS.prof")
 \end_layout
 
 \begin_layout Chunk
-
 out <- makeTS(0.1, 1000)
 \end_layout
 
 \begin_layout Chunk
-
 Rprof(NULL)
 \end_layout
 
 \begin_layout Chunk
-
 summaryRprof("makeTS.prof")
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -893,72 +858,58 @@ rbind()
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk1>>=
 \end_layout
 
 \begin_layout Chunk
-
 n <- 1000
 \end_layout
 
 \begin_layout Chunk
-
 fun1 <- function(n) {
 \end_layout
 
 \begin_layout Chunk
-
    x <- 1
 \end_layout
 
 \begin_layout Chunk
-
    for(i in 2:n) x <- c(x, i)
 \end_layout
 
 \begin_layout Chunk
-
    return(x)
 \end_layout
 
 \begin_layout Chunk
-
 }
 \end_layout
 
 \begin_layout Chunk
-
 fun2 <- function(n) {
 \end_layout
 
 \begin_layout Chunk
-
    x <- rep(as.numeric(NA), n)
 \end_layout
 
 \begin_layout Chunk
-
    for(i in 1:n) x[i] <- i
 \end_layout
 
 \begin_layout Chunk
-
 }
 \end_layout
 
 \begin_layout Chunk
-
 benchmark(fun1(n), fun2(n),
 \end_layout
 
 \begin_layout Chunk
-
 replications = 10, columns=c('test', 'elapsed', 'replications'))
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -989,32 +940,26 @@ ces, the second approach here would be overkill):
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk2>>=
 \end_layout
 
 \begin_layout Chunk
-
 n <- 1000000
 \end_layout
 
 \begin_layout Chunk
-
 benchmark(x <- rep(as.numeric(NA), n),
 \end_layout
 
 \begin_layout Chunk
-
 {x <- as.numeric(NA); length(x) <- n},
 \end_layout
 
 \begin_layout Chunk
-
 replications = 10, columns=c('test', 'elapsed', 'replications'))
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -1023,32 +968,26 @@ For matrices, start with the right length vector and then change the dimensions
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk3>>=
 \end_layout
 
 \begin_layout Chunk
-
 nr <- nc <- 2000
 \end_layout
 
 \begin_layout Chunk
-
 benchmark(x <- matrix(as.numeric(NA), nr, nc),
 \end_layout
 
 \begin_layout Chunk
-
 {x <- as.numeric(NA); length(x) <- nr * nc; dim(x) <- c(nr, nc)},
 \end_layout
 
 \begin_layout Chunk
-
 replications = 10, columns=c('test', 'elapsed', 'replications'))
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -1057,17 +996,14 @@ For lists, we can do this
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk3a>>=
 \end_layout
 
 \begin_layout Chunk
-
 myList <- vector("list", length = n)
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -1085,38 +1021,31 @@ One key way to write efficient R code is to take advantage of R's vectorized
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk4>>=
 \end_layout
 
 \begin_layout Chunk
-
 n <- 1e6
 \end_layout
 
 \begin_layout Chunk
-
 x <- rnorm(n)
 \end_layout
 
 \begin_layout Chunk
-
 system.time(x2 <- x^2)
 \end_layout
 
 \begin_layout Chunk
-
 x2 <- as.numeric(NA)
 \end_layout
 
 \begin_layout Chunk
-
 system.time({length(x2) <- n; for(i in 1:n){ x2[i] <- x[i]^2}}) # how many
  orders of magnitude slower?
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -1174,27 +1103,22 @@ Many R functions allow you to pass in vectors, and operate on those vectors
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk5>>=
 \end_layout
 
 \begin_layout Chunk
-
 line <- c("Four score and 7 years ago, this nation")
 \end_layout
 
 \begin_layout Chunk
-
 startIndices = seq(1, by = 3, length = nchar(line)/3)
 \end_layout
 
 \begin_layout Chunk
-
 substring(line, startIndices, startIndices + 1)
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -1237,37 +1161,30 @@ Vectorized operations can also be faster than built-in functions, and clever
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk6, cache=TRUE>>=
 \end_layout
 
 \begin_layout Chunk
-
 x <- rnorm(1000000)
 \end_layout
 
 \begin_layout Chunk
-
 benchmark(truncx <- ifelse(x > 0, x, 0),
 \end_layout
 
 \begin_layout Chunk
-
 {truncx <- x; truncx[x < 0] <- 0},
 \end_layout
 
 \begin_layout Chunk
-
 truncx <- x * (x > 0),
 \end_layout
 
 \begin_layout Chunk
-
 replications = 10, columns=c('test', 'elapsed', 'replications'))
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -1365,27 +1282,22 @@ apply()
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk7>>=
 \end_layout
 
 \begin_layout Chunk
-
 n <- 3000; x <- matrix(rnorm(n * n), nr = n)
 \end_layout
 
 \begin_layout Chunk
-
 system.time(out <- apply(x, 1, mean))
 \end_layout
 
 \begin_layout Chunk
-
 system.time(out <- rowMeans(x))
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -1401,17 +1313,14 @@ sweep()
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk8>>=
 \end_layout
 
 \begin_layout Chunk
-
 system.time(out <- sweep(x, 2, STATS = colMeans(x), FUN = "-"))
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -1422,22 +1331,18 @@ Here's a trick for doing it based on vectorized calculations, remembering
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk9>>=
 \end_layout
 
 \begin_layout Chunk
-
 system.time(out2 <- t(t(x) - colMeans(x)))
 \end_layout
 
 \begin_layout Chunk
-
 identical(out, out2)
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -1474,37 +1379,30 @@ rowSums()
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk10>>=
 \end_layout
 
 \begin_layout Chunk
-
 mat <- matrix(rnorm(500*500), 500)
 \end_layout
 
 \begin_layout Chunk
-
 benchmark(apply(mat, 1, sum),
 \end_layout
 
 \begin_layout Chunk
-
 	mat %*% rep(1, ncol(mat)),
 \end_layout
 
 \begin_layout Chunk
-
 	rowSums(mat),
 \end_layout
 
 \begin_layout Chunk
-
 	replications = 10, columns=c('test', 'elapsed', 'replications'))
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -1532,37 +1430,30 @@ When doing matrix algebra, the order in which you do operations can be critical
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk11, cache=TRUE>>=
 \end_layout
 
 \begin_layout Chunk
-
 n <- 5000
 \end_layout
 
 \begin_layout Chunk
-
 A <- matrix(rnorm(5000 * 5000), 5000)
 \end_layout
 
 \begin_layout Chunk
-
 B <- matrix(rnorm(5000 * 5000), 5000)
 \end_layout
 
 \begin_layout Chunk
-
 x <- rnorm(5000)
 \end_layout
 
 \begin_layout Chunk
-
 res <- A %*% B %*% x
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -1618,57 +1509,46 @@ Challenge
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk12>>=
 \end_layout
 
 \begin_layout Chunk
-
 n <- 1000
 \end_layout
 
 \begin_layout Chunk
-
 X <- matrix(rnorm(n^2), n) 
 \end_layout
 
 \begin_layout Chunk
-
 diagvals <- rnorm(n)
 \end_layout
 
 \begin_layout Chunk
-
 D = diag(diagvals)
 \end_layout
 
 \begin_layout Chunk
-
 # there are much faster ways than this
 \end_layout
 
 \begin_layout Chunk
-
 summedMat <- X + D
 \end_layout
 
 \begin_layout Chunk
-
 prodMat1 <- D %*% X
 \end_layout
 
 \begin_layout Chunk
-
 prodMat2 <- X %*% D
 \end_layout
 
 \begin_layout Chunk
-
 # How can we do each of those operations much more quickly?
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -1739,32 +1619,26 @@ As we've seen R allows you to look up elements of vector by name.
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk13>>=
 \end_layout
 
 \begin_layout Chunk
-
 vals <- rnorm(10)
 \end_layout
 
 \begin_layout Chunk
-
 names(vals) <- letters[1:10]
 \end_layout
 
 \begin_layout Chunk
-
 select <- c("h", "h", "a", "c")
 \end_layout
 
 \begin_layout Chunk
-
 vals[select]
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -1780,48 +1654,39 @@ However, looking things up by name can be slow relative to looking up by
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk13a>>=
 \end_layout
 
 \begin_layout Chunk
-
 n=1000000
 \end_layout
 
 \begin_layout Chunk
-
 x <- 1:n
 \end_layout
 
 \begin_layout Chunk
-
 xL <- as.list(x)
 \end_layout
 
 \begin_layout Chunk
-
 nms <- as.character(x)
 \end_layout
 
 \begin_layout Chunk
-
 names(x) <- nms
 \end_layout
 
 \begin_layout Chunk
-
 names(xL) <- nms
 \end_layout
 
 \begin_layout Chunk
-
 benchmark(x[500000], x["500000"], xL[[500000]], xL[["500000"]], replications
  = 10)
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -1931,38 +1796,31 @@ As can be inferred from
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk13b, cache=TRUE>>=
 \end_layout
 
 \begin_layout Chunk
-
 xEnv <- as.environment(xL)  # convert from a named list
 \end_layout
 
 \begin_layout Chunk
-
 xEnv$"500000"  
 \end_layout
 
 \begin_layout Chunk
-
 # I need quotes above because numeric; otherwise xEnv$nameOfObject is fine
 \end_layout
 
 \begin_layout Chunk
-
 xEnv[["500000"]]
 \end_layout
 
 \begin_layout Chunk
-
 benchmark(x[500000], xL[[500000]], xEnv[["500000"]], xEnv$"500000", replications
  = 10000) 
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -2088,57 +1946,46 @@ cmpfun()
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk14, cache=TRUE>>=
 \end_layout
 
 \begin_layout Chunk
-
 library(compiler); library(rbenchmark)
 \end_layout
 
 \begin_layout Chunk
-
 f <- function(x){
 \end_layout
 
 \begin_layout Chunk
-
 	for(i in 1:length(x)) x[i] <- x[i] + 1
 \end_layout
 
 \begin_layout Chunk
-
 	return(x)
 \end_layout
 
 \begin_layout Chunk
-
 }
 \end_layout
 
 \begin_layout Chunk
-
 fc <- cmpfun(f)
 \end_layout
 
 \begin_layout Chunk
-
 fc # notice the indication that the function is byte compiled.
 \end_layout
 
 \begin_layout Chunk
-
 x <- rnorm(100000)
 \end_layout
 
 \begin_layout Chunk
-
 benchmark(f(x), fc(x), x <- x + 1, replications = 5)
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -2363,92 +2210,74 @@ Challenge 5:
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk14a, eval=FALSE>>=
 \end_layout
 
 \begin_layout Chunk
-
 for (i in 1:n) {        
 \end_layout
 
 \begin_layout Chunk
-
   for (j in 1:n) {
 \end_layout
 
 \begin_layout Chunk
-
     for (z in 1:K) { 
 \end_layout
 
 \begin_layout Chunk
-
        if (theta.old[i, z]*theta.old[j, z] == 0){ 
 \end_layout
 
 \begin_layout Chunk
-
           q[i, j, z] <- 0 
 \end_layout
 
 \begin_layout Chunk
-
        } else { 
 \end_layout
 
 \begin_layout Chunk
-
           q[i, j, z] <- theta.old[i, z]*theta.old[j, z] /
 \end_layout
 
 \begin_layout Chunk
-
                Theta.old[i, j] 
 \end_layout
 
 \begin_layout Chunk
-
        } 
 \end_layout
 
 \begin_layout Chunk
-
     } 
 \end_layout
 
 \begin_layout Chunk
-
   }
 \end_layout
 
 \begin_layout Chunk
-
 }
 \end_layout
 
 \begin_layout Chunk
-
 theta.new <- theta.old 
 \end_layout
 
 \begin_layout Chunk
-
 for (z in 1:K) { 
 \end_layout
 
 \begin_layout Chunk
-
    theta.new[,z] <- rowSums(A*q[,,z])/sqrt(sum(A*q[,,z])) 
 \end_layout
 
 \begin_layout Chunk
-
 } 
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -2832,77 +2661,62 @@ rce=feedburner&utm_medium=email&utm_campaign=Feed%3A+RBloggers+%28R+bloggers%29
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk15>>=
 \end_layout
 
 \begin_layout Chunk
-
 x <- rnorm(10)
 \end_layout
 
 \begin_layout Chunk
-
 f <- function(input){
 \end_layout
 
 \begin_layout Chunk
-
 	data <- input
 \end_layout
 
 \begin_layout Chunk
-
 	g <- function(param) return(param * data) 
 \end_layout
 
 \begin_layout Chunk
-
 	return(g)
 \end_layout
 
 \begin_layout Chunk
-
 }
 \end_layout
 
 \begin_layout Chunk
-
 myFun <- f(x)
 \end_layout
 
 \begin_layout Chunk
-
 rm(x) # to demonstrate we no longer need x
 \end_layout
 
 \begin_layout Chunk
-
 myFun(3)
 \end_layout
 
 \begin_layout Chunk
-
 x <- rnorm(1e7)
 \end_layout
 
 \begin_layout Chunk
-
 myFun <- f(x)
 \end_layout
 
 \begin_layout Chunk
-
 object.size(myFun) # hmmm
 \end_layout
 
 \begin_layout Chunk
-
 object.size(environment(myFun)$data)
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -2920,118 +2734,95 @@ replicate()
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk15a>>=
 \end_layout
 
 \begin_layout Chunk
-
 make_container <- function(n) {
 \end_layout
 
 \begin_layout Chunk
-
 	x <- numeric(n)
 \end_layout
 
 \begin_layout Chunk
-
 	i <- 1
 \end_layout
 
 \begin_layout Chunk
-
 	
 \end_layout
 
 \begin_layout Chunk
-
 	function(value = NULL) {
 \end_layout
 
 \begin_layout Chunk
-
 		if (is.null(value)) {
 \end_layout
 
 \begin_layout Chunk
-
 			return(x)
 \end_layout
 
 \begin_layout Chunk
-
 		} else {
 \end_layout
 
 \begin_layout Chunk
-
 			x[i] <<- value
 \end_layout
 
 \begin_layout Chunk
-
 			i <<- i + 1
 \end_layout
 
 \begin_layout Chunk
-
 		}	 
 \end_layout
 
 \begin_layout Chunk
-
 	}
 \end_layout
 
 \begin_layout Chunk
-
 }
 \end_layout
 
 \begin_layout Chunk
-
 nboot <- 100
 \end_layout
 
 \begin_layout Chunk
-
 bootmeans <- make_container(nboot)
 \end_layout
 
 \begin_layout Chunk
-
 data <- faithful[ , 1] # length of Old Faithful geyser eruption times
 \end_layout
 
 \begin_layout Chunk
-
 for (i in 1:nboot)
 \end_layout
 
 \begin_layout Chunk
-
 	bootmeans(mean(sample(data, length(data),
 \end_layout
 
 \begin_layout Chunk
-
       replace=TRUE)))
 \end_layout
 
 \begin_layout Chunk
-
 # this will place results in x in the function env't and you can grab it
  out as
 \end_layout
 
 \begin_layout Chunk
-
 bootmeans()
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -3056,47 +2847,38 @@ This approach appeared in Problem Set 2.
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk16>>=
 \end_layout
 
 \begin_layout Chunk
-
 x <- rnorm(10)
 \end_layout
 
 \begin_layout Chunk
-
 myFun2 <- with(list(data = x), function(param) return(param * data))
 \end_layout
 
 \begin_layout Chunk
-
 rm(x)
 \end_layout
 
 \begin_layout Chunk
-
 myFun2(3)
 \end_layout
 
 \begin_layout Chunk
-
 x <- rnorm(1e7)
 \end_layout
 
 \begin_layout Chunk
-
 myFun2 <- with(list(data = x), function(param) return(param * data))
 \end_layout
 
 \begin_layout Chunk
-
 object.size(myFun2)
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -3129,37 +2911,30 @@ Operators, such as '
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk17, tidy=FALSE>>=
 \end_layout
 
 \begin_layout Chunk
-
 a <- 7; b <- 3
 \end_layout
 
 \begin_layout Chunk
-
 # let's think about the following as a mathematical function
 \end_layout
 
 \begin_layout Chunk
-
 #  -- what's the function call?
 \end_layout
 
 \begin_layout Chunk
-
 a + b 
 \end_layout
 
 \begin_layout Chunk
-
 `+`(a, b)
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -3179,37 +2954,30 @@ Finally, since an operator is just a function, you can use it as an argument
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk18>>=
 \end_layout
 
 \begin_layout Chunk
-
 myList = list(list(a = 1:5, b = "sdf"), list(a = 6:10, b = "wer"))
 \end_layout
 
 \begin_layout Chunk
-
 myMat = sapply(myList, `[[`, 1) 
 \end_layout
 
 \begin_layout Chunk
-
 # note that the index "1" is the additional argument to the [[ function
 \end_layout
 
 \begin_layout Chunk
-
 x <- 1:3; y <- c(100,200,300)
 \end_layout
 
 \begin_layout Chunk
-
 outer(x, y, `+`)
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -3226,22 +2994,18 @@ binary
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk19>>=
 \end_layout
 
 \begin_layout Chunk
-
 `%2%` <- function(a, b) {2 * (a + b)}
 \end_layout
 
 \begin_layout Chunk
-
 3 %2% 7
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -3256,27 +3020,22 @@ drop
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk20>>=
 \end_layout
 
 \begin_layout Chunk
-
 mat <- matrix(1:4, 2, 2)
 \end_layout
 
 \begin_layout Chunk
-
 mat[ , 1] 
 \end_layout
 
 \begin_layout Chunk
-
 mat[ , 1, drop = FALSE] # what's the difference?
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -3354,37 +3113,30 @@ What do you think is the functional version of the following code? What
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk21, eval = FALSE>>=
 \end_layout
 
 \begin_layout Chunk
-
 if(x > 27){
 \end_layout
 
 \begin_layout Chunk
-
 	print(x)	
 \end_layout
 
 \begin_layout Chunk
-
 } else{
 \end_layout
 
 \begin_layout Chunk
-
 	print("too small") 
 \end_layout
 
 \begin_layout Chunk
-
 }
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -3404,27 +3156,22 @@ These can be quite handy.
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk22, eval = FALSE>>=
 \end_layout
 
 \begin_layout Chunk
-
 diag(mat) <- c(3, 2)
 \end_layout
 
 \begin_layout Chunk
-
 is.na(vec) <- 3
 \end_layout
 
 \begin_layout Chunk
-
 names(df) <- c('var1', 'var2')
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -3436,32 +3183,26 @@ Replacement expressions are actually function calls.
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk23>>=
 \end_layout
 
 \begin_layout Chunk
-
 mat <- matrix(rnorm(4), 2, 2)
 \end_layout
 
 \begin_layout Chunk
-
 diag(mat) <- c(3, 2)
 \end_layout
 
 \begin_layout Chunk
-
 mat <- `diag<-`(mat, c(10, 21))
 \end_layout
 
 \begin_layout Chunk
-
 base::`diag<-`
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -3491,42 +3232,34 @@ value
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk24>>=
 \end_layout
 
 \begin_layout Chunk
-
 ourClass <- list(name = 'stat243', numStudents = 40)
 \end_layout
 
 \begin_layout Chunk
-
 `name<-` <- function(obj, value){
 \end_layout
 
 \begin_layout Chunk
-
 obj$name <- value
 \end_layout
 
 \begin_layout Chunk
-
 return(obj)
 \end_layout
 
 \begin_layout Chunk
-
 }
 \end_layout
 
 \begin_layout Chunk
-
 name(ourClass) <- 'Statistics 243'
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -3539,32 +3272,26 @@ Note that a function is just an object.
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk25>>=
 \end_layout
 
 \begin_layout Chunk
-
 x <- 3
 \end_layout
 
 \begin_layout Chunk
-
 x(2)
 \end_layout
 
 \begin_layout Chunk
-
 x <- function(z) z^2
 \end_layout
 
 \begin_layout Chunk
-
 x(2)
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -3574,22 +3301,18 @@ We can call a function based on the text name of the function.
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk26>>=
 \end_layout
 
 \begin_layout Chunk
-
 myFun = 'mean'; x = rnorm(10)
 \end_layout
 
 \begin_layout Chunk
-
 eval(as.name(myFun))(x)
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -3608,32 +3331,26 @@ match.fun()
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk27>>=
 \end_layout
 
 \begin_layout Chunk
-
 f <- function(fxn, x){
 \end_layout
 
 \begin_layout Chunk
-
 	match.fun(fxn)(x) 
 \end_layout
 
 \begin_layout Chunk
-
 }
 \end_layout
 
 \begin_layout Chunk
-
 f("mean", x)
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -3653,37 +3370,30 @@ Function objects contain three components: an argument list, a body (a parsed
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk28>>=
 \end_layout
 
 \begin_layout Chunk
-
 f1 <- function(x) y <- x^2
 \end_layout
 
 \begin_layout Chunk
-
 f2 <- function(x) {y <- x^2; z <- x^3; return(list(y, z))}
 \end_layout
 
 \begin_layout Chunk
-
 class(f1)
 \end_layout
 
 \begin_layout Chunk
-
 typeof(body(f1)); class(body(f1))
 \end_layout
 
 \begin_layout Chunk
-
 typeof(body(f2)); class(body(f2))
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -3699,32 +3409,26 @@ We can extract the argument object as
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk29>>=
 \end_layout
 
 \begin_layout Chunk
-
 f4 <- function(x, y = 2, z = 1/y) {x + y + z}
 \end_layout
 
 \begin_layout Chunk
-
 args <- formals(f4)
 \end_layout
 
 \begin_layout Chunk
-
 args
 \end_layout
 
 \begin_layout Chunk
-
 class(args)
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -3765,37 +3469,30 @@ promise
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk30, eval=FALSE>>=
 \end_layout
 
 \begin_layout Chunk
-
 f <- function(a, b = d) {
 \end_layout
 
 \begin_layout Chunk
-
 	d <- log(a); 
 \end_layout
 
 \begin_layout Chunk
-
 	return(a*b)
 \end_layout
 
 \begin_layout Chunk
-
 }
 \end_layout
 
 \begin_layout Chunk
-
 f(7)
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -3808,32 +3505,26 @@ Another example:
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk31>>=
 \end_layout
 
 \begin_layout Chunk
-
 f <- function(x) print("hi")
 \end_layout
 
 \begin_layout Chunk
-
 system.time(mean(rnorm(1000000)))
 \end_layout
 
 \begin_layout Chunk
-
 system.time(f(3))
 \end_layout
 
 \begin_layout Chunk
-
 system.time(f(mean(rnorm(1000000)))) 
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -3967,42 +3658,34 @@ max used
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk31a>>=
 \end_layout
 
 \begin_layout Chunk
-
 gc()
 \end_layout
 
 \begin_layout Chunk
-
 x <- rnorm(1e8) # should use about 800 Mb
 \end_layout
 
 \begin_layout Chunk
-
 object.size(x)
 \end_layout
 
 \begin_layout Chunk
-
 gc()
 \end_layout
 
 \begin_layout Chunk
-
 rm(x)
 \end_layout
 
 \begin_layout Chunk
-
 gc() # note the "max used" column
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -4048,97 +3731,78 @@ object.size()
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk, ls.sizes>>=
 \end_layout
 
 \begin_layout Chunk
-
 ls.sizes <- function(howMany = 10, minSize = 1){
 \end_layout
 
 \begin_layout Chunk
-
 	pf <- parent.frame()
 \end_layout
 
 \begin_layout Chunk
-
 	obj <- ls(pf) # or ls(sys.frame(-1)) 
 \end_layout
 
 \begin_layout Chunk
-
 	objSizes <- sapply(obj, function(x) {
 \end_layout
 
 \begin_layout Chunk
-
 	object.size(get(x, pf))})
 \end_layout
 
 \begin_layout Chunk
-
 	# or sys.frame(-4) to get out of FUN, lapply(), sapply() and sizes()
 \end_layout
 
 \begin_layout Chunk
-
 	objNames <- names(objSizes)
 \end_layout
 
 \begin_layout Chunk
-
 	howmany <- min(howMany, length(objSizes))
 \end_layout
 
 \begin_layout Chunk
-
 	ord <- order(objSizes, decreasing = TRUE)
 \end_layout
 
 \begin_layout Chunk
-
 	objSizes <- objSizes[ord][1:howMany]
 \end_layout
 
 \begin_layout Chunk
-
 	objSizes <- objSizes[objSizes > minSize]
 \end_layout
 
 \begin_layout Chunk
-
 	objSizes <- matrix(objSizes, ncol = 1)
 \end_layout
 
 \begin_layout Chunk
-
 	rownames(objSizes) <- objNames[ord][1:length(objSizes)]
 \end_layout
 
 \begin_layout Chunk
-
 	colnames(objSizes) <- "bytes"
 \end_layout
 
 \begin_layout Chunk
-
 	cat('object')
 \end_layout
 
 \begin_layout Chunk
-
 	print(format(objSizes, justify = "right", width = 11), quote = FALSE)
 \end_layout
 
 \begin_layout Chunk
-
 }
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -4205,22 +3869,18 @@ inspect()
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk31aa>>=
 \end_layout
 
 \begin_layout Chunk
-
 a <- rnorm(5)
 \end_layout
 
 \begin_layout Chunk
-
 .Internal(inspect(a))
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -4234,37 +3894,30 @@ Replacement functions can hide the use of additional memory.
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk32, eval=FALSE>>=
 \end_layout
 
 \begin_layout Chunk
-
 x <- rnorm(1e7)
 \end_layout
 
 \begin_layout Chunk
-
 gc()
 \end_layout
 
 \begin_layout Chunk
-
 dim(x) <- c(1e4, 1e3)
 \end_layout
 
 \begin_layout Chunk
-
 diag(x) <- 1
 \end_layout
 
 \begin_layout Chunk
-
 gc()
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -4276,42 +3929,34 @@ Not all replacement functions actually involve creating a new object and
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk33, eval=TRUE>>=
 \end_layout
 
 \begin_layout Chunk
-
 x <- rnorm(1e7)
 \end_layout
 
 \begin_layout Chunk
-
 .Internal(inspect(x))
 \end_layout
 
 \begin_layout Chunk
-
 x[5] <- 7
 \end_layout
 
 \begin_layout Chunk
-
 # when run plainly in R, should be the same address as before
 \end_layout
 
 \begin_layout Chunk
-
 .Internal(inspect(x))
 \end_layout
 
 \begin_layout Chunk
-
 gc()
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -4324,32 +3969,26 @@ Indexing large subsets can involve a lot of memory use.
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk34, eval=FALSE>>=
 \end_layout
 
 \begin_layout Chunk
-
 x <- rnorm(1e7)
 \end_layout
 
 \begin_layout Chunk
-
 gc()
 \end_layout
 
 \begin_layout Chunk
-
 y <- x[1:(length(x) - 1)]
 \end_layout
 
 \begin_layout Chunk
-
 gc()
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -4470,62 +4109,50 @@ Let's consider when copies are made in casts:
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk35, eval=FALSE>>=
 \end_layout
 
 \begin_layout Chunk
-
-f <- function(x){
+f <- function(arg1){
 \end_layout
 
 \begin_layout Chunk
-
-	print(.Internal(inspect(x)))
+	print(.Internal(inspect(arg1)))
 \end_layout
 
 \begin_layout Chunk
-
-	return(mean(x))
+	return(mean(arg1))
 \end_layout
 
 \begin_layout Chunk
-
 }
 \end_layout
 
 \begin_layout Chunk
-
-x <- rnorm(1e7)
+x <- rnorm(10)
 \end_layout
 
 \begin_layout Chunk
-
 class(x)
 \end_layout
 
 \begin_layout Chunk
-
 debug(f)
 \end_layout
 
 \begin_layout Chunk
-
 f(x)
 \end_layout
 
 \begin_layout Chunk
-
 f(as.numeric(x))
 \end_layout
 
 \begin_layout Chunk
-
 f(as.integer(x))
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -4541,92 +4168,74 @@ ng with C.
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk35a>>=
 \end_layout
 
 \begin_layout Chunk
-
 library(inline) 
 \end_layout
 
 \begin_layout Chunk
-
 src <- '
 \end_layout
 
 \begin_layout Chunk
-
 	for (int i = 0; i < *n; i++) {
 \end_layout
 
 \begin_layout Chunk
-
 		x[i] = exp(x[i]);
 \end_layout
 
 \begin_layout Chunk
-
 	}
 \end_layout
 
 \begin_layout Chunk
-
 '
 \end_layout
 
 \begin_layout Chunk
-
 sillyExp <- cfunction(signature(n = "integer", x = "numeric"),
 \end_layout
 
 \begin_layout Chunk
-
 	src, convention = ".C")
 \end_layout
 
 \begin_layout Chunk
-
 # sillyExp <- cfunction(signature(n = "integer", x = "numeric"),
 \end_layout
 
 \begin_layout Chunk
-
 #    src, convention = ".C")
 \end_layout
 
 \begin_layout Chunk
-
 len <- as.integer(100)  # or 100L
 \end_layout
 
 \begin_layout Chunk
-
 vals <- rnorm(len)
 \end_layout
 
 \begin_layout Chunk
-
 vals[1]
 \end_layout
 
 \begin_layout Chunk
-
 out1 <- sillyExp(n = len, x = vals)
 \end_layout
 
 \begin_layout Chunk
-
 .Internal(inspect(vals))
 \end_layout
 
 \begin_layout Chunk
-
 .Internal(inspect(out1$x))
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -4666,67 +4275,54 @@ gc()
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk36, eval=TRUE>>=
 \end_layout
 
 \begin_layout Chunk
-
 f <- function(x){
 \end_layout
 
 \begin_layout Chunk
-
 	print(gc())
 \end_layout
 
 \begin_layout Chunk
-
 	z <- x[1]
 \end_layout
 
 \begin_layout Chunk
-
 	.Internal(inspect(x))
 \end_layout
 
 \begin_layout Chunk
-
 	return(x)
 \end_layout
 
 \begin_layout Chunk
-
 }
 \end_layout
 
 \begin_layout Chunk
-
 y <- rnorm(1e7)
 \end_layout
 
 \begin_layout Chunk
-
 gc()
 \end_layout
 
 \begin_layout Chunk
-
 .Internal(inspect(y))
 \end_layout
 
 \begin_layout Chunk
-
 out <- f(y)
 \end_layout
 
 \begin_layout Chunk
-
 .Internal(inspect(out))
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -4739,92 +4335,74 @@ In fact, this occurs outside function calls as well.
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk37, eval=TRUE>>=
 \end_layout
 
 \begin_layout Chunk
-
 y <- rnorm(1e7)
 \end_layout
 
 \begin_layout Chunk
-
 gc()
 \end_layout
 
 \begin_layout Chunk
-
 .Internal(inspect(y))
 \end_layout
 
 \begin_layout Chunk
-
 x <- y
 \end_layout
 
 \begin_layout Chunk
-
 gc()
 \end_layout
 
 \begin_layout Chunk
-
 .Internal(inspect(x))
 \end_layout
 
 \begin_layout Chunk
-
 x[1] <- 5
 \end_layout
 
 \begin_layout Chunk
-
 gc()
 \end_layout
 
 \begin_layout Chunk
-
 .Internal(inspect(x))
 \end_layout
 
 \begin_layout Chunk
-
 rm(x)
 \end_layout
 
 \begin_layout Chunk
-
 x <- y
 \end_layout
 
 \begin_layout Chunk
-
 .Internal(inspect(x))
 \end_layout
 
 \begin_layout Chunk
-
 .Internal(inspect(y))
 \end_layout
 
 \begin_layout Chunk
-
 y[1] <- 5
 \end_layout
 
 \begin_layout Chunk
-
 .Internal(inspect(x))
 \end_layout
 
 \begin_layout Chunk
-
 .Internal(inspect(y))
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -4868,42 +4446,34 @@ X in frist case points to Y
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk37aaa>>=
 \end_layout
 
 \begin_layout Chunk
-
 rm(x, y)
 \end_layout
 
 \begin_layout Chunk
-
 f <- function(x) sum(x^2)
 \end_layout
 
 \begin_layout Chunk
-
 y <- rnorm(10)
 \end_layout
 
 \begin_layout Chunk
-
 f(y)
 \end_layout
 
 \begin_layout Chunk
-
 .Internal(inspect(y))
 \end_layout
 
 \begin_layout Chunk
-
 y[3] <- 2
 \end_layout
 
 \begin_layout Chunk
-
 .Internal(inspect(y))
 \end_layout
 
@@ -4912,47 +4482,38 @@ y[3] <- 2
 \end_layout
 
 \begin_layout Chunk
-
 a <- 1:5
 \end_layout
 
 \begin_layout Chunk
-
 b <- a
 \end_layout
 
 \begin_layout Chunk
-
 .Internal(inspect(a))
 \end_layout
 
 \begin_layout Chunk
-
 .Internal(inspect(b))
 \end_layout
 
 \begin_layout Chunk
-
 a[2] <- 0
 \end_layout
 
 \begin_layout Chunk
-
 b[2] <- 4
 \end_layout
 
 \begin_layout Chunk
-
 .Internal(inspect(a))
 \end_layout
 
 \begin_layout Chunk
-
 .Internal(inspect(b))
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -4974,57 +4535,46 @@ inspect()
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk37aa>>=
 \end_layout
 
 \begin_layout Chunk
-
 a <- 1:10     
 \end_layout
 
 \begin_layout Chunk
-
 tracemem(a)      
 \end_layout
 
 \begin_layout Chunk
-
 ## b and a share memory      
 \end_layout
 
 \begin_layout Chunk
-
 b <- a      
 \end_layout
 
 \begin_layout Chunk
-
 b[1] <- 1  
 \end_layout
 
 \begin_layout Chunk
-
 ## result when done through knitr is not as in plain R   
 \end_layout
 
 \begin_layout Chunk
-
 untracemem(a)    
 \end_layout
 
 \begin_layout Chunk
-
 .Internal(inspect(a))
 \end_layout
 
 \begin_layout Chunk
-
 .Internal(inspect(b))
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -5033,47 +4583,38 @@ Given our understanding of copy-on-change, explain what happens here:
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk37a, eval=TRUE>>=
 \end_layout
 
 \begin_layout Chunk
-
 y <- 1:5
 \end_layout
 
 \begin_layout Chunk
-
 .Internal(inspect(y))
 \end_layout
 
 \begin_layout Chunk
-
 x <- y
 \end_layout
 
 \begin_layout Chunk
-
 .Internal(inspect(x))
 \end_layout
 
 \begin_layout Chunk
-
 y[2] <- 4
 \end_layout
 
 \begin_layout Chunk
-
 .Internal(inspect(y))
 \end_layout
 
 \begin_layout Chunk
-
 .Internal(inspect(x))
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -5086,42 +4627,34 @@ Challenge
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk38>>=
 \end_layout
 
 \begin_layout Chunk
-
 x <- rnorm(1e7) 
 \end_layout
 
 \begin_layout Chunk
-
 myfun <- function(y){ 
 \end_layout
 
 \begin_layout Chunk
-
 	z <- y 
 \end_layout
 
 \begin_layout Chunk
-
 	return(mean(z)) 
 \end_layout
 
 \begin_layout Chunk
-
 } 
 \end_layout
 
 \begin_layout Chunk
-
 myfun(x)
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -5130,42 +4663,34 @@ How about here? What is going on?
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk39>>=
 \end_layout
 
 \begin_layout Chunk
-
 x <- rnorm(1e7)
 \end_layout
 
 \begin_layout Chunk
-
 x[1] <- NA
 \end_layout
 
 \begin_layout Chunk
-
 myfun <- function(y){ 
 \end_layout
 
 \begin_layout Chunk
-
 	return(mean(y, na.rm = TRUE))
 \end_layout
 
 \begin_layout Chunk
-
 }
 \end_layout
 
 \begin_layout Chunk
-
 myfun(x)
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -5234,112 +4759,90 @@ yvar
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk39a, eval = FALSE>>=
 \end_layout
 
 \begin_layout Chunk
-
 fastcount <- function(xvar,yvar) {
 \end_layout
 
 \begin_layout Chunk
-
 	naline <- is.na(xvar)
 \end_layout
 
 \begin_layout Chunk
-
 	naline[is.na(yvar)] = TRUE
 \end_layout
 
 \begin_layout Chunk
-
 	xvar[naline] <- 0
 \end_layout
 
 \begin_layout Chunk
-
 	yvar[naline] <- 0
 \end_layout
 
 \begin_layout Chunk
-
 	useline <- !naline;
 \end_layout
 
 \begin_layout Chunk
-
 	# Table must be initialized for -1's
 \end_layout
 
 \begin_layout Chunk
-
 	tablex <- numeric(max(xvar)+1)
 \end_layout
 
 \begin_layout Chunk
-
 	tabley <- numeric(max(yvar)+1)
 \end_layout
 
 \begin_layout Chunk
-
 	stopifnot(length(xvar) == length(yvar))
 \end_layout
 
 \begin_layout Chunk
-
 	res <- .C("fastcount",PACKAGE="GCcorrect",
 \end_layout
 
 \begin_layout Chunk
-
 		tablex = as.integer(tablex), tabley = as.integer(tabley),
 \end_layout
 
 \begin_layout Chunk
-
 		as.integer(xvar), as.integer(yvar), as.integer(useline),
 \end_layout
 
 \begin_layout Chunk
-
 		as.integer(length(xvar)))
 \end_layout
 
 \begin_layout Chunk
-
 	xuse <- which(res$tablex>0)
 \end_layout
 
 \begin_layout Chunk
-
 	xnames <- xuse - 1
 \end_layout
 
 \begin_layout Chunk
-
 	resb <- rbind(res$tablex[xuse], res$tabley[xuse]) 
 \end_layout
 
 \begin_layout Chunk
-
 	colnames(resb) <- xnames
 \end_layout
 
 \begin_layout Chunk
-
 	return(resb)
 \end_layout
 
 \begin_layout Chunk
-
 }
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -5433,72 +4936,58 @@ lm
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk39b>>=
 \end_layout
 
 \begin_layout Chunk
-
 library(methods)
 \end_layout
 
 \begin_layout Chunk
-
 yb <- sample(c(0, 1), 10, replace = TRUE)
 \end_layout
 
 \begin_layout Chunk
-
 yc <- rnorm(10)
 \end_layout
 
 \begin_layout Chunk
-
 x <- rnorm(10)
 \end_layout
 
 \begin_layout Chunk
-
 mod1 <- lm(yc ~ x)
 \end_layout
 
 \begin_layout Chunk
-
 mod2 <- glm(yb ~ x, family = binomial)
 \end_layout
 
 \begin_layout Chunk
-
 class(mod1)
 \end_layout
 
 \begin_layout Chunk
-
 class(mod2)
 \end_layout
 
 \begin_layout Chunk
-
 is.list(mod1)
 \end_layout
 
 \begin_layout Chunk
-
 names(mod1)
 \end_layout
 
 \begin_layout Chunk
-
 is(mod2, "lm")
 \end_layout
 
 \begin_layout Chunk
-
 methods(class = "lm")
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -5516,22 +5005,18 @@ We can create an object with a new class as follows:
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk40>>=
 \end_layout
 
 \begin_layout Chunk
-
 yog <- list(firstname = 'Yogi', surname = 'the Bear', age = 20)
 \end_layout
 
 \begin_layout Chunk
-
 class(yog) <- 'bear' 
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -5545,47 +5030,38 @@ constructor
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk41>>=
 \end_layout
 
 \begin_layout Chunk
-
 bear <- function(firstname = NA, surname = NA, age = NA){
 \end_layout
 
 \begin_layout Chunk
-
 	# constructor for 'indiv' class
 \end_layout
 
 \begin_layout Chunk
-
 	obj <- list(firstname = firstname, surname = surname, age = age)
 \end_layout
 
 \begin_layout Chunk
-
 	class(obj) <- 'indiv' 
 \end_layout
 
 \begin_layout Chunk
-
 	return(obj)
 \end_layout
 
 \begin_layout Chunk
-
 }
 \end_layout
 
 \begin_layout Chunk
-
 smoke <- bear('Smokey','Bear')
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -5595,22 +5071,18 @@ g:
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk41a>>=
 \end_layout
 
 \begin_layout Chunk
-
 class(yog) <- "silly"
 \end_layout
 
 \begin_layout Chunk
-
 class(yog) <- "bear"
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -5628,32 +5100,26 @@ methods
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk42, eval=FALSE>>=
 \end_layout
 
 \begin_layout Chunk
-
 mod <- lm(yc ~ x)
 \end_layout
 
 \begin_layout Chunk
-
 summary(mod)
 \end_layout
 
 \begin_layout Chunk
-
 gmod <- glm(yb ~ x, family = 'binomial')
 \end_layout
 
 \begin_layout Chunk
-
 summary(gmod)
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -5688,22 +5154,18 @@ summary()
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk43>>=
 \end_layout
 
 \begin_layout Chunk
-
 mean
 \end_layout
 
 \begin_layout Chunk
-
 methods(mean)
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -5723,22 +5185,18 @@ We can define new generic methods:
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk44>>=
 \end_layout
 
 \begin_layout Chunk
-
 summarize <- function(object, ...) 
 \end_layout
 
 \begin_layout Chunk
-
 	UseMethod("summarize") 
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -5783,39 +5241,32 @@ summarize
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk45>>=
 \end_layout
 
 \begin_layout Chunk
-
 summarize.bear <- function(object) 
 \end_layout
 
 \begin_layout Chunk
-
 	return(with(object, cat("Bear of age ", age, 
 \end_layout
 
 \begin_layout Chunk
-
 	" whose name is ", firstname, " ", surname, ".
 \backslash
 n",
 \end_layout
 
 \begin_layout Chunk
-
     sep = "")))
 \end_layout
 
 \begin_layout Chunk
-
 summarize(yog)
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -5876,32 +5327,26 @@ print.summary.lm()
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk46, eval=FALSE>>=
 \end_layout
 
 \begin_layout Chunk
-
 out <- summary(mod)
 \end_layout
 
 \begin_layout Chunk
-
 out
 \end_layout
 
 \begin_layout Chunk
-
 print(out)
 \end_layout
 
 \begin_layout Chunk
-
 getS3method(f="print",class="summary.lm")
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -5931,22 +5376,18 @@ grizzly_bear
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk47>>=
 \end_layout
 
 \begin_layout Chunk
-
 class(yog) <- c('grizzly_bear', 'bear')
 \end_layout
 
 \begin_layout Chunk
-
 summarize(yog) 
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -6003,42 +5444,34 @@ We can also use operators with our classes.
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk48>>=
 \end_layout
 
 \begin_layout Chunk
-
 methods(`+`)
 \end_layout
 
 \begin_layout Chunk
-
 `+.bear` <- function(object, incr) {
 \end_layout
 
 \begin_layout Chunk
-
 	object$age <- object$age + incr
 \end_layout
 
 \begin_layout Chunk
-
 	return(object)
 \end_layout
 
 \begin_layout Chunk
-
 }
 \end_layout
 
 \begin_layout Chunk
-
 older_yog <- yog + 15
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -6058,42 +5491,34 @@ This is again a bit silly but we could do the following.
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk49>>=
 \end_layout
 
 \begin_layout Chunk
-
 `age<-` <- function(x, ...) UseMethod("age<-")
 \end_layout
 
 \begin_layout Chunk
-
 `age<-.bear` <- function(object, value){ 
 \end_layout
 
 \begin_layout Chunk
-
 	object$age <- value
 \end_layout
 
 \begin_layout Chunk
-
 	return(object)
 \end_layout
 
 \begin_layout Chunk
-
 }
 \end_layout
 
 \begin_layout Chunk
-
 age(older_yog) <- 60
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -6250,27 +5675,22 @@ indiv
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk50>>=
 \end_layout
 
 \begin_layout Chunk
-
 library(methods)
 \end_layout
 
 \begin_layout Chunk
-
 setClass("bear",
 \end_layout
 
 \begin_layout Chunk
-
 	representation(
 \end_layout
 
 \begin_layout Chunk
-
 		name = "character",
 \end_layout
 
@@ -6279,7 +5699,6 @@ setClass("bear",
 \end_layout
 
 \begin_layout Chunk
-
 		age = "numeric",
 \end_layout
 
@@ -6288,52 +5707,42 @@ setClass("bear",
 \end_layout
 
 \begin_layout Chunk
-
 		birthday = "Date" 
 \end_layout
 
 \begin_layout Chunk
-
 	)
 \end_layout
 
 \begin_layout Chunk
-
 )
 \end_layout
 
 \begin_layout Chunk
-
 yog <- new("bear", name = 'Yogi', age = 20, 
 \end_layout
 
 \begin_layout Chunk
-
 			birthday = as.Date('91-08-03'))
 \end_layout
 
 \begin_layout Chunk
-
 # next notice the missing age slot
 \end_layout
 
 \begin_layout Chunk
-
 yog <- new("bear", name = 'Yogi', 
 \end_layout
 
 \begin_layout Chunk
-
 	birthday = as.Date('91-08-03')) 
 \end_layout
 
 \begin_layout Chunk
-
 # finally, apparently there's not a default object of class Date
 \end_layout
 
 \begin_layout Chunk
-
 yog <- new("bear", name = 'Yogi', age = 20)
 \end_layout
 
@@ -6342,12 +5751,10 @@ yog
 \end_layout
 
 \begin_layout Chunk
-
 yog@age <- 60
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -6357,87 +5764,70 @@ S4 methods are designed to be more structured than S3, with careful checking
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk51>>=
 \end_layout
 
 \begin_layout Chunk
-
 setValidity("bear",
 \end_layout
 
 \begin_layout Chunk
-
 	function(object) {
 \end_layout
 
 \begin_layout Chunk
-
 		if(!(object@age > 0 && object@age < 130)) 
 \end_layout
 
 \begin_layout Chunk
-
 			return("error: age must be between 0 and 130")
 \end_layout
 
 \begin_layout Chunk
-
 		if(length(grep("[0-9]", object@name))) 
 \end_layout
 
 \begin_layout Chunk
-
 			return("error: name contains digits")
 \end_layout
 
 \begin_layout Chunk
-
 		return(TRUE)
 \end_layout
 
 \begin_layout Chunk
-
 	# what other validity check would make sense given the slots?
 \end_layout
 
 \begin_layout Chunk
-
 	}
 \end_layout
 
 \begin_layout Chunk
-
 )
 \end_layout
 
 \begin_layout Chunk
-
 sam <- new("bear", name = "5z%a", age = 20, 
 \end_layout
 
 \begin_layout Chunk
-
 	birthday = as.Date('91-08-03'))
 \end_layout
 
 \begin_layout Chunk
-
 sam <- new("bear", name = "Z%a B''*", age = 20, 
 \end_layout
 
 \begin_layout Chunk
-
 	birthday = as.Date('91-08-03'))
 \end_layout
 
 \begin_layout Chunk
-
 sam@age <- 150 # so our validity check is not foolproof
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -6461,66 +5851,54 @@ Here's how we create generic and class-specific methods.
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk52>>=
 \end_layout
 
 \begin_layout Chunk
-
 # generic method
 \end_layout
 
 \begin_layout Chunk
-
 setGeneric("isVoter", function(object, ...) { standardGeneric("isVoter") })
 \end_layout
 
 \begin_layout Chunk
-
 # class-specific method
 \end_layout
 
 \begin_layout Chunk
-
 isVoter.bear <- function(object){
 \end_layout
 
 \begin_layout Chunk
-
 	if(object@age > 17){
 \end_layout
 
 \begin_layout Chunk
-
 		cat(object@name, "is of voting age.
 \backslash
 n")
 \end_layout
 
 \begin_layout Chunk
-
 	} else cat(object@name, "is not of voting age.
 \backslash
 n")
 \end_layout
 
 \begin_layout Chunk
-
 }
 \end_layout
 
 \begin_layout Chunk
-
 setMethod(isVoter, signature = c("bear"), definition = isVoter.bear)
 \end_layout
 
 \begin_layout Chunk
-
 isVoter(yog)
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -6587,27 +5965,22 @@ superclass
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk53>>=
 \end_layout
 
 \begin_layout Chunk
-
 setClass("grizzly_bear",
 \end_layout
 
 \begin_layout Chunk
-
 	representation(
 \end_layout
 
 \begin_layout Chunk
-
 		number_of_people_eaten = "numeric"
 \end_layout
 
 \begin_layout Chunk
-
 	),
 \end_layout
 
@@ -6616,37 +5989,30 @@ setClass("grizzly_bear",
 \end_layout
 
 \begin_layout Chunk
-
 	contains = "bear"
 \end_layout
 
 \begin_layout Chunk
-
 )
 \end_layout
 
 \begin_layout Chunk
-
 sam <- new("grizzly_bear", name = "Sam", age = 20, 
 \end_layout
 
 \begin_layout Chunk
-
    birthday = as.Date('91-08-03'), number_of_people_eaten = 3)
 \end_layout
 
 \begin_layout Chunk
-
 isVoter(sam)
 \end_layout
 
 \begin_layout Chunk
-
 is(sam, "bear")
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -6699,17 +6065,14 @@ data.frame
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk54>>=
 \end_layout
 
 \begin_layout Chunk
-
 showClass("data.frame")
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -6760,52 +6123,42 @@ Here's the initial definition of the class.
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk55>>=
 \end_layout
 
 \begin_layout Chunk
-
 tsSimClass <- setRefClass("tsSimClass", 
 \end_layout
 
 \begin_layout Chunk
-
 	fields = list(
 \end_layout
 
 \begin_layout Chunk
-
 		   n = "numeric", 
 \end_layout
 
 \begin_layout Chunk
-
 		   times = "numeric",
 \end_layout
 
 \begin_layout Chunk
-
 		   corMat = "matrix",
 \end_layout
 
 \begin_layout Chunk
-
 		   lagMat = "matrix",
 \end_layout
 
 \begin_layout Chunk
-
 		   corParam = "numeric",
 \end_layout
 
 \begin_layout Chunk
-
 		   U = "matrix",
 \end_layout
 
 \begin_layout Chunk
-
 		   currentU = "logical"),
 \end_layout
 
@@ -6814,58 +6167,47 @@ tsSimClass <- setRefClass("tsSimClass",
 \end_layout
 
 \begin_layout Chunk
-
 	methods = list(
 \end_layout
 
 \begin_layout Chunk
-
 		initialize = function(times = 1:10, corParam = 1, ...){
 \end_layout
 
 \begin_layout Chunk
-
 			   # we seem to need default values for the copy() method to function
  properly
 \end_layout
 
 \begin_layout Chunk
-
 			   require(fields)
 \end_layout
 
 \begin_layout Chunk
-
 			   times <<- times # field assignment requires using <<-
 \end_layout
 
 \begin_layout Chunk
-
 			   n <<- length(times)
 \end_layout
 
 \begin_layout Chunk
-
 			   corParam <<- corParam
 \end_layout
 
 \begin_layout Chunk
-
 			   currentU <<- FALSE
 \end_layout
 
 \begin_layout Chunk
-
 			   calcMats()
 \end_layout
 
 \begin_layout Chunk
-
 			   callSuper(...) # calls initializer of base class (envRefClass)
 \end_layout
 
 \begin_layout Chunk
-
 		},
 \end_layout
 
@@ -6874,49 +6216,40 @@ tsSimClass <- setRefClass("tsSimClass",
 \end_layout
 
 \begin_layout Chunk
-
 		calcMats = function(){
 \end_layout
 
 \begin_layout Chunk
-
 			   # Python-style doc string
 \end_layout
 
 \begin_layout Chunk
-
 			   ' calculates correlation matrix and Cholesky factor ' 
 \end_layout
 
 \begin_layout Chunk
-
 			   lagMat <- rdist(times) # local variable
 \end_layout
 
 \begin_layout Chunk
-
 			   corMat <<- exp(-lagMat / corParam) # field assignment
 \end_layout
 
 \begin_layout Chunk
-
 			   U <<- chol(corMat) # field assignment
 \end_layout
 
 \begin_layout Chunk
-
 			   cat("Done updating correlation matrix and Cholesky factor
 \backslash
 n")
 \end_layout
 
 \begin_layout Chunk
-
 			   currentU <<- TRUE
 \end_layout
 
 \begin_layout Chunk
-
 		},
 \end_layout
 
@@ -6925,22 +6258,18 @@ n")
 \end_layout
 
 \begin_layout Chunk
-
 		changeTimes = function(newTimes){
 \end_layout
 
 \begin_layout Chunk
-
 		   times <<- newTimes
 \end_layout
 
 \begin_layout Chunk
-
 		   calcMats()
 \end_layout
 
 \begin_layout Chunk
-
 		},
 \end_layout
 
@@ -6949,34 +6278,28 @@ n")
 \end_layout
 
 \begin_layout Chunk
-
 		show = function(){ # 'print' method
 \end_layout
 
 \begin_layout Chunk
-
 		   cat("Object of class 'tsSimClass' with ", n, " time points.
 \backslash
 n", sep = '')
 \end_layout
 
 \begin_layout Chunk
-
 		}
 \end_layout
 
 \begin_layout Chunk
-
 	)
 \end_layout
 
 \begin_layout Chunk
-
 )
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -6985,12 +6308,10 @@ We can add methods after defining the class.
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk56>>=
 \end_layout
 
 \begin_layout Chunk
-
 tsSimClass$methods(list(
 \end_layout
 
@@ -6999,42 +6320,34 @@ tsSimClass$methods(list(
 \end_layout
 
 \begin_layout Chunk
-
 	simulate = function(){
 \end_layout
 
 \begin_layout Chunk
-
 		  ' simulates random processes from the model ' 
 \end_layout
 
 \begin_layout Chunk
-
 		   if(!currentU)
 \end_layout
 
 \begin_layout Chunk
-
 		  	 calcMats()
 \end_layout
 
 \begin_layout Chunk
-
 		   return(crossprod(U, rnorm(n)))
 \end_layout
 
 \begin_layout Chunk
-
 	})
 \end_layout
 
 \begin_layout Chunk
-
 )
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -7043,62 +6356,50 @@ Now let's see how we would use the class.
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk57, fig.width=4, eval=FALSE>>=
 \end_layout
 
 \begin_layout Chunk
-
 master <- tsSimClass$new(1:100, 10)
 \end_layout
 
 \begin_layout Chunk
-
 master
 \end_layout
 
 \begin_layout Chunk
-
 tsSimClass$help('calcMats')
 \end_layout
 
 \begin_layout Chunk
-
 devs <- master$simulate()
 \end_layout
 
 \begin_layout Chunk
-
 plot(master$times, devs, type = 'l')
 \end_layout
 
 \begin_layout Chunk
-
 mycopy <- master
 \end_layout
 
 \begin_layout Chunk
-
 myDeepCopy <- master$copy()
 \end_layout
 
 \begin_layout Chunk
-
 master$changeTimes(seq(0,1, length = 100))
 \end_layout
 
 \begin_layout Chunk
-
 mycopy$times[1:5]
 \end_layout
 
 \begin_layout Chunk
-
 myDeepCopy$times[1:5]
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -7155,32 +6456,26 @@ g the field name as:
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk58, eval=FALSE>>=
 \end_layout
 
 \begin_layout Chunk
-
 master$field('times')[1:5]
 \end_layout
 
 \begin_layout Chunk
-
 # the next line is dangerous in this case, since
 \end_layout
 
 \begin_layout Chunk
-
 # currentU will no longer be accurate
 \end_layout
 
 \begin_layout Chunk
-
 master$field('times', 1:10) 
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -7230,57 +6525,46 @@ We've already talked extensively about the environments that R creates.
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk59>>=
 \end_layout
 
 \begin_layout Chunk
-
 e <- new.env()
 \end_layout
 
 \begin_layout Chunk
-
 assign('x', 3, envir = e) # same as e$x <- 3
 \end_layout
 
 \begin_layout Chunk
-
 e$x
 \end_layout
 
 \begin_layout Chunk
-
 get('x', envir = e, inherits = FALSE) 
 \end_layout
 
 \begin_layout Chunk
-
 # the FALSE avoids looking for x in the enclosing environments
 \end_layout
 
 \begin_layout Chunk
-
 e$y <- 5
 \end_layout
 
 \begin_layout Chunk
-
 ls(e)
 \end_layout
 
 \begin_layout Chunk
-
 rm('x', envir = e)
 \end_layout
 
 \begin_layout Chunk
-
 parent.env(e)
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -7291,28 +6575,23 @@ Before the existence of Reference Classes, using an environment was one
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk60>>=
 \end_layout
 
 \begin_layout Chunk
-
 myWalk <- new.env(); myWalk$pos = 0
 \end_layout
 
 \begin_layout Chunk
-
 nextStep <- function(walk) walk$pos <- walk$pos + sample(c(-1, 1), size
  = 1)
 \end_layout
 
 \begin_layout Chunk
-
 nextStep(myWalk)
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -7343,22 +6622,18 @@ quote()
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk61>>=
 \end_layout
 
 \begin_layout Chunk
-
 eval(quote(pos <- pos + sample(c(-1, 1), 1)), envir = myWalk)
 \end_layout
 
 \begin_layout Chunk
-
 evalq(pos <- pos + sample(c(-1, 1), 1), envir = myWalk) 
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -7434,22 +6709,18 @@ Some functionality is implemented internally within the C implementation
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk62>>=
 \end_layout
 
 \begin_layout Chunk
-
 plot.xy # plot.xy() is called by plot.default()
 \end_layout
 
 \begin_layout Chunk
-
 print(`%*%`)
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -7485,37 +6756,30 @@ print()
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk63, tidy=FALSE>>=
 \end_layout
 
 \begin_layout Chunk
-
 obj <- quote(if (x > 1) "orange" else "apple")
 \end_layout
 
 \begin_layout Chunk
-
 as.list(obj)
 \end_layout
 
 \begin_layout Chunk
-
 class(obj)
 \end_layout
 
 \begin_layout Chunk
-
 weirdObj <- quote(`if`(x > 1, 'orange', 'apple'))
 \end_layout
 
 \begin_layout Chunk
-
 identical(obj, weirdObj)
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -7535,17 +6799,14 @@ symbol
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk64>>=
 \end_layout
 
 \begin_layout Chunk
-
 x <- 3; typeof(quote(x))
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -7558,27 +6819,22 @@ expression
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk65>>=
 \end_layout
 
 \begin_layout Chunk
-
 myExpr <- expression(x <- 3)
 \end_layout
 
 \begin_layout Chunk
-
 eval(myExpr)
 \end_layout
 
 \begin_layout Chunk
-
 typeof(myExpr)
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -7606,57 +6862,46 @@ expression()
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk65a>>=
 \end_layout
 
 \begin_layout Chunk
-
 a <- quote(x <- 5)
 \end_layout
 
 \begin_layout Chunk
-
 b <- expression(x <- 5, y <- 3)
 \end_layout
 
 \begin_layout Chunk
-
 d <- quote({x <- 5; y <- 3})
 \end_layout
 
 \begin_layout Chunk
-
 class(a)
 \end_layout
 
 \begin_layout Chunk
-
 class(b)
 \end_layout
 
 \begin_layout Chunk
-
 b[[1]]
 \end_layout
 
 \begin_layout Chunk
-
 class(b[[1]])
 \end_layout
 
 \begin_layout Chunk
-
 identical(a, b[[1]])
 \end_layout
 
 \begin_layout Chunk
-
 identical(d[[2]], b[[1]])
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -8059,87 +7304,70 @@ Let's take a look at some examples of language objects and parsing.
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk65aa, tidy=FALSE>>=
 \end_layout
 
 \begin_layout Chunk
-
 e0 <- quote(3)
 \end_layout
 
 \begin_layout Chunk
-
 e1 <- expression(x <- 3) 
 \end_layout
 
 \begin_layout Chunk
-
 e1m <- expression({x <- 3; y <- 5}) 
 \end_layout
 
 \begin_layout Chunk
-
 e2 <- quote(x <- 3) 
 \end_layout
 
 \begin_layout Chunk
-
 e3 <- quote(rnorm(3))
 \end_layout
 
 \begin_layout Chunk
-
 print(c(class(e0), typeof(e0)))
 \end_layout
 
 \begin_layout Chunk
-
 print(c(class(e1), typeof(e1)))
 \end_layout
 
 \begin_layout Chunk
-
 print(c(class(e1[[1]]), typeof(e1[[1]])))
 \end_layout
 
 \begin_layout Chunk
-
 print(c(class(e1m), typeof(e1m)))
 \end_layout
 
 \begin_layout Chunk
-
 print(c(class(e2), typeof(e2)))
 \end_layout
 
 \begin_layout Chunk
-
 identical(e1[[1]], e2)
 \end_layout
 
 \begin_layout Chunk
-
 print(c(class(e3), typeof(e3)))
 \end_layout
 
 \begin_layout Chunk
-
 e4 <- quote(-7)
 \end_layout
 
 \begin_layout Chunk
-
 print(c(class(e4), typeof(e4))) # huh? what does this imply?
 \end_layout
 
 \begin_layout Chunk
-
 as.list(e4)
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -8152,58 +7380,47 @@ eval()
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk66>>=
 \end_layout
 
 \begin_layout Chunk
-
 rm(x)
 \end_layout
 
 \begin_layout Chunk
-
 eval(e1)
 \end_layout
 
 \begin_layout Chunk
-
 rm(x)
 \end_layout
 
 \begin_layout Chunk
-
 eval(e2)
 \end_layout
 
 \begin_layout Chunk
-
 e1mlist <- as.list(e1m)
 \end_layout
 
 \begin_layout Chunk
-
 e2list <- as.list(e2)
 \end_layout
 
 \begin_layout Chunk
-
 eval(as.call(e2list)) 
 \end_layout
 
 \begin_layout Chunk
-
 # here's how to do it if the language object is actually an expression (multiple
  statements)
 \end_layout
 
 \begin_layout Chunk
-
 eval(as.expression(e1mlist))
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -8217,102 +7434,82 @@ Now let's look in more detail at the components of R expressions.
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk67>>=
 \end_layout
 
 \begin_layout Chunk
-
 e1 = expression(x <- 3) 
 \end_layout
 
 \begin_layout Chunk
-
 # e1 is one-element list with the element an object of class '<-' 
 \end_layout
 
 \begin_layout Chunk
-
 print(c(class(e1), typeof(e1)))
 \end_layout
 
 \begin_layout Chunk
-
 e1[[1]]
 \end_layout
 
 \begin_layout Chunk
-
 as.list(e1[[1]])
 \end_layout
 
 \begin_layout Chunk
-
 lapply(e1[[1]], class)
 \end_layout
 
 \begin_layout Chunk
-
 y = rnorm(5)
 \end_layout
 
 \begin_layout Chunk
-
 e3 = quote(mean(y))
 \end_layout
 
 \begin_layout Chunk
-
 print(c(class(e3), typeof(e3)))
 \end_layout
 
 \begin_layout Chunk
-
 e3[[1]] 
 \end_layout
 
 \begin_layout Chunk
-
 print(c(class(e3[[1]]), typeof(e3[[1]])))
 \end_layout
 
 \begin_layout Chunk
-
 e3[[2]]
 \end_layout
 
 \begin_layout Chunk
-
 print(c(class(e3[[2]]), typeof(e3[[2]])))
 \end_layout
 
 \begin_layout Chunk
-
 # we have recursion
 \end_layout
 
 \begin_layout Chunk
-
 e3 = quote(mean(c(12,13,15) + rnorm(3)))
 \end_layout
 
 \begin_layout Chunk
-
 as.list(e3)
 \end_layout
 
 \begin_layout Chunk
-
 as.list(e3[[2]])
 \end_layout
 
 \begin_layout Chunk
-
 as.list(e3[[2]][[3]])
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -8330,32 +7527,26 @@ compute on the language
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk68>>=
 \end_layout
 
 \begin_layout Chunk
-
 out <- quote(y <- 3)
 \end_layout
 
 \begin_layout Chunk
-
 out[[3]] <- 4
 \end_layout
 
 \begin_layout Chunk
-
 eval(out)
 \end_layout
 
 \begin_layout Chunk
-
 y
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -8364,52 +7555,42 @@ Here's another example:
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk69>>=
 \end_layout
 
 \begin_layout Chunk
-
 e1 <- quote(4 + 5)
 \end_layout
 
 \begin_layout Chunk
-
 e2 <- quote(plot(x, y))
 \end_layout
 
 \begin_layout Chunk
-
 e2[[1]] <- `+`
 \end_layout
 
 \begin_layout Chunk
-
 eval(e2)
 \end_layout
 
 \begin_layout Chunk
-
 e1[[3]] <- e2
 \end_layout
 
 \begin_layout Chunk
-
 e1
 \end_layout
 
 \begin_layout Chunk
-
 class(e1[[3]]) # note the nesting
 \end_layout
 
 \begin_layout Chunk
-
 eval(e1) # what should I get?
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -8431,37 +7612,30 @@ quote()
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk70>>=
 \end_layout
 
 \begin_layout Chunk
-
 codeText <- deparse(out)
 \end_layout
 
 \begin_layout Chunk
-
 parsedCode <- parse(text = codeText) 
 \end_layout
 
 \begin_layout Chunk
-
 # parse() works like quote() except on the code in the form of a string
 \end_layout
 
 \begin_layout Chunk
-
 eval(parsedCode)
 \end_layout
 
 \begin_layout Chunk
-
 deparse(quote(if (x > 1) "orange" else "apple"))
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -8475,42 +7649,34 @@ It can be very useful to be able to convert names of objects that are in
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk71>>=
 \end_layout
 
 \begin_layout Chunk
-
 x3 <- 7
 \end_layout
 
 \begin_layout Chunk
-
 i <- 3
 \end_layout
 
 \begin_layout Chunk
-
 as.name(paste('x', i, sep=''))
 \end_layout
 
 \begin_layout Chunk
-
 eval(as.name(paste('x', i, sep='')))
 \end_layout
 
 \begin_layout Chunk
-
 assign(paste('x', i, sep = ''), 11)
 \end_layout
 
 \begin_layout Chunk
-
 x3
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -8528,67 +7694,54 @@ Let's consider replacement expressions.
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk73>>=
 \end_layout
 
 \begin_layout Chunk
-
 animals = c('cat', 'dog', 'rat','mouse')
 \end_layout
 
 \begin_layout Chunk
-
 out1 = quote(animals[4] <- 'rat') 
 \end_layout
 
 \begin_layout Chunk
-
 out2 = quote(`<-`(animals[4], 'rat')) 
 \end_layout
 
 \begin_layout Chunk
-
 out3 = quote('[<-'(animals,4,'rat')) 
 \end_layout
 
 \begin_layout Chunk
-
 as.list(out1)
 \end_layout
 
 \begin_layout Chunk
-
 as.list(out2)
 \end_layout
 
 \begin_layout Chunk
-
 identical(out1, out2)
 \end_layout
 
 \begin_layout Chunk
-
 as.list(out3)
 \end_layout
 
 \begin_layout Chunk
-
 identical(out1, out3)
 \end_layout
 
 \begin_layout Chunk
-
 typeof(out1[[2]]) # language
 \end_layout
 
 \begin_layout Chunk
-
 class(out1[[2]]) # call
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -8621,37 +7774,30 @@ out2
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk74>>=
 \end_layout
 
 \begin_layout Chunk
-
 eval(out1)
 \end_layout
 
 \begin_layout Chunk
-
 animals
 \end_layout
 
 \begin_layout Chunk
-
 animals[4] = 'mouse'  # reset things to original state
 \end_layout
 
 \begin_layout Chunk
-
 eval(out3) 
 \end_layout
 
 \begin_layout Chunk
-
 animals # both do the same thing
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -8684,17 +7830,14 @@ quote()
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk75>>=
 \end_layout
 
 \begin_layout Chunk
-
 identical(quote(z <- x^2), substitute(z <- x^2))
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -8708,22 +7851,18 @@ substitute()
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk76>>=
 \end_layout
 
 \begin_layout Chunk
-
 e <- new.env(); e$x <- 3
 \end_layout
 
 \begin_layout Chunk
-
 substitute(z <- x^2, e)
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -8732,22 +7871,18 @@ This can do non-sensical stuff:
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk77>>=
 \end_layout
 
 \begin_layout Chunk
-
 e$z <- 5
 \end_layout
 
 \begin_layout Chunk
-
 substitute(z <- x^2, e)
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -8816,37 +7951,30 @@ rnorm()
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk72>>=
 \end_layout
 
 \begin_layout Chunk
-
 f <- function(obj){
 \end_layout
 
 \begin_layout Chunk
-
 objName <- deparse(substitute(obj))
 \end_layout
 
 \begin_layout Chunk
-
 print(objName)
 \end_layout
 
 \begin_layout Chunk
-
 }
 \end_layout
 
 \begin_layout Chunk
-
 f(y)
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -8864,17 +7992,14 @@ call
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk78>>=
 \end_layout
 
 \begin_layout Chunk
-
 substitute(a + b, list(a = 1, b = quote(x)))
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -8883,22 +8008,18 @@ Things can get intricate quickly:
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk79>>=
 \end_layout
 
 \begin_layout Chunk
-
 e1 <- quote(x + y)
 \end_layout
 
 \begin_layout Chunk
-
 e2 <- substitute(e1, list(x = 3))
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -8933,42 +8054,34 @@ e1
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk80>>=
 \end_layout
 
 \begin_layout Chunk
-
 e2 <- substitute(substitute(e, list(x = 3)), list(e = e1))
 \end_layout
 
 \begin_layout Chunk
-
 substitute(substitute(e, list(x = 3)), list(e = e1)) 
 \end_layout
 
 \begin_layout Chunk
-
 # so e1 is substituted as an evaluated object, 
 \end_layout
 
 \begin_layout Chunk
-
 # which then allows for substitution for 'x' 
 \end_layout
 
 \begin_layout Chunk
-
 e2
 \end_layout
 
 \begin_layout Chunk
-
 eval(e2)
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
