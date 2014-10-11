@@ -1,6 +1,6 @@
 ##################################################
 ### Demo code for Unit 6 of Stat243, "R programming"
-### Chris Paciorek, September 2013
+### Chris Paciorek, September 2014
 ##################################################
 
 #############################

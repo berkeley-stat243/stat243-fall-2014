@@ -1,6 +1,6 @@
 #################################################################
 ### Demo code for Unit 5 of Stat243, "Debugging and Good Practices"
-### Chris Paciorek, September 2013
+### Chris Paciorek, September 2014
 #################################################################
 
 ##################################
