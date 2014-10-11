@@ -534,7 +534,7 @@ system.time({
 
 \begin_layout Chunk
 
-X <- crossprod(X) # Z^t Z produces pos.def.
+X <- crossprod(Z) # Z^t Z produces pos.def.
  matrix
 \end_layout
 
