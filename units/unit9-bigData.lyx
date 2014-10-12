@@ -2748,5 +2748,17 @@ Spark is implemented natively in Java and Scala, so all calculations in
  implementing your work in Scala (or Java) may be much faster.
 \end_layout
 
+\begin_layout Paragraph
+
+sparkR
+\end_layout
+
+\begin_layout Standard
+
+Finally, there is an R interface for Spark, but it's pretty new and not
+ mature, so I didn't think it worth covering.
+ 
+\end_layout
+
 \end_body
 \end_document
