@@ -137,15 +137,16 @@ head -n 10000 AirlineDataAll.csv > test.csv
 require(data.table)
 fileName <- '/tmp/AirlineDataAll.csv'
 
-system.time(dt <- fread(fileName, colClasses=c(rep("numeric", 8), "factor",
+dt <- fread(fileName, colClasses=c(rep("numeric", 8), "factor",
                             "numeric", "factor", rep("numeric", 5),
                             rep("factor", 2), rep("numeric", 4),
-                            "factor", rep("numeric", 6))))
-#Read 123534969 rows and 29 (of 29) columns from 11.203 GB file in 00:05:16
-#   user  system elapsed 
-#309.436   7.451 316.672 
+                            "factor", rep("numeric", 6)))
+#Read 123534969 rows and 29 (of 29) columns from
+#    11.203 GB file in 00:05:16
+
 
 class(dt)
+# [1] "data.table" "data.frame"
 
 ## @knitr data.table-subset
 
@@ -155,7 +156,7 @@ system.time(sfoShort <- subset(dt, Origin == "SFO" & Distance < 1000))
 ## 12.7 seconds
 
 system.time(setkey(dt, Origin, Distance))
-## 33 seconds
+## 33 seconds:
 ## takes some time, but will speed up later operations
 tables()
 ##     NAME            NROW    MB
@@ -177,11 +178,12 @@ system.time(sfo <- subset(dt, Origin == "SFO"))
 ## 8.5 seconds
 system.time(sfoShort <- subset(dt, Origin == "SFO" & Distance < 1000 ))
 ## 12.4 seconds
+
 ## binary search
 system.time(sfo <- dt[.('SFO'), ])
 ## 0.8 seconds
 
-
+## @knitr dummy1
 
 ### 3.2 Working with big datasets on disk: ff
 
@@ -193,6 +195,8 @@ require(ffbase)
 
 # I put the data file on local disk on the machine I am using
 # (/tmp on radagast)
+# it's good to test with a small subset before
+# doing the full operations
 fileName <- '/tmp/test.csv'
 dat <- read.csv.ffdf(file = fileName, header = TRUE,
      colClasses = c('integer', rep('factor', 3),
@@ -210,7 +214,7 @@ system.time(  dat <- read.csv.ffdf(file = fileName, header = TRUE,
 
 system.time(ffsave(dat, file = '/tmp/AirlineDataAll'))
 ## takes 11 minutes
-## file is saved as AirlineDataAll.ffData
+## file is saved (in a binary format) as AirlineDataAll.ffData
 ## with metadata in AirlineDataAll.RData
 
 rm(dat) # pretend we are in a new R session
@@ -238,8 +242,9 @@ dat$Dest
 # MFR MHT MIA MKE MLB MLI MOB MRY MSN MSP MSY OGG OKC OMA ONT ORD ORF PBI PHL PHX PIA PIT PNS PSC
 # ...
 
+# let's do some basic tabulation
 DestTable <- sort(table.ff(dat$Dest), decreasing = TRUE)
-# table is not a generic...
+# why do I need to call table.ff() and not table()?
 
 # takes a while
 
@@ -265,19 +270,20 @@ max.ff(dat$DepDelay, na.rm = TRUE)
 
 # tmp <- clone(dat$DepDelay) # make a deep copy
 
+## @knitr dummy2
+
 ### 3.2.3 sqldf
 
 ## @knitr sqldf
 require(sqldf)
 # read in file, with temporary database in memory
 system.time(sfo <- read.csv.sql(fn,
-                               sql = "select * from file where Origin = 'SFO'",
-                               dbname=NULL, header = TRUE))
+      sql = "select * from file where Origin = 'SFO'",
+      dbname=NULL, header = TRUE))
 # read in file, with temporary database on disk
 system.time(sfo <- read.csv.sql(fn,
-                               sql = "select * from file where Origin = 'SFO'",
-                               dbname=tempfile(),
-                               header = TRUE))
+      sql = "select * from file where Origin = 'SFO'",
+      dbname=tempfile(), header = TRUE))
 
 
 ## @knitr airline-model
@@ -317,17 +323,17 @@ for(p in 1:nChunks) {
 fileName <- '/tmp/signif.csv'
 system.time(  dat <- read.csv.ffdf(file = fileName,
    header = FALSE, colClasses = rep('numeric', 4)))
-# 922.213  18.265 951.204
+# 922.213  18.265 951.204 -- timing is on an older machine than radagast
 
 names(dat) <- c('y', 'x1','x2', 'x3')
 ffsave(dat, file = '/tmp/signif')
 
 ## @knitr significance-model
 system.time(ffload('/tmp/signif'))
-# 52.323   7.856  60.802 
+# 52.323   7.856  60.802  -- timing is on an older machine
 
 system.time(mod <- bigglm(y ~ x1 + x2 + x3, data = dat))
-#  1957.358    8.900 1966.644 
+#  1957.358    8.900 1966.644  -- timing is on an older machine
 
 options(digits = 12)
 summary(mod)
@@ -358,6 +364,8 @@ print(object.size(sMat), units = 'Mb')
 vec <- rnorm(1e4)
 system.time(mat %*% vec)
 system.time(sMat %*% vec)
+
+## @knitr dummy3
 
 #####################################################
 # 6: Hadoop, MapReduce, and Spark
@@ -390,13 +398,15 @@ incomeResults <- mapreduce(
 
 from.dfs(incomeResults, format = 'csv', structured = TRUE)
 
+## @knitr dummy4
+
 ### 6.3 Spark
 
 ### 6.3.1 Getting set up
 
 ## @knitr spark-setup
 
-export SPARK_VERSION=1.1.0 # 0.9.1
+export SPARK_VERSION=1.1.0 
 export CLUSTER_SIZE=12  # number of slave nodes
 
 cd /usr/local/src/pd/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}/ec2
@@ -408,28 +418,33 @@ AWS_ACCESS_KEY_ID=$(grep "^AWS_ACCESS_KEY_ID" ~/.starcluster/config | cut -d' ' 
 AWS_SECRET_ACCESS_KEY=$(grep "^AWS_SECRET_ACCESS_KEY" ~/.starcluster/config | cut -d' ' -f3)
 
 # start cluster
-./spark-ec2 -k ec2star -i ~/.ssh/ec2star.rsa --region=us-west-2 -s ${CLUSTER_SIZE}\
--w 200 -v ${SPARK_VERSION} launch sparkvm
+./spark-ec2 -k ec2star -i ~/.ssh/ec2star.rsa --region=us-west-2 \
+ -s ${CLUSTER_SIZE} -w 200 -v ${SPARK_VERSION} launch sparkvm
 
 # login to cluster
 # as root
-./spark-ec2 -k ec2star -i ~/.ssh/ec2star.rsa --region=us-west-2 login sparkvm
+./spark-ec2 -k ec2star -i ~/.ssh/ec2star.rsa --region=us-west-2 \
+   login sparkvm
 
 # you can check your nodes via the EC2 management console
 
-# to logon to one of the slaves, look at /root/ephemeral-hdfs/conf/slaves and use ssh to that address (need to do as root or via sudo)
-sudo ssh `head -n 1 /root/ephemeral-hdfs/conf/slaves`
+# to logon to one of the slaves, look at /root/ephemeral-hdfs/conf/slaves
+# and ssh to that address
+ssh `head -n 1 /root/ephemeral-hdfs/conf/slaves`
 
 # We can view system status through a web browser interface
 
 # on master node of the EC2 cluster, do:
 MASTER_IP=`cat /root/ephemeral-hdfs/conf/masters`
 echo ${MASTER_IP}
-# Point a browser on your own machine to the result of the next command and you'll see info about the "Spark Master", i.e., the cluster overall
+# Point a browser on your own machine to the result of the next command
+# you'll see info about the "Spark Master", i.e., the cluster overall
 echo "http://${MASTER_IP}:8080/"
-# Point a browser on your own machine to the result of the next command and you'll see info about the "Spark Stages", i.e., the status of Spark tasks
+# Point a browser on your own machine to the result of the next command
+# you'll see info about the "Spark Stages", i.e., the status of Spark tasks
 echo "http://${MASTER_IP}:4040/"
-# Point a browser on your own machine to the result of the next command and you'll see info about the HDFS"
+# Point a browser on your own machine to the result of the next command
+# you'll see info about the HDFS"
 echo "http://${MASTER_IP}:50070/"
 
 
@@ -444,14 +459,12 @@ export PATH=$PATH:/root/ephemeral-hdfs/bin/
 hadoop fs -mkdir /data
 hadoop fs -mkdir /data/airline
 
-# check files on the HDFS, e.g.:
-hadoop fs -ls /data/airline
-
+df -h
 mkdir /mnt/airline
 scp paciorek@saruman.berkeley.edu:/scratch/users/paciorek/243/AirlineData/*bz2 /mnt/airline
-# for now use small piece to speed debugging
 hadoop fs -copyFromLocal /mnt/airline/*bz2 /data/airline
 
+# check files on the HDFS, e.g.:
 hadoop fs -ls /data/airline
 
 # pyspark is in /root/spark/bin
@@ -463,11 +476,11 @@ pyspark
 
 from operator import add
 
-lines = sc.textFile('/data/airline')
+lines = sc.textFile('/data/airline').cache()
 numLines = lines.count()
 
 # count flights by departure airport
-lines = sc.textFile('/data/airline').cache()
+lines = sc.textFile('/data/airline')
 
 # mapper
 def stratify(line):
@@ -476,6 +489,9 @@ def stratify(line):
 
 result = lines.map(stratify).reduceByKey(add).collect()
 # reducer is simply the addition function
+
+# this counting by key could have been done
+# more easily using countByKey()
 
 vals = [x[1] for x in result]
 sum(vals)  # check this matches numLines
@@ -492,7 +508,7 @@ result = mapped.reduceByKey(add).collect()
 
 lines.filter(lambda line: "SFO" in line.split(',')[16]).saveAsTextFile('/data/airline/SFO')
 
-## make sure it's all in one chunk
+## make sure it's all in one chunk for easier manipulation on master
 lines.filter(lambda line: "SFO" in line.split(',')[16]).repartition(1).saveAsTextFile('/data/airline/SFO2')
 
 ## @knitr spark-nonstandard
@@ -541,7 +557,6 @@ def screen(vals):
            and float(vals[14]) < 720 and float(vals[14]) > (-30) )
 
 lines = lines.filter(screen).repartition(96).cache()
-# try 192 for entire airline dataset on 12 slaves
 
 import numpy as np
 from operator import add
@@ -602,7 +617,7 @@ xtxy = lines.mapPartitions(readPointBatch).reduce(myAdd)
 
 ## @knitr spark-fit2
 
-def readPointBatch(iterator):
+def readPointPartition(iterator):
     strs = list(iterator)
     matrix = np.zeros((len(strs), P+1))
     print(len(strs))
@@ -619,31 +634,22 @@ def readPointBatch(iterator):
         matrix[i] = xVec
     return([matrix])
 
-batches = lines.mapPartitions(readPointBatch).cache()
+batches = lines.mapPartitions(readPointPartition).cache()
 
-def denomSumSqBatch(mat):
+def denomSumSqPartition(mat):
     return((mat*mat).sum(axis=0))
 
-def getNumBatch(mat):
+def getNumPartition(mat):
     beta[p] = 0
     sumXb = mat[:, 0:P].dot(beta)
     return(sum((mat[:,P] - sumXb)*mat[:,p]))
 
-def vecAdd(val1, val2):
-    return[val1[i]+val2[i] for i in xrange(P+1)]
-# this is faster than np vec add or looping to add val2[i] to val1[i]
-
-sumx2 = batches.map(denomSumSqBatch).reduce(add)
-
-# compute denominator of update to beta_p
-sumx2 = batches.map(denomSumSqBatch).reduce(vecAdd)
-# 70 sec w/ 48 partitions
-# 3 min w/ 48 partitions
+sumx2 = batches.map(denomSumSqPartition).reduce(add)
 
 beta = np.array([0.0] * P)
 p = 0
 
-oldBeta = beta.copy()
+oldBeta = beta.copy() # otherwise a shallow (i.e., pointer) copy!
 
 it = 0
 
@@ -657,16 +663,16 @@ while crit > tol and its < maxIts:
         bc = sc.broadcast(beta)
         bc = sc.broadcast(p)
         # get numerator as product of residual and X for coordinate
-        sumNum = batches.map(getNumBatch).reduce(add)
+        sumNum = batches.map(getNumPartition).reduce(add)
         beta[p] = sumNum / sumx2[p]   
         print("Updated var " + str(p) + " in iteration ", str(it), ".")
     crit = sum(abs(beta - oldBeta))
-    oldBeta = beta.copy()  # otherwise a shallow (i.e., pointer) copy!
+    oldBeta = beta.copy()  
     print("-"*100)
     print(beta)
     print(crit)
     print("-"*100)
-#    it = it+1
+    it = it+1
 
 ## @knitr pyspark-script
 
@@ -679,5 +685,12 @@ if __name__ == "__main__":
     total_samples = int(sys.argv[1]) if len(sys.argv) > 1 else 1000000
     num_slices = int(sys.argv[2]) if len(sys.argv) > 2 else 2
     samples_per_slice = round(total_samples / num_slices)
+    def sample(p):
+        rand.seed(p)
+        x, y = rand.random(samples_per_slice), rand.random(samples_per_slice)
+        return sum(x*x + y*y < 1)
+
+    count = sc.parallelize(xrange(0, num_slices), num_slices).map(sample).reduce(lambda a, b: a + b)
+    print "Pi is roughly %f" % (4.0 * count / (num_slices*samples_per_slice))
 
 

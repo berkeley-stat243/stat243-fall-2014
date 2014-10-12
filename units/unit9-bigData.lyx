@@ -181,9 +181,29 @@ Murrell: Introduction to Data Technologies
 Adler: R in a Nutshell
 \end_layout
 
+\begin_layout Itemize
+\begin_inset CommandInset href
+LatexCommand href
+name "Spark Programming Guide"
+target "http://spark.apache.org/docs/latest/programming-guide.html"
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Standard
 I've also pulled material from a variety of other sources, some mentioned
  in context below.
+\end_layout
+
+\begin_layout Standard
+Note that for a lot of the demo code I ran the code separately outside of
+ 
+\emph on
+knitr
+\emph default
+ and this document because of the time involved in working with large datasets.
 \end_layout
 
 \begin_layout Section
@@ -317,14 +337,6 @@ awk
 \end_layout
 
 \begin_layout Standard
-Also, the example datasets in Section 3 are not good illustrations of this,
- but as we'll see scattered throughout the Unit and as we saw in Unit 3,
- there are more compact ways of storing data than in flat text (e.g., csv)
- files.
- 
-\end_layout
-
-\begin_layout Standard
 And don't forget simple things.
  If you have a dataset with 30 columns that takes up 10 Gb but you only
  need 5 of the columns, get rid of the rest and work with the smaller dataset.
@@ -332,6 +344,14 @@ And don't forget simple things.
  your large dataset as you would from doing the analysis on the full dataset.
  Strategies like this will often allow you to stick with the tools you already
  know.
+\end_layout
+
+\begin_layout Standard
+Also, the example datasets in Section 3 are not good illustrations of this,
+ but as we'll see scattered throughout the Unit and as we saw in Unit 3,
+ there are more compact ways of storing data than in flat text (e.g., csv)
+ files.
+ 
 \end_layout
 
 \begin_layout Section
@@ -1279,7 +1299,7 @@ fread()
 
 \begin_layout Chunk
 
-<<data.table-read, eval=FALSE>>
+<<data.table-read, eval=FALSE>>=
 \end_layout
 
 \begin_layout Chunk
@@ -1295,7 +1315,7 @@ Now let's do some basic subsetting.
 
 \begin_layout Chunk
 
-<<data.table-subset, eval=FALSE>>
+<<data.table-subset, eval=FALSE, tidy=FALSE>>=
 \end_layout
 
 \begin_layout Chunk
@@ -1318,7 +1338,11 @@ data.table
 data.table
 \emph default
  documentation I don't see a way to do the subsetting with distance less
- than 1000 using data.tables specialized functionality.
+ than 1000 using the specialized functionality of 
+\emph on
+data.table
+\emph default
+.
 \end_layout
 
 \begin_layout Standard
@@ -1332,7 +1356,8 @@ data.table
 \emph on
 data.table
 \emph default
- objects are dataframes so they are compatible with R code that uses dataframes.
+ objects are (i.e., inherit from) dataframes so they are compatible with R
+ code that uses dataframes.
 \end_layout
 
 \begin_layout Subsection
@@ -1341,11 +1366,18 @@ Working with big datasets on disk: ff and bigmemory
 
 \begin_layout Standard
 Note that with our 12 Gb dataset, the data took up 27 Gb of RAM on the SCF
- radagast server.
+ server 
+\emph on
+radagast
+\emph default
+.
  Operations on the dataset would then use up additional RAM.
  So this would not be feasible on ordinary machines.
- And of course other datasets might be so big that even radagast wouldn't
- be able to hold them in memory.
+ And of course other datasets might be so big that even 
+\emph on
+radagast
+\emph default
+ wouldn't be able to hold them in memory.
 \end_layout
 
 \begin_layout Subsubsection
@@ -1385,9 +1417,9 @@ read.table.ffdf()
 \end_layout
 
 \begin_layout Standard
-In the above operations, we can wrote a copy of the file in the ff binary
- format that can be read more quickly back into R than the original reading
- of the CSV using 
+In the above operations, we wrote a copy of the file in the ff binary format
+ that can be read more quickly back into R than the original reading of
+ the CSV using 
 \emph on
 ffsave()
 \emph default
@@ -1398,7 +1430,8 @@ ffload()
 .
  Also note the reduced size of the binary format file compared to the original
  CSV.
- It's good to be aware of where the binary ff file is stored.
+ It's good to be aware of where the binary ff file is stored given that
+ for large datasets, it will be large.
  With 
 \emph on
 ff
@@ -1422,8 +1455,15 @@ m, making sure in this case that
 \end_layout
 
 \begin_layout Standard
-Let's look at the ff and ffbase packages to see what functions are available
- using 
+Let's look at the 
+\emph on
+ff
+\emph default
+ and 
+\emph on
+ffbase
+\emph default
+ packages to see what functions are available using 
 \family typewriter
 library(help=ff)
 \family default
@@ -1451,12 +1491,25 @@ Next let's do a bit of exploration of the dataset.
 
 \begin_layout Chunk
 
-<<tableInfo, cache=TRUE, eval=FALSE, fig.width=4>>=
+<<tableInfo, cache=TRUE, tidy=FALSE, eval=FALSE, fig.width=4>>=
 \end_layout
 
 \begin_layout Chunk
 
 @
+\end_layout
+
+\begin_layout Standard
+Let's review our understanding of OOP.
+ Why did I need to call 
+\emph on
+table.ff()
+\emph default
+ rather than just simply calling 
+\emph on
+table()
+\emph default
+ on the ff object?
 \end_layout
 
 \begin_layout Standard
@@ -1505,11 +1558,30 @@ bigmemory
 \end_layout
 
 \begin_layout Standard
-The bigmemory package is an alternative way to work with datasets in R that
- are kept stored on disk rather than read entirely into memory.
- bigmemory provides a big.matrix class, so it appears to be limited to datasets
- with a single type for all the variables.
- However, one nice feature is that one can use big.matrix objects with foreach
+The 
+\emph on
+bigmemory
+\emph default
+ package is an alternative way to work with datasets in R that are kept
+ stored on disk rather than read entirely into memory.
+ 
+\emph on
+bigmemory
+\emph default
+ provides a 
+\emph on
+big.matrix
+\emph default
+ class, so it appears to be limited to datasets with a single type for all
+ the variables.
+ However, one nice feature is that one can use 
+\emph on
+big.matrix
+\emph default
+ objects with 
+\emph on
+foreach
+\emph default
  without passing a copy of the matrix to each worker.
  Rather the workers can access the matrix stored on disk.
 \end_layout
@@ -1519,8 +1591,11 @@ sqldf
 \end_layout
 
 \begin_layout Standard
-The sqldf packages provides the ability to use SQL queries on data frames
- (via 
+The 
+\emph on
+sqldf
+\emph default
+ package provides the ability to use SQL queries on data frames (via 
 \emph on
 sqldf()
 \emph default
@@ -1535,7 +1610,7 @@ read.csv.sql()
 
 \begin_layout Chunk
 
-<<sqldf, eval=FALSE>>=
+<<sqldf, eval=FALSE, tidy=FALSE>>=
 \end_layout
 
 \begin_layout Chunk
@@ -1570,7 +1645,7 @@ biglm
 ffdf
 \emph default
  objects.
- Let's a basic models on the airline data.
+ Let's fit a basic model on the airline data.
  Note that we'll also fit the same model on the dataset when we use Spark
  at the end of the Unit.
 \end_layout
@@ -1586,8 +1661,9 @@ ffdf
 \end_layout
 
 \begin_layout Standard
-Given the time involved, I ran that code separately from compiling the pdf.
- Here are the results:
+Here are the results.
+ Day 1 is Monday, so that's the baseline category for ANOVA-like part of
+ the model.
 \end_layout
 
 \begin_layout Standard
@@ -1713,8 +1789,7 @@ Now let's consider the fact that very small substantive effects can be highly
 \end_layout
 
 \begin_layout Standard
-Given the time involved, I ran that code separately from compiling the pdf.
- Here are the results:
+Here are the results:
 \end_layout
 
 \begin_layout Standard
@@ -1869,8 +1944,8 @@ Using statistical concepts to deal with computational bottlenecks
 \end_layout
 
 \begin_layout Standard
-As statisticians, we have a variety of tools that can aid in dealing with
- big data.
+As statisticians, we have a variety of statistical/probabilistic tools that
+ can aid in dealing with big data.
 \end_layout
 
 \begin_layout Enumerate
@@ -2105,8 +2180,8 @@ Let's see some examples of the MapReduce approach using R syntax of the
 RHadoop
 \emph default
 .
- While we'll use R syntax in some cases, but the basic idea of what the
- map and reduce functions are is not specific to R.
+ While we'll use R syntax in the second piece of code below, the basic idea
+ of what the map and reduce functions are is not specific to R.
  Note that using Hadoop with R may be rather slower than actually writing
  Java code for Hadoop.
 \end_layout
@@ -2286,8 +2361,23 @@ We'll use Spark on an Amazon EC2 virtual cluster.
 \end_layout
 
 \begin_layout Standard
-We start by downloading the Spark package as a .tgz file and untarring/zipping
- it.
+We start by 
+\begin_inset CommandInset href
+LatexCommand href
+name "downloading the Spark package"
+target "https://spark.apache.org/downloads.html"
+
+\end_inset
+
+ as a .tgz file (choosing the 
+\begin_inset Quotes eld
+\end_inset
+
+source code
+\begin_inset Quotes erd
+\end_inset
+
+ option) and untarring/zipping it.
  On the SCF this is available at 
 \emph on
 /usr/local/src/pd/spark-1.1.0/spark-1.1.0/ec2
@@ -2372,7 +2462,7 @@ collect()
 \begin_layout Standard
 
 In the last step, let's compare how long it took to grab the SFO subset
- and compared to what we got when using R earlier in this Unit.
+ relative to the performance of R earlier in this Unit.
 \end_layout
 
 \begin_layout Chunk
@@ -2404,7 +2494,7 @@ target "http://spark.apache.org/docs/latest/programming-guide.html"
 \emph on
 map()
 \emph default
-: take an RDD and apply a function to each element
+: take an RDD and apply a function to each element, returning an RDD
 \end_layout
 
 \begin_layout Itemize
@@ -2478,7 +2568,7 @@ Here's an example where we don't have a simple commutative/associative reducer
 
 \begin_layout Chunk
 
-<<spark-data, eval=FALSE, engine='bash'>>=
+<<spark-nonstandard, eval=FALSE, engine='bash'>>=
 \end_layout
 
 \begin_layout Chunk
@@ -2493,14 +2583,14 @@ Using Spark for fitting models
 \begin_layout Standard
 Here we'll see the use of Spark to fit basic regression models in two ways.
  Warning: there may well be better algorithms to use and there may be better
- implementations in Spark.
+ ways to implement these algorithms in Spark.
  But these work and give you the idea of how you can implement fitting within
  the constraints of a map-reduce paradigm.
  
 \end_layout
 
 \begin_layout Standard
-In the first approach we actually compute the sufficient statistics, which
+In the first algorithm we actually compute the sufficient statistics, which
  are simply 
 \begin_inset Formula $X^{\top}X$
 \end_inset
@@ -2512,6 +2602,31 @@ In the first approach we actually compute the sufficient statistics, which
 .
  Because the number of predictors is small, these are miniscule compared
  to the size of the dataset.
+ This code has two ways of computing the matrices.
+ The first treats each line as an observation and sums the 
+\begin_inset Formula $X_{i}^{\top}X_{i}$
+\end_inset
+
+ and 
+\begin_inset Formula $X_{i}Y_{i}$
+\end_inset
+
+ values across all observations.
+ The second uses a map function that can operate on an entire partition,
+ iterating through the elements of the partition, and computing 
+\begin_inset Formula $X_{k}^{\top}X_{k}$
+\end_inset
+
+ and 
+\begin_inset Formula $X_{k}^{\top}Y_{k}$
+\end_inset
+
+ for each partition, 
+\begin_inset Formula $k$
+\end_inset
+
+.
+ The second way is rather faster.
 \end_layout
 
 \begin_layout Chunk
@@ -2525,12 +2640,12 @@ In the first approach we actually compute the sufficient statistics, which
 \end_layout
 
 \begin_layout Standard
-In the second approach we pretend that we don't want to compute 
+In the second algorithm we pretend that we don't want to compute 
 \begin_inset Formula $X^{\top}X$
 \end_inset
 
-, mimicing the situation in which we have too many predictors, say to store
- 
+, mimicing the situation in which we have too many predictors to either
+ store 
 \begin_inset Formula $X^{\top}X$
 \end_inset
 
@@ -2549,21 +2664,17 @@ In the second approach we pretend that we don't want to compute
 \end_inset
 
  and optimize that element, holding the others constant.
+ Once again, we'll use 
+\emph on
+mapPartitions()
+\emph default
+ to do the calculations we need for each step of the optimization piecewise
+ on each partition (I use 
+\emph on
+batch
+\emph default
+ to describe this in the code).
  
-\end_layout
-
-\begin_layout Standard
-ctually compute the sufficient statistics, which are simply 
-\begin_inset Formula $X^{\top}X$
-\end_inset
-
- and 
-\begin_inset Formula $X^{\top}Y$
-\end_inset
-
-.
- Because the number of predictors is small, these are miniscule compared
- to the size of the dataset.
 \end_layout
 
 \begin_layout Chunk
@@ -2587,6 +2698,11 @@ ons can be done for GLMs and for Lasso type problems, and probably for other
 Final comments
 \end_layout
 
+\begin_layout Paragraph
+
+Running a batch Spark job
+\end_layout
+
 \begin_layout Standard
 
 We can run a Spark job using Python code as a batch script rather than interacti
@@ -2597,8 +2713,11 @@ vely.
 
  by Monte Carlo simulation (more on the general technique in the Unit on
  simulation).
- Assuming the script is named piCalc.py, we would call the script like this:
- 
+ Assuming the script is named 
+\emph on
+piCalc.py
+\emph default
+, we would call the script like this: 
 \family typewriter
 spark-submit piCalc.py 100000000 1000
 \family default
@@ -2613,6 +2732,11 @@ spark-submit piCalc.py 100000000 1000
 \begin_layout Chunk
 
 @
+\end_layout
+
+\begin_layout Paragraph
+Python vs.
+ Scala/Java
 \end_layout
 
 \begin_layout Standard
