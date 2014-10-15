@@ -52,7 +52,9 @@ head(titles)
 ## @knitr chunk3
 
 # alternatively, we can do a query that involves multiple tables
-info <- dbGetQuery(db, "select * from articles, authors, authorships where authors.name like 'Breiman%' and authors.id = authorships.author_id and authorships.id_title = articles.id_title")
+info <- dbGetQuery(db, "select * from articles, authors, authorships where
+   authors.name like 'Breiman%' and authors.id = authorships.author_id and
+   authorships.id_title = articles.id_title")
 # "select * from articles, authors, authorships where authors.name
 #  like 'Breiman%' and authors.id = authorships.author_id and
 #  authorships.id_title = articles.id_title"
@@ -65,11 +67,14 @@ dbDisconnect(db)
 db <- dbConnect(drv, dbname = '/tmp/cis.db') 
 
 # finally, we can create a view that amounts to joining the tables
-fullAuthorInfo <- dbSendQuery(db, 'create view fullAuthorInfo as select * from authors join authorships on authorships.author_id = authors.id')
+fullAuthorInfo <- dbSendQuery(db, 'create view fullAuthorInfo as select *
+     from authors join authorships on authorships.author_id = authors.id')
 # 'create view fullAuthorInfo as select * from authors join
 #  authorships on authorships.author_id = authors.id'
 
-partialArticleInfo <- dbSendQuery(db, 'create view partialArticleInfo as select * from articles join fullAuthorInfo on articles.id_title=fullAuthorInfo.id_title')
+partialArticleInfo <- dbSendQuery(db, 'create view partialArticleInfo as
+     select * from articles join fullAuthorInfo on
+     articles.id_title=fullAuthorInfo.id_title')
 # 'create view partialArticleInfo as select * from articles join
 #  fullAuthorInfo on articles.id_title=fullAuthorInfo.id_title'
 
@@ -692,5 +697,4 @@ if __name__ == "__main__":
 
     count = sc.parallelize(xrange(0, num_slices), num_slices).map(sample).reduce(lambda a, b: a + b)
     print "Pi is roughly %f" % (4.0 * count / (num_slices*samples_per_slice))
-
 
