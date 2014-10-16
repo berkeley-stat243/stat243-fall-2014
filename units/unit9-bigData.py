@@ -28,6 +28,9 @@ AWS_SECRET_ACCESS_KEY=$(grep "^AWS_SECRET_ACCESS_KEY" ~/.starcluster/config | cu
 # as root
 ./spark-ec2 -k ec2star -i ~/.ssh/ec2star.rsa --region=us-west-2 \
    login sparkvm
+# or you can ssh in directly if you know the URL
+# ssh -i ~/.ssh/ec2star.rsa root@ec2-54-71-204-234.us-west-2.compute.amazonaws.com
+
 
 # you can check your nodes via the EC2 management console
 
@@ -87,6 +90,8 @@ import numpy as np
 lines = sc.textFile('/data/airline').cache()
 numLines = lines.count()
 
+# particularly for in-class demo - good to repartition the 3 files to more partitions
+# lines = lines.repartition(96).cache()
 
 # mapper
 def stratify(line):
@@ -236,6 +241,9 @@ def readPointBatch(iterator):
 
 xtxyBatched = lines.mapPartitions(readPointBatch).reduce(add)
 # 160 seconds
+
+mle = np.linalg.solve(xtxy[0:P,0:P], xtxy[0:P,P])
+
 
 ## @knitr spark-fit2
 
