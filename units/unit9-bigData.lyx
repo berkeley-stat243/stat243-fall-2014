@@ -140,32 +140,30 @@ explore spark and in-memory looped processing of huge logistic regression
 \end_layout
 
 \begin_layout Chunk
-
 <<read-chunk, echo=FALSE, include=FALSE>>= 
 \end_layout
 
 \begin_layout Chunk
-
 read_chunk('unit9-bigData.R') 
 \end_layout
 
 \begin_layout Chunk
+read_chunk('unit9-bigData.py') 
+\end_layout
 
+\begin_layout Chunk
 library(ff)
 \end_layout
 
 \begin_layout Chunk
-
 library(ffbase)
 \end_layout
 
 \begin_layout Chunk
-
 library(spam)
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -497,12 +495,10 @@ schema
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk1>>=
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -544,12 +540,10 @@ company in ('IBM', 'Apple', 'Dell')
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk2, tidy=FALSE>>=
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -580,12 +574,10 @@ inner join
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk3>>=
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -599,12 +591,10 @@ view
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk4>>=
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -1298,12 +1288,10 @@ fread()
 \end_layout
 
 \begin_layout Chunk
-
 <<data.table-read, eval=FALSE>>=
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -1314,12 +1302,10 @@ Now let's do some basic subsetting.
 \end_layout
 
 \begin_layout Chunk
-
 <<data.table-subset, eval=FALSE, tidy=FALSE>>=
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -1407,12 +1393,10 @@ read.table.ffdf()
 \end_layout
 
 \begin_layout Chunk
-
 <<ff, eval=FALSE, tidy=FALSE>>=
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -1490,12 +1474,10 @@ Next let's do a bit of exploration of the dataset.
 \end_layout
 
 \begin_layout Chunk
-
 <<tableInfo, cache=TRUE, tidy=FALSE, eval=FALSE, fig.width=4>>=
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -1609,12 +1591,10 @@ read.csv.sql()
 \end_layout
 
 \begin_layout Chunk
-
 <<sqldf, eval=FALSE, tidy=FALSE>>=
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -1651,12 +1631,10 @@ ffdf
 \end_layout
 
 \begin_layout Chunk
-
 <<airline-model, eval=FALSE, tidy=FALSE>>=
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -1685,7 +1663,7 @@ Large data regression model: bigglm(DepDelay ~ Distance + DayOfWeek, data
 
 \begin_layout Plain Layout
 
-Sample size =  121216293 
+Sample size =  119971791 
 \end_layout
 
 \begin_layout Plain Layout
@@ -1695,42 +1673,42 @@ Sample size =  121216293
 
 \begin_layout Plain Layout
 
-(Intercept)  6.9358  6.9218  6.9499 0.0070 0
+(Intercept)  6.3662  6.3504  6.3820 0.0079 0
 \end_layout
 
 \begin_layout Plain Layout
 
-Distance     0.0012  0.0012  0.0012 0.0000 0
+Distance     0.7638  0.7538  0.7737 0.0050 0
 \end_layout
 
 \begin_layout Plain Layout
 
-DayOfWeek2  -0.9982 -1.0161 -0.9803 0.0090 0
+DayOfWeek2  -0.6996 -0.7197 -0.6794 0.0101 0
 \end_layout
 
 \begin_layout Plain Layout
 
-DayOfWeek3  -0.2019 -0.2198 -0.1840 0.0089 0
+DayOfWeek3   0.3928  0.3727  0.4129 0.0101 0
 \end_layout
 
 \begin_layout Plain Layout
 
-DayOfWeek4   1.3922  1.3743  1.4101 0.0089 0
+DayOfWeek4   2.2247  2.2046  2.2449 0.0101 0
 \end_layout
 
 \begin_layout Plain Layout
 
-DayOfWeek5   2.2890  2.2711  2.3069 0.0089 0
+DayOfWeek5   2.8867  2.8666  2.9068 0.0101 0
 \end_layout
 
 \begin_layout Plain Layout
 
-DayOfWeek6  -1.0456 -1.0641 -1.0272 0.0092 0
+DayOfWeek6  -2.4273 -2.4481 -2.4064 0.0104 0
 \end_layout
 
 \begin_layout Plain Layout
 
-DayOfWeek7   0.5219  0.5038  0.5400 0.0091 0
+DayOfWeek7  -0.1362 -0.1566 -0.1158 0.0102 0
 \end_layout
 
 \begin_layout Plain Layout
@@ -1769,22 +1747,18 @@ Now let's consider the fact that very small substantive effects can be highly
 \end_layout
 
 \begin_layout Chunk
-
 <<significance-prep, eval=FALSE, tidy=FALSE>>=
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
 \begin_layout Chunk
-
 <<significance-model, eval=FALSE, tidy=FALSE>>=
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -1916,17 +1890,14 @@ R, Matlab and Python all have functionality for storing and computing with
 \end_layout
 
 \begin_layout Chunk
-
 <<spam, cache=TRUE>>=
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
 \begin_layout Standard
-
 Here's a 
 \begin_inset CommandInset href
 LatexCommand href
@@ -2313,12 +2284,10 @@ my_readline()
 \end_layout
 
 \begin_layout Chunk
-
 <<mr-example, eval=FALSE, tidy=FALSE>>=
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -2356,8 +2325,8 @@ We'll use Spark on an Amazon EC2 virtual cluster.
  Thankfully, Spark provides a Python-based script for setting up such a
  cluster.
  Occasionally the setup process goes awry but usually it's pretty easy.
- We need our Amazon authentication keys.
- 
+ We need our Amazon authentication keys as well as public-private keypair
+ for SSH.
 \end_layout
 
 \begin_layout Standard
@@ -2388,17 +2357,14 @@ source code
 \end_layout
 
 \begin_layout Chunk
-
 <<spark-setup, eval=FALSE, engine='bash'>>=
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
 \begin_layout Standard
-
 Next let's get the airline dataset onto the master node and then into the
  HDFS.
  Note that the file system commands are like standard UNIX commands, but
@@ -2412,12 +2378,10 @@ hadoop fs -
 \end_layout
 
 \begin_layout Chunk
-
 <<spark-hdfs, eval=FALSE, engine='bash'>>=
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -2430,7 +2394,6 @@ Using Spark for pre-processing
 \end_layout
 
 \begin_layout Standard
-
 Now we'll do some basic manipulations with the airline dataset.
  We'll count the number of lines/observations in our dataset.
  Then we'll do a map-reduce calculation that involves counting the number
@@ -2439,7 +2402,6 @@ Now we'll do some basic manipulations with the airline dataset.
 \end_layout
 
 \begin_layout Standard
-
 Note that all of the various operations are OOP methods applied to either
  the SparkContext management object or to a Spark dataset, called a Resilient
  Distributed Dataset (RDD).
@@ -2460,23 +2422,19 @@ collect()
 \end_layout
 
 \begin_layout Standard
-
 In the last step, let's compare how long it took to grab the SFO subset
  relative to the performance of R earlier in this Unit.
 \end_layout
 
 \begin_layout Chunk
-
 <<spark-data, eval=FALSE, engine='bash'>>=
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
 \begin_layout Standard
-
 Let's consider some of the core methods we used.
  The 
 \begin_inset CommandInset href
@@ -2550,13 +2508,11 @@ repartition()
 \end_layout
 
 \begin_layout Standard
-
 Question: how many chunks do you think we want the RDD split into? What
  might the tradeoffs be?
 \end_layout
 
 \begin_layout Standard
-
 Here's an example where we don't have a simple commutative/associative reducer
  function.
  Instead we group all the observations for each key into a so-called iterable
@@ -2567,12 +2523,10 @@ Here's an example where we don't have a simple commutative/associative reducer
 \end_layout
 
 \begin_layout Chunk
-
 <<spark-nonstandard, eval=FALSE, engine='bash'>>=
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -2587,6 +2541,19 @@ Here we'll see the use of Spark to fit basic regression models in two ways.
  But these work and give you the idea of how you can implement fitting within
  the constraints of a map-reduce paradigm.
  
+\end_layout
+
+\begin_layout Standard
+Note that my first step is to repartition the data for better computational
+ efficiency.
+ Instead of having the data split into 22 year-specific chunks that vary
+ in size (which is how things are initially because of the initial file
+ structure), I'm going to split into a larger number of equal-size chunks
+ to get better load-balancing.
+\end_layout
+
+\begin_layout Paragraph
+Linear regression via sufficient statistics
 \end_layout
 
 \begin_layout Standard
@@ -2630,13 +2597,15 @@ In the first algorithm we actually compute the sufficient statistics, which
 \end_layout
 
 \begin_layout Chunk
-
 <<spark-fit1, eval=FALSE, engine='python'>>=
 \end_layout
 
 \begin_layout Chunk
-
 @
+\end_layout
+
+\begin_layout Paragraph
+Linear regression via cyclic coordinate descent
 \end_layout
 
 \begin_layout Standard
@@ -2664,7 +2633,31 @@ In the second algorithm we pretend that we don't want to compute
 \end_inset
 
  and optimize that element, holding the others constant.
- Once again, we'll use 
+ The individual update steps look like this:
+\begin_inset Formula 
+\[
+\beta_{p}^{t+1}=\frac{\sum_{i}r_{i}x_{i}}{\sum_{i}x_{ip}^{2}}
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $r_{i}$
+\end_inset
+
+ the residual not including the 
+\begin_inset Formula $p$
+\end_inset
+
+th predictor: 
+\begin_inset Formula $\sum_{i}\left(y_{i}-\sum_{j\ne p}x_{ij}\beta_{j}^{t}\right)$
+\end_inset
+
+ and based on the current parameter values.
+\end_layout
+
+\begin_layout Standard
+Once again, we'll use 
 \emph on
 mapPartitions()
 \emph default
@@ -2674,16 +2667,16 @@ mapPartitions()
 batch
 \emph default
  to describe this in the code).
- 
+ Note that the result after 10 iterations here is not the MLE, though most
+ of the day of week effects are all shifted by a common amount relative
+ to the mean when compared to the MLE.
 \end_layout
 
 \begin_layout Chunk
-
 <<spark-fit2, eval=FALSE, engine='python'>>=
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -2691,20 +2684,81 @@ batch
 We've only done linear regression here, but similar coordinate descent computati
 ons can be done for GLMs and for Lasso type problems, and probably for other
  types of models.
+ In fact coordinate descent is a (the?) standard algorithm for Lasso as
+ discussed in 
+\begin_inset CommandInset href
+LatexCommand href
+target "this paper"
+
+\end_inset
+
+, which describes the methods in the 
+\emph on
+glmnet
+\emph default
+ package.
+\end_layout
+
+\begin_layout Paragraph
+Linear regression via gradient descent
+\end_layout
+
+\begin_layout Standard
+Cycling through each coefficient has the obvious disadvantage of having
+ to cycle through each coefficient, which would become particularly problematic
+ in a model with more predictors.
+ An alternative is to do gradient descent on the entire vector of coefficients
+ at once.
+ For this problem the update at each step looks like this
+\begin_inset Formula 
+\[
+\beta^{t+1}=\beta^{t}-\alpha\nabla L(\beta^{t})
+\]
+
+\end_inset
+
+ where 
+\begin_inset Formula $\nabla L(\beta^{t})$
+\end_inset
+
+ is the gradient vector of the log-likelihood evaluated at the current value,
+ 
+\begin_inset Formula $\beta^{t}$
+\end_inset
+
+.
+ A key issue here, which we'll discuss in detail in the Unit on optimization
+ is the step size, 
+\begin_inset Formula $\alpha$
+\end_inset
+
+, also known as the learning rate.
+ Here's the code for doing gradient descent on the entire set of coefficients.
+\end_layout
+
+\begin_layout Chunk
+<<spark-fit3, eval=FALSE, engine='python'>>=
+\end_layout
+
+\begin_layout Chunk
+@
+\end_layout
+
+\begin_layout Standard
+Note that I'm recording the value of the objective function to make sure
+ that it is decreasing in every iteration, as one could set the learning
+ rate such that that does not happen.
 \end_layout
 
 \begin_layout Subsubsection
-
 Final comments
 \end_layout
 
 \begin_layout Paragraph
-
 Running a batch Spark job
 \end_layout
 
 \begin_layout Standard
-
 We can run a Spark job using Python code as a batch script rather than interacti
 vely.
  Here's an example, which computes the value of 
@@ -2725,13 +2779,28 @@ spark-submit piCalc.py 100000000 1000
 \end_layout
 
 \begin_layout Chunk
-
 <<pyspark-script, eval=FALSE, engine='python'>>=
+\begin_inset CommandInset href
+LatexCommand href
+name "this paper"
+target "http://www.jstatsoft.org/v33/i01/"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Chunk
-
 @
+\end_layout
+
+\begin_layout Standard
+This code again uses the idea that it's computationally more efficient to
+ have each operation occur on a batch of data rather than an individual
+ data point.
+ So there are 1000 tasks and the total number of samples is broken up amongst
+ those tasks.
+ In fact, Spark has problems if the number of tasks gets too large.
 \end_layout
 
 \begin_layout Paragraph
@@ -2740,7 +2809,6 @@ Python vs.
 \end_layout
 
 \begin_layout Standard
-
 Spark is implemented natively in Java and Scala, so all calculations in
  Python involve taking Java data objects converting them to Python objects,
  doing the calculation, and then converting back to Java.
@@ -2749,12 +2817,10 @@ Spark is implemented natively in Java and Scala, so all calculations in
 \end_layout
 
 \begin_layout Paragraph
-
 sparkR
 \end_layout
 
 \begin_layout Standard
-
 Finally, there is an R interface for Spark, but it's pretty new and not
  mature, so I didn't think it worth covering.
  
