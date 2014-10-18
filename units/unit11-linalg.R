@@ -16,6 +16,9 @@ A * B # Hadamard (direct) product
 
 ### 1.9 rank, LIN, basis vectors
 
+norm2 <- function(x)
+  sqrt(sum(x^2))
+
 # suppose I want to use (1, 1) and (1, -1) as basis vectors in R^2 rather than (1, 0), and (0, 1)
 
 # express (1, 0) in terms of the basis vectors:
