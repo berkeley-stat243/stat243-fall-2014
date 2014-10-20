@@ -24,6 +24,6 @@ microbenchmark(x[x>n],
 # which is easier to read and reason about??
 
 # are they the same?
-x <- c(1:10,NA,NaN,Inf)
+x <- c(1:10, NA, NaN, Inf)
 x[which(x > 5)]
 x[x > 5]
