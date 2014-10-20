@@ -22,7 +22,7 @@ AWS_SECRET_ACCESS_KEY=$(grep "^AWS_SECRET_ACCESS_KEY" ~/.starcluster/config | cu
 
 # start cluster
 ./spark-ec2 -k ec2star -i ~/.ssh/ec2star.rsa --region=us-west-2 \
- -s ${CLUSTER_SIZE} -w 200 -v ${SPARK_VERSION} launch sparkvm
+ -s ${CLUSTER_SIZE} -w 300 -v ${SPARK_VERSION} launch sparkvm
 
 # login to cluster
 # as root
