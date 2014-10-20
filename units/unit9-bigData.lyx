@@ -2864,7 +2864,16 @@ Spark is implemented natively in Java and Scala, so all calculations in
  Python involve taking Java data objects converting them to Python objects,
  doing the calculation, and then converting back to Java.
  This process is called serialization and takes time, so the speed when
- implementing your work in Scala (or Java) may be much faster.
+ implementing your work in Scala (or Java) may be faster.
+ Here's a 
+\begin_inset CommandInset href
+LatexCommand href
+name "small bit of info"
+target "http://apache-spark-user-list.1001560.n3.nabble.com/Scala-vs-Python-performance-differences-td4247.html"
+
+\end_inset
+
+ on that.
 \end_layout
 
 \begin_layout Paragraph
