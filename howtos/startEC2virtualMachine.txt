@@ -1,0 +1,24 @@
+These instructions will allow you to start a single virtual machine on Amazon's EC2. You can use the VM to test out shared memory parallelization.
+
+Note that these instructions lead you through starting the VM through the AWS web interface. You can also use Python's boto package, the Starcluster tools, or the EC2 command line tools to directly make use of Amazon's EC2 API.
+
+1) Login to your class account using the instructions provide in the AWSsetup.txt file (namely the URL provided in the email sent to you).
+
+2) Under Services, select EC2.
+
+3) Click on "Launch Instance"
+
+4) In the list of tabs on the left, select "Community AMIs" and search for BCE-0.1.3. Then Select that AMI. This is the version of the VM you've been using on your laptop but set up to work on Amazon's EC2.
+
+5) Choose your instance type. For exploring shared memory parallelization you'll probably want to hcoose an instance type with at least 4 vCPUs (c3.xlarge would be appropriate). Try not to choose an instance more powerful than you need as the more powerful the instance the more of our class credits you'll use. Click on 'Review and Launch'. Then click on "Launch".
+
+6) Choose the key pair associated with your account and "Launch Instances". Then choose "View Instances".
+
+7) Once the instance has finished launching you can select "Connect". The basic syntax you'll need to ssh to the instance is:
+ssh -i ~/.ssh/stat243-fall-2014-ssh_key.pem ubuntu@54.69.233.66
+But the digits following root will vary.
+
+(This assumes that you've saved your private SSH key (that you downloaded as in AWSsetup.txt) to ~/.ssh. Also you'll likely need to change the permissions on the private SSH key file so they are read-only for only "u". You can do this with:
+chmod 400 ~/.ssh/stat243-fall-2014-ssh_key.pem
+
+8) Note that on the EC2 VM you'll be the 'ubuntu' user rather than the 'oski' user.
