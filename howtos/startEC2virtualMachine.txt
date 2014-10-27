@@ -10,7 +10,9 @@ Note that these instructions lead you through starting the VM through the AWS we
 
 4) In the list of tabs on the left, select "Community AMIs" and search for BCE-0.1.3. Then Select that AMI. This is the version of the VM you've been using on your laptop but set up to work on Amazon's EC2.
 
-5) Choose your instance type. For exploring shared memory parallelization you'll probably want to hcoose an instance type with at least 4 vCPUs (c3.xlarge would be appropriate). Try not to choose an instance more powerful than you need as the more powerful the instance the more of our class credits you'll use. Click on 'Review and Launch'. Then click on "Launch".
+4a) Add disk space to your image. Go to "4 - Select Storage" at the top of the page and change the 8 Gb to 100 Gb.
+
+5) Now go to back to "2 - Choose Instance Type". For exploring shared memory parallelization you'll probably want to hcoose an instance type with at least 4 vCPUs (m3.xlarge would be appropriate). Try not to choose an instance more powerful than you need as the more powerful the instance the more of our class credits you'll use. Click on 'Review and Launch'. Then click on "Launch".
 
 6) Choose the key pair associated with your account and "Launch Instances". Then choose "View Instances".
 
@@ -22,3 +24,9 @@ But the digits following root will vary.
 chmod 400 ~/.ssh/stat243-fall-2014-ssh_key.pem
 
 8) Note that on the EC2 VM you'll be the 'ubuntu' user rather than the 'oski' user.
+
+9) To completely delete your VM, go to Actions -> Terminate. This will remove all trace of the instance and we'll no longer be charged.
+
+10) If you want your instance to persist so that you don't have to start everything from scratch, including copying data, you can do Actions -> Stop and then later do Actions -> Start to restart it. Note that we'll still be charged for this, so please don't have your instance stopped for more than 24 hours or so. 
+
+Note that anything in your home directory will still exist if you do stop/start, but not if you terminate your instance. However, anything in /tmp will be removed when you start/stop.
