@@ -112,6 +112,27 @@ Databases and Big Data
 status open
 
 \begin_layout Plain Layout
+BEFORE 2015 notes:
+\end_layout
+
+\begin_layout Plain Layout
+add comment that big data makes multiple testing issues loom even larger
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+BEFORE 2014 notes:
+\end_layout
+
+\begin_layout Plain Layout
 in big data, look ahead to logistic regression
 \end_layout
 
@@ -140,37 +161,30 @@ explore spark and in-memory looped processing of huge logistic regression
 \end_layout
 
 \begin_layout Chunk
-
 <<read-chunk, echo=FALSE, include=FALSE>>= 
 \end_layout
 
 \begin_layout Chunk
-
 read_chunk('unit9-bigData.R') 
 \end_layout
 
 \begin_layout Chunk
-
 read_chunk('unit9-bigData.py') 
 \end_layout
 
 \begin_layout Chunk
-
 library(ff)
 \end_layout
 
 \begin_layout Chunk
-
 library(ffbase)
 \end_layout
 
 \begin_layout Chunk
-
 library(spam)
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -502,12 +516,10 @@ schema
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk1>>=
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -549,12 +561,10 @@ company in ('IBM', 'Apple', 'Dell')
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk2, tidy=FALSE>>=
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -585,12 +595,10 @@ inner join
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk3>>=
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -604,12 +612,10 @@ view
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk4>>=
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -1303,12 +1309,10 @@ fread()
 \end_layout
 
 \begin_layout Chunk
-
 <<data.table-read, eval=FALSE>>=
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -1319,12 +1323,10 @@ Now let's do some basic subsetting.
 \end_layout
 
 \begin_layout Chunk
-
 <<data.table-subset, eval=FALSE, tidy=FALSE>>=
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -1412,12 +1414,10 @@ read.table.ffdf()
 \end_layout
 
 \begin_layout Chunk
-
 <<ff, eval=FALSE, tidy=FALSE>>=
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -1495,12 +1495,10 @@ Next let's do a bit of exploration of the dataset.
 \end_layout
 
 \begin_layout Chunk
-
 <<tableInfo, cache=TRUE, tidy=FALSE, eval=FALSE, fig.width=4>>=
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -1614,12 +1612,10 @@ read.csv.sql()
 \end_layout
 
 \begin_layout Chunk
-
 <<sqldf, eval=FALSE, tidy=FALSE>>=
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -1656,12 +1652,10 @@ ffdf
 \end_layout
 
 \begin_layout Chunk
-
 <<airline-model, eval=FALSE, tidy=FALSE>>=
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -1774,22 +1768,18 @@ Now let's consider the fact that very small substantive effects can be highly
 \end_layout
 
 \begin_layout Chunk
-
 <<significance-prep, eval=FALSE, tidy=FALSE>>=
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
 \begin_layout Chunk
-
 <<significance-model, eval=FALSE, tidy=FALSE>>=
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -1921,12 +1911,10 @@ R, Matlab and Python all have functionality for storing and computing with
 \end_layout
 
 \begin_layout Chunk
-
 <<spam, cache=TRUE>>=
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -2317,12 +2305,10 @@ my_readline()
 \end_layout
 
 \begin_layout Chunk
-
 <<mr-example, eval=FALSE, tidy=FALSE>>=
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -2392,12 +2378,10 @@ source code
 \end_layout
 
 \begin_layout Chunk
-
 <<spark-setup, eval=FALSE, engine='bash'>>=
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -2415,12 +2399,10 @@ hadoop fs -
 \end_layout
 
 \begin_layout Chunk
-
 <<spark-hdfs, eval=FALSE, engine='bash'>>=
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -2466,12 +2448,10 @@ In the last step, let's compare how long it took to grab the SFO subset
 \end_layout
 
 \begin_layout Chunk
-
 <<spark-data, eval=FALSE, engine='bash'>>=
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -2564,12 +2544,10 @@ Here's an example where we don't have a simple commutative/associative reducer
 \end_layout
 
 \begin_layout Chunk
-
 <<spark-nonstandard, eval=FALSE, engine='bash'>>=
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -2640,12 +2618,10 @@ In the first algorithm we actually compute the sufficient statistics, which
 \end_layout
 
 \begin_layout Chunk
-
 <<spark-fit1, eval=FALSE, engine='python'>>=
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -2718,12 +2694,10 @@ batch
 \end_layout
 
 \begin_layout Chunk
-
 <<spark-fit2, eval=FALSE, engine='python'>>=
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -2784,12 +2758,10 @@ Cycling through each coefficient has the obvious disadvantage of having
 \end_layout
 
 \begin_layout Chunk
-
 <<spark-fit3, eval=FALSE, engine='python'>>=
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -2828,7 +2800,6 @@ spark-submit piCalc.py 100000000 1000
 \end_layout
 
 \begin_layout Chunk
-
 <<pyspark-script, eval=FALSE, engine='python'>>=
 \begin_inset CommandInset href
 LatexCommand href
@@ -2841,7 +2812,6 @@ target "http://www.jstatsoft.org/v33/i01/"
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 

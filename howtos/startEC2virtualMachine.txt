@@ -35,4 +35,4 @@ chmod 400 ~/.ssh/stat243-fall-2014-ssh_key.pem
 
 11) If you want your instance to persist so that you don't have to start everything from scratch, including copying data, you can do Actions -> Stop and then later do Actions -> Start to restart it. Note that we'll still be charged for this, so please don't have your instance stopped for more than 24 hours or so. 
 
-Note that anything in your home directory will still exist if you do stop/start, but not if you terminate your instance. However, anything in /tmp will be removed when you start/stop.
+Note that anything in your home directory will still exist if you do stop/start, but not if you terminate your instance. However, anything in /mnt or /tmp will be removed when you start/stop.
