@@ -19,12 +19,12 @@ chmod 400 ~/.ssh/stat243-fall-2014-ssh_key.pem
 
 4) Navigate to spark-1.1.0/ec2 and start a spark cluster, specifying the number of worker nodes you want in your Spark cluster:
 export NUMBER_OF_WORKERS=12
-./spark-ec2 -k <your_aws_username>@berkeley.edu:stat243-fall-2014 -i ~/.ssh/stat243-fall-2014-ssh_key.pem --region=us-west-2 -w 300 -s ${NUMBER_OF_WORKERS} -v 1.1.0 launch sparkvm
+./spark-ec2 -k <your_aws_username>@berkeley.edu:stat243-fall-2014 -i ~/.ssh/stat243-fall-2014-ssh_key.pem --region=us-west-2 -w 300 -s ${NUMBER_OF_WORKERS} -v 1.1.0 launch sparkvm-<your_name>
 
 Occasionally you'll get some error messages and things won't start up correctly.  Just kill the cluster and try again. You might increase the number after the "-w" to increase the wait time that the Spark script uses to allow the Amazon instances to start up.
 
 5) Once it has finished (it will take 5-15 minutes), you can login as follows:
-./spark-ec2 -k <your_aws_username>@berkeley.edu:stat243-fall-2014 -i stat243-fall-2014-ssh_key.pem --region=us-west-2 login sparkvm
+./spark-ec2 -k <your_aws_username>@berkeley.edu:stat243-fall-2014 -i stat243-fall-2014-ssh_key.pem --region=us-west-2 login sparkvm-<your_name>
 
 6) Now you can follow the template provided in the Unit 9 class notes to use Spark
 
@@ -32,4 +32,4 @@ Occasionally you'll get some error messages and things won't start up correctly.
 
 7) IMPORTANT: delete your cluster as soon as you are done with it. We only have a limited number of credits for everyone in the class to use.
 
-./spark-ec2 --region=us-west-2 destroy sparkvm
+./spark-ec2 --region=us-west-2 destroy sparkvm-<your_name>
