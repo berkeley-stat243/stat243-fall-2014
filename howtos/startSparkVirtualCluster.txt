@@ -32,4 +32,4 @@ Occasionally you'll get some error messages and things won't start up correctly.
 
 7) IMPORTANT: delete your cluster as soon as you are done with it. We only have a limited number of credits for everyone in the class to use.
 
-./spark-ec2 --region=us-west-2 destroy sparkvm-<your_name>
+./spark-ec2 --region=us-west-2 --delete-groups destroy sparkvm-<your_name>
