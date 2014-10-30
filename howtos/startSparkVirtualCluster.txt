@@ -9,10 +9,10 @@ These instructions are for use on the class VM. You can run the Spark EC2 script
 
 Click on link in #4 entry. Download to the VM and untar/zip the file.
 
-2) Create UNIX environment variables containing your AWS credentials based on the stat243-fall-credentials.boto file:
+2) Create UNIX environment variables containing your AWS credentials based on the stat243-fall-2014-credentials.boto file:
 
-export AWS_ACCESS_KEY_ID=`grep aws_access_key_id stat243-fall-credentials.boto | cut -d' ' -f3`
-export AWS_SECRET_ACCESS_KEY=`grep aws_secret_access_key stat243-fall-credentials.boto | cut -d' ' -f3`
+export AWS_ACCESS_KEY_ID=`grep aws_access_key_id stat243-fall-2014-credentials.boto | cut -d' ' -f3`
+export AWS_SECRET_ACCESS_KEY=`grep aws_secret_access_key stat243-fall-2014-credentials.boto | cut -d' ' -f3`
 
 3) Put your private SSH key file on the VM, ideally in ~/.ssh. Change permissions on the file:
 chmod 400 ~/.ssh/stat243-fall-2014-ssh_key.pem
