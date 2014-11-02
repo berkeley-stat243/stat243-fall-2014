@@ -14,6 +14,8 @@ Note that these instructions lead you through starting the VM through the AWS we
 
 5) Now go to back to "2 - Choose Instance Type". For exploring shared memory parallelization you'll probably want to hcoose an instance type with at least 4 vCPUs (m3.xlarge would be appropriate). Try not to choose an instance more powerful than you need as the more powerful the instance the more of our class credits you'll use. Click on 'Review and Launch'. Then click on "Launch".
 
+5a) Make sure to use an existing security group as we are limited to 100 overall. Before clicking "Review and launch", click on the hyperlink at the top of the page for "step 6 - Configure Security Groups" and change from the default "Create a new security group" to "Select an existing security group". Within the existing groups the 'default' group should work fine.
+
 6) Choose the key pair associated with your account and "Launch Instances". Then choose "View Instances".
 
 7) Once the instance has finished launching you can select "Connect". The basic syntax you'll need to ssh to the instance is:
