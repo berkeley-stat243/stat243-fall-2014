@@ -174,6 +174,30 @@ vals <- abs(e$values)
 max(vals)/min(vals)
 U <- chol(C, pivot = TRUE)
 
+# not sure why there are 1s on the diagonal for what should be the
+# zero-block induced by the numerical negative definiteness...
+
+# a simpler example
+
+cor <- 0.2
+mat <- matrix(c(1,cor,cor,cor,1,1,cor,1,1), 3, byrow = TRUE)
+U <- chol(mat, pivot = TRUE)
+U
+t(U)%*%U
+# because the redundancy is in the 3rd dimension,
+# we seem to get a numerical zero in the 3,3 position
+# but not an imposed exact zero
+
+# now have the redundancy in the 1st/2nd dimensions
+mat <- matrix(c(1,1,cor,1,1,cor,cor,cor,1), 3, byrow = TRUE)
+U <- chol(mat, pivot = TRUE)
+U
+# now we see an exact zero, and the effect of the permutation
+t(U) %*% U
+
+
+
+
 ### 3.4 QR decomposition
 
 
