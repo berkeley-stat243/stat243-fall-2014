@@ -5638,7 +5638,12 @@ for(i in 1:nrows(A)){
 
 \begin_layout Plain Layout
 
-	for(j in (rowptr[i]:rowptr[i+1]-1) {
+    # should also check that row is not empty...
+\end_layout
+
+\begin_layout Plain Layout
+
+	for(j in (rowptr[i]:(rowptr[i+1]-1)) {
 \end_layout
 
 \begin_layout Plain Layout
