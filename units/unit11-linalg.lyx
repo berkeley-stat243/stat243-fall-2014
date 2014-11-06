@@ -85,6 +85,20 @@ Unit 11: Numerical linear algebra
 status open
 
 \begin_layout Plain Layout
+For 2015 - find an example of a doc corpus on which to explicitly illustrate
+ the SVD word-doc-topic example
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
 Note that in this material, I often sneak an extra trick into my example
  code.
  Focus first on the key thing I'm illustrating and then you might absorb
