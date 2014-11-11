@@ -98,20 +98,12 @@ Optimization
 Monahan: 
 \emph on
 Numerical Methods of Statistics
-\begin_inset CommandInset href
-LatexCommand href
-name "Boyd and Vandenberghe's (online) book Convex Optimization"
-target "http://stanford.edu/~boyd/cvxbook/"
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Itemize
 Givens and Hoeting: 
 \emph on
-Computational Statisticsl 
+Computational Statistics
 \end_layout
 
 \begin_layout Itemize
@@ -267,7 +259,7 @@ In considering iterative algorithms, I'll use
 \begin_inset Formula $x_{0}$
 \end_inset
 
- is the starting point, which we must choose (sometimes carefully).
+ is the starting point, which we must choose (often carefully).
  If it's unclear at any point whether I mean a value of 
 \begin_inset Formula $x$
 \end_inset
@@ -362,7 +354,19 @@ minimization
 \end_inset
 
 .
- The basic setup is to find
+ The basic setup is to find the 
+\emph on
+argument
+\emph default
+, 
+\begin_inset Formula $x$
+\end_inset
+
+, that minimizes 
+\begin_inset Formula $f(x)$
+\end_inset
+
+:
 \begin_inset Formula 
 \[
 \arg\min_{x\in D}f(x)
@@ -1580,7 +1584,7 @@ Here's a function with multiple optima that is commonly used for testing
 
 \begin_layout Chunk
 
-<<rastrigin, fig.width=4, fig.height=4>>=
+<<rastrigin, fig.width=6, fig.height=5>>=
 \end_layout
 
 \begin_layout Chunk
@@ -1662,17 +1666,15 @@ see R Journal Jun 2013 5:13 for some other test fxns, including Rosenbrock
 \end_layout
 
 \begin_layout Standard
-It would be interesting to try a genetic algorithm on a test function like
- this.
-\end_layout
-
-\begin_layout Standard
 One R package that may be useful for multi-modal problems is 
 \emph on
 DEoptim
 \emph default
 , which implements an evolutionary algorithm (genetic algorithms are one
  kind of evolutionary algorithm).
+ It would be interesting to try an evolutionary algorithm on a test function
+ like this.
+ 
 \end_layout
 
 \begin_layout Subsection
@@ -1753,7 +1755,7 @@ f\p(x^{*})=f\p(x_{t})+(x^{*}-x_{t})f\pp(x_{t})+\frac{1}{2}(x^{*}-x_{t})^{2}f\ppp
 \end_inset
 
 for some 
-\begin_inset Formula $\xi_{t}\in[x_{t},x^{*}]$
+\begin_inset Formula $\xi_{t}\in[x^{*},x_{t}]$
 \end_inset
 
 .
@@ -2137,7 +2139,7 @@ Y_{i}=\beta_{0}+\beta_{1}2^{-t_{i}/\beta_{2}}+\epsilon_{i}.
 \begin_layout Standard
 Some of the things we need to worry about with Newton's method in general
  about are (1) good starting values, (2) positive definiteness of the Hessian,
- and (3) avoiding errors in finding the derivatives.
+ and (3) avoiding errors in deriving the derivatives.
 \end_layout
 
 \begin_layout Standard
@@ -3303,7 +3305,11 @@ status open
 \end_layout
 
 \begin_layout Standard
-The lasso uses an L1 penalty in regression and related contexts.
+The 
+\emph on
+lasso
+\emph default
+ uses an L1 penalty in regression and related contexts.
  A standard formulation for the lasso in regression is to minimize
 \begin_inset Formula 
 \[
@@ -3408,7 +3414,7 @@ target "http://biostatistics.oxfordjournals.org/content/early/2013/10/04/biostat
 \end_layout
 
 \begin_layout Standard
-One nice idea that is used in Lasso and related settings is the idea of
+One nice idea that is used in lasso and related settings is the idea of
  finding the regression coefficients for a variety of values of 
 \begin_inset Formula $\lambda$
 \end_inset
@@ -3446,6 +3452,11 @@ solution path
 \end_inset
 
 .
+ Often 
+\begin_inset Formula $\lambda$
+\end_inset
+
+ is chosen based on cross-validation.
 \end_layout
 
 \begin_layout Standard
@@ -4346,6 +4357,11 @@ Stochastic search variable selection
 
 \begin_layout Section
 Convexity
+\end_layout
+
+\begin_layout Standard
+UNDER CONSTRUCTION: SOME OF THE MATERIAL IN THE REMAINDER OF THIS DOCUMENT
+ MAY CHANGE
 \end_layout
 
 \begin_layout Standard
