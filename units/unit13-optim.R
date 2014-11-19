@@ -604,7 +604,7 @@ out <- constrOptim(c(3.1, 3.0), fr, grr, ui = ui, ci = ci)
 ## this takes a while...
 ui = rbind(c(1,-1), c(-1,1))
 ci = c(.099,-.101)
-## hmmm
+## hmmm, out1 thinks it has converged ...
 out1 <- constrOptim(c(3.1, 3.0), fr, grr, ui = ui, ci = ci)
 out2 <- constrOptim(c(3.1, 3.0), fr, NULL, ui = ui, ci = ci)
 
