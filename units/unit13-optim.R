@@ -503,12 +503,12 @@ init3 = c(in1, in2, 0.1)
 
 optim(init3, pp.lik, y = y2, thresh = thresh2, npy = npy, control = list(trace = TRUE)) ## note that the parameters have changed even beyond a scaling effect
 optim(init3, pp.lik, y = y2, thresh = thresh2, npy = npy, method = 'BFGS', control = list(trace = TRUE)) # note lack of convergence after 100 its
-optim(init3, pp.lik, y = y2, thresh = thresh*1000, npy = npy, method = 'BFGS', control = list(trace = TRUE, maxit = 1000)) # convergence, but to values not concordant with those from fitting the original y data
+optim(init3, pp.lik, y = y2, thresh = thresh2, npy = npy, method = 'BFGS', control = list(trace = TRUE, maxit = 1000)) # convergence, but to values not concordant with those from fitting the original y data
 
 ## when we have y2 = y*1000, the location and scale parameters are on very different scales than the shape parameter
 ## can we use parscale to deal with the problems when the data are on a different scale?
-optim(init3, pp.lik, y = y2, thresh = thresh*1000, npy = npy, control = list(trace = TRUE, parscale = c(1000,1000,1))) 
-optim(init3, pp.lik, y = y2, thresh = thresh*1000, npy = npy, method = 'BFGS', control = list(trace = TRUE, parscale = c(1000,1000,1))) 
+optim(init3, pp.lik, y = y2, thresh = thresh2, npy = npy, control = list(trace = TRUE, parscale = c(1000,1000,1))) 
+optim(init3, pp.lik, y = y2, thresh = thresh2, npy = npy, method = 'BFGS', control = list(trace = TRUE, parscale = c(1000,1000,1))) 
 ## yes, that works! the parameter estimates are now equivalent to those from the standard fitting of the original data
 
 ## default step size for numerical derivative is only .001; perhaps we should try with higher accuracy
