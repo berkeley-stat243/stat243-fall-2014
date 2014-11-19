@@ -4207,11 +4207,6 @@ Convexity
 \end_layout
 
 \begin_layout Standard
-UNDER CONSTRUCTION: SOME OF THE MATERIAL IN THE REMAINDER OF THIS DOCUMENT
- MAY CHANGE
-\end_layout
-
-\begin_layout Standard
 Many optimization problems involve (or can be transformed into) convex functions.
  Convex optimization (also called convex programming) is a big topic and
  one that we'll only brush the surface of in Sections 8 and 9.
@@ -4639,11 +4634,8 @@ f(x|\theta)=\int f(x,z|\theta)dz,
 
 \end_inset
 
-but 
-\begin_inset Formula $L(\theta|y)=f(x,z|\theta)$
-\end_inset
-
- may be straightforward to optimize.
+but the EM algorithm provides a recipe that makes the optimization straightforwa
+rd for many problems.
 \end_layout
 
 \begin_layout Standard
@@ -6019,7 +6011,7 @@ Recall our previous notation, in which convex programming minimizes
  function:
 \begin_inset Formula 
 \[
-f(x)+\sum_{ij=1}^{m}I_{-}(h_{j}(x))
+f(x)+\sum_{j=1}^{m}I_{-}(h_{j}(x))
 \]
 
 \end_inset
@@ -6207,6 +6199,19 @@ less than or equal
 
  and for equality constraints we need to do some basic manipulations to
  get our actual constraints into the form needed for the R function.
+ 
+\begin_inset Formula $\theta$
+\end_inset
+
+ in the notation of 
+\emph on
+constrOptim()
+\emph default
+ is what we've been calling 
+\begin_inset Formula $x$
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Chunk
