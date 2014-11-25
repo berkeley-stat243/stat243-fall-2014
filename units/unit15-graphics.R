@@ -445,7 +445,7 @@ trellis.focus("panel", 1, 2) # do something with the 1,2 panel
 do.call("panel.lmline", trellis.panelArgs())  # do.call() again!
 
 #########################
-# 4: Graphics devices
+# 5: Graphics devices
 #########################
 
 x <- rnorm(10); y <- rnorm(10)
@@ -474,11 +474,11 @@ dev.set(2) # go back to the first one (the numbering starts at '2' for some reas
 hist(x)
 
 ##############################
-# 5: Graphics file formats
+# 6: Graphics file formats
 ##############################
 
 ##############################
-# 5.1 Vector vs. raster
+# 6.1 Vector vs. raster
 ##############################
 
 # examples of how vectorized formats scale better than rasterized
@@ -515,7 +515,7 @@ smoothScatter(x, y) # pretty cool
 
 
 ############################
-# 5.2 Formats for journals
+# 6.2 Formats for journals
 ############################
 
 setEPS()
@@ -529,7 +529,7 @@ dev.off()
 
 
 ###########################
-# 6: Color
+# 7: Color
 ###########################
 
 palette()  # the default colors
@@ -538,7 +538,7 @@ palette(c("black", "yellowgreen", "purple"))   # changing the default colors
 plot(x, y, col = 2) # should be yellowgreen instead of the default of red
         
 ###########################
-# 6.1 Colorspaces
+# 7.1 Colorspaces
 ###########################
 
 rgb(0.5, 0.5, 0) # each number is specified on scale of [0, 1]
@@ -555,7 +555,7 @@ pie(rep(1, n), col = rainbow_hcl(n, c = 70, l = 70)) # colors in the HCL colorsp
 # none of these colors stand out more than others, unlike the RGB rainbow or HSV rainbow above
 
 #############################
-# 6.2 Color sequences
+# 7.2 Color sequences
 #############################
 
 library(fields) # includes image.plot(), which takes image() and adds a legend; also includes tim.colors
@@ -590,7 +590,7 @@ image.plot(1:n, 1:n, matrix(crossprod(U, rnorm(n^2)), n, n), col = tim.colors(32
 
 
 ##################################
-# 6.3 Overplotting 
+# 7.3 Overplotting 
 ##################################
 
 ## @knitr overplotting
@@ -610,7 +610,7 @@ plot(bin, main = 'hexbin')
 
 
 #######################
-# 6.4 color blindness
+# 7.4 color blindness
 #######################
 
 
