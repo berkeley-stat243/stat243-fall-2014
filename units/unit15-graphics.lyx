@@ -307,7 +307,7 @@ shell.pdf
 \end_layout
 
 \begin_layout Enumerate
-Here's a graph that we'll discuss in class.
+In Figure 1, you can see a graph that we'll discuss in class.
  What aspects of the graph could be improved? What aspects do you like?
 \end_layout
 
@@ -334,6 +334,14 @@ status open
 \end_layout
 
 \begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Example graphic indicated in Section 1.1, item #2
+\end_layout
+
+\end_inset
+
 
 \end_layout
 
@@ -440,7 +448,16 @@ Use a legend where appropriate
 \begin_layout Enumerate
 Use vector graphics formats such as PDF or Postscript/EPS as these scale
  without pixelation when resized.
- Raster formats such as JPEG, PNG, BMP, TIFF.
+ Raster formats such as JPEG, PNG, BMP, TIFF don't rescale well and when
+ they have high resolution also have large file sizes.
+ See Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Graphics-file-formats"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -2773,6 +2790,13 @@ dev.set()
 
 \begin_layout Section
 Graphics file formats
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Graphics-file-formats"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard

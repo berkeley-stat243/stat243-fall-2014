@@ -9,11 +9,11 @@
 # 1: Good practices
 #######################
 
-# stacked barplots are hard to interpret except for the baseline category and the total
-# here's an example in a default dataset in R
+## stacked barplots are hard to interpret except for the baseline category and the total
+## here's an example in a default dataset in R
 barplot(VADeaths, legend = TRUE, ylab = "Deaths per 1000", main = "Virgina Death Rates, 1940")
 
-# side-by-side barplots are better
+## side-by-side barplots are better
 barplot(VADeaths, beside = TRUE, legend = TRUE, ylab = "Deaths per 1000", main = "Virgina Death Rates, 1940")
 
 #############################
@@ -40,7 +40,7 @@ plot(x, y, main = "World's most boring plots")
 plot(x, y)
 plot(x, y)
 plot(x, y)
-# notice there's not enough space for the title and the title gets put over the subplot
+## notice there's not enough space for the title and the title gets put over the subplot
 
 par(mfrow = c(2, 2))
 par(omi = c(0, 0, .3, 0)) # manipulate outer margin of full plot
@@ -50,7 +50,7 @@ plot(x, y)
 plot(x, y)
 title(main = "World's most boring plots", outer = TRUE) # create an overall title in the outer margin
 
-# forcing the same axis ranges
+## forcing the same axis ranges
 x = matrix(rnorm(40), nr = 10)
 y = matrix(rnorm(40), nr = 10)
 xlim = range(x)
@@ -60,7 +60,7 @@ par(mfrow = c(2, 2))
 for(i in 1:4) plot(x[ , i], y[ , i], xlim = xlim, ylim = ylim)
 
 
-# using a single axis label for multiple panel plots
+## using a single axis label for multiple panel plots
 x = rnorm(10); y = rnorm(10);
 par(mfrow = c(2, 2))
 for(i in 1:4) plot(x, y, xlab = "", ylab = "")  # specify missing x,y axis titles
@@ -73,7 +73,7 @@ mtext("generic y variable", 2, line = -1, outer = TRUE)
 
 plot(x, y, type = "n") # notice how little is plotted
 
-# adding customized axes; I'm also throwing in examples of other functionality (e.g., cex.lab, cex.axis) - so some of this will look funny but you should get a sense for how to control various things
+## adding customized axes; I'm also throwing in examples of other functionality (e.g., cex.lab, cex.axis) - so some of this will look funny but you should get a sense for how to control various things
 x = rnorm(10); y = rnorm(10); z = rnorm(10, 0, 5)
 par(mfrow = c(1, 1), mai = c(.6, 1, .1, .8))
 plot(x, y, yaxt = "n", bty = "n", col = "blue", cex.lab = 2) # plot y points in blue
@@ -84,7 +84,7 @@ plot(x, z, col = 'red', bty = 'n', ann = FALSE, xaxt = 'n', yaxt = 'n') # plot z
 axis(side = 4, col = 'red', cex.axis = .5, col.axis = "red")   # add right-side axis in red
 rug(z, side = 4, col = "red") # add a rug
 
-# using color or plotting symbols to represent a third dimension
+## using color or plotting symbols to represent a third dimension
 par(mfrow = c(1, 2))
 groups = sample(1:3, 10, replace = TRUE)
 plot(x, y, col = groups)
@@ -98,7 +98,7 @@ legend(locator(), legend = c("Stats", "PoliSci", "Math"), pch = 1:3) # right-cli
 
 plot(x, y)
 identify(x, y, plot = FALSE)
-# right-click to exit the interactive mode and see the id's of the points you clicked
+## right-click to exit the interactive mode and see the id's of the points you clicked
 
 identify(x, y, labels = "Critical point")
 
@@ -112,7 +112,7 @@ par(mfrow = c(1, 1))
 x = rnorm(10); y = rnorm(10)
 plot(x, y, xlab = expression(lambda), ylab = expression(paste(E[lambda]^(2-Lambda), "(deviance)-",Var(phi) )))
 
-# two alternatives to allow the use of variables in a mathematical expression
+## two alternatives to allow the use of variables in a mathematical expression
 par(mai = c(.7, .5, .4, .1))
 plot(1:10, type="n", xlab="", ylab="", main = "plot math & numbers")
 thetaVal <- 1.23
@@ -124,19 +124,19 @@ mtext(substitute(paste("Estimate: ", hat(theta) == thetaVal), list(thetaVal = th
 # 2.6 Laying out panels
 ##############################
 
-# layout()
+## layout()
 layout(matrix(c(1, 1,
                 0, 2),
               nr = 2, byrow = TRUE))
-# so this says to create the first subpanel (the 1s) as the entire first row (the 1,1 and 1,2 subpanels combined)
-# and the second subpanel as the 2,2 subpanel, with nothing in the 2,1 subpanel
+## so this says to create the first subpanel (the 1s) as the entire first row (the 1,1 and 1,2 subpanels combined)
+## and the second subpanel as the 2,2 subpanel, with nothing in the 2,1 subpanel
 layout.show(n = 2) # the numbering goes from 1 to 2
 
 layout(matrix(c(1, 1, 1, 1,
                 4, 3, 2, 2), nr = 2, byrow = TRUE))
 layout.show(n = 4) # numbering in the values in the matrix goes from 1 to 4
 
-# now let's plot something in that last layout
+## now let's plot something in that last layout
 x = rnorm(10); y = rnorm(10); z = rnorm(10)
 layout(matrix(c(1, 1, 1, 1,
                 4, 3, 2, 2), nr = 2, byrow = TRUE))
@@ -150,12 +150,12 @@ example(layout) # some of the default examples using layout()
 
 dev.off() # close all the graphics windows to clear out the settings from layout() above
 
-# split.screen() examples
+## split.screen() examples
 split.screen(figs = c(2, 3))  # 2 row by 3 column grid of subplots
 screen(3) # plot in the 3rd subplot (position 1,3)
 plot(x, y)
 hist(x) # whoops - the hist() overwrote the plot() in the 3rd subplot
-# this indicate we need to change screens manually
+## this indicate we need to change screens manually
 
 split.screen(figs = c(2, 3))  # 2 row by 3 column grid of subplots
 screen(3)
@@ -174,7 +174,7 @@ screen(2); hist(x)
 screen(3); hist(y)
 screen(4); plot(1:length(x), x, type = "l") # notice the overplotting because panel 4 overlaps panel 1 in the x-dimension
 
-# you can continue subdividing, but need to be careful that the margins don't get too big for the remaining space (and that text is not too large)
+## you can continue subdividing, but need to be careful that the margins don't get too big for the remaining space (and that text is not too large)
 screen(5)
 split.screen(figs = matrix(c(0, .5, 0, 1,
                .5, 1, 0, 1), nr =2, byrow = TRUE))
@@ -193,7 +193,7 @@ gr = expand.grid(xs, ys);
 U = chol(exp(-rdist(gr)/6)) # Cholesky decomposition for generating correlated normals 
 image.plot(1:n, 1:n, matrix(crossprod(U, rnorm(n^2)), n, n), col = tim.colors(32)) # image() and image.plot() are good for spatial images
 
-# topography of a volcano using image() and contour()
+## topography of a volcano using image() and contour()
 x <- 10*(1:nrow(volcano))
 y <- 10*(1:ncol(volcano))
 par(mfrow=c(1,3))
@@ -204,7 +204,7 @@ contour(x, y, volcano, levels = seq(90, 200, by = 5),
         add = TRUE, col = "peru")
 
 
-# that same volcano using persp()
+## that same volcano using persp()
 par(mfrow = c(1, 1))
 z <- 2 * volcano        # Exaggerate the relief
 x <- 10 * (1:nrow(z))   # 10 meter spacing (S to N)
@@ -215,12 +215,12 @@ persp(x, y, z, theta = 135, phi = 30, col = "green3", scale = FALSE,
       ltheta = -120, shade = 0.75, border = NA, box = FALSE)
 ## Don't draw the grid lines :  border = NA
 
-# it takes a bit of work in persp() to color the surface in similar fashion to image() - see help(persp); example #4
+## it takes a bit of work in persp() to color the surface in similar fashion to image() - see help(persp); example #4
 
-# importing a GIS shapefile and using RColorBrewer to devise a sequential color scheme for coloring census tracts
+## importing a GIS shapefile and using RColorBrewer to devise a sequential color scheme for coloring census tracts
 
 library(spdep)
-# download and unzip capeCod.zip from bspace - this will create a bunch of cbg00barncnty* files
+## download and unzip capeCod.zip from bspace - this will create a bunch of cbg00barncnty* files
 ccPoly = readShapePoly('cbg00barncnty')  # read in the shape file (it's actually multiple related files)
 plot(ccPoly,border='grey')  # see the boundaries in the file - that's Cape Cod in Massachusetts
 ccdat=read.table('uppercapebreast.dat',header=TRUE) # data containing breast cancer rates by census tract, indexed by the OBJECTID field in the shapefile
@@ -235,13 +235,13 @@ palette(brewer.pal(n = 5, name = "YlOrRd")) # choose the top color scheme
 brks=quantile(rate, probs = seq(0, 1, by = 0.2), na.rm=TRUE) # discretize the breast cancer rates
 grps = cut(rate, brks, labels=FALSE)
 plot(ccPoly, border='grey', col=grps) # uses palette() by default, so will use what we chose above
-# unfortunately there are only data for a limited set of census tracts
+## unfortunately there are only data for a limited set of census tracts
 legend("topleft", fill = palette(), legend = c('.68 - .95', '.95 - 1.06', '1.06 - 1.17', '1.17 - 1.27', '1.27 - 2.0'))
 
 
-# overlaying boundaries from R's built-in map data
+## overlaying boundaries from R's built-in map data
 
-# we'll use the locations of the weather stations from PS2 - this is a pretty big file, so probably not the best choice for a demo, but I don't have time to change it at the moment
+## we'll use the locations of the weather stations from PS2 - this is a pretty big file, so probably not the best choice for a demo, but I don't have time to change it at the moment
 coop = read.fwf("coop.txt", skip = 1, widths=c(9,7,6,5,6,5,21,2,32,6,31,9,9,3,3,3,5,3,3,9), head = FALSE, ,colClasses=c('character',rep('factor',8),'numeric','factor',rep('numeric',9)), comment.char = "")
 names(coop)=c('coop','wban','wmo','faa','nws','icao','country','state','county','timezone','name','begins','end','lat1','lat2','lat3','lon1','lon2','lon3','elev')
 
@@ -361,12 +361,12 @@ ggplot(data = volcano3d, aes(x = xvar, y = yvar, z = zvar)) +
 ## @knitr other
 
 
-# basic boxplot in each direction
+## basic boxplot in each direction
 bwplot(Expt ~ Speed, data = michelson)
 bwplot(Speed ~ Expt, data = michelson)
 
-# using the panel function to add info to each panel;
-# in this case I just have one panel and add a linear regr fit and a loess fit
+## using the panel function to add info to each panel;
+## in this case I just have one panel and add a linear regr fit and a loess fit
 library(MASS)
 xyplot(time ~ dist, data = hills, 
        panel = function(x, y, ...){
@@ -376,42 +376,42 @@ xyplot(time ~ dist, data = hills,
        }
 )
 
-# example with scatterplot matrix
+## example with scatterplot matrix
 splom( ~ hills, 
       panel = function(x, y, ...){
         panel.xyplot(x, y, ...)
         panel.loess(x, y, ...)
       })
 
-# conditioning plots via panels
+## conditioning plots via panels
 
-# conditioning on a factor (species in this case)
+## conditioning on a factor (species in this case)
 xyplot(Petal.Length ~ Sepal.Length | Species, data = iris, layout = c(2, 2)) # 2x2 panel layout
 xyplot(Petal.Length ~ Sepal.Length | Species, data = iris, layout = c(3, 1)) # 3x1 panel layout
 
-# conditioning on continuous variables using shingles
+## conditioning on continuous variables using shingles
 state <- as.data.frame(state.x77)
 names(state)[c(4, 6)] <- c("LifeExp", "HSgrad")
 
-# create the shingles with equal.count() - this discretizes
-# the Population and Frost variables so we can do coplots that condition on these variables
+## create the shingles with equal.count() - this discretizes
+## the Population and Frost variables so we can do coplots that condition on these variables
 popShingle <- equal.count(state$Population, number = 3, overlap = 0)
 FrostLevel <- equal.count(state$Frost, number = 3, overlap = .25)  
 
-# now plot Income vs. Life Expectancy conditioning on Population and Frost
+## now plot Income vs. Life Expectancy conditioning on Population and Frost
 out <- xyplot(Income ~ LifeExp | popShingle * FrostLevel, data = state, xlab = "Life Expectancy", span = 5,  
   panel = function(x, y, span){
     panel.xyplot(x, y)
     panel.loess(x, y, span)
   })
-# no plot!  whoops...
+## no plot!  whoops...
 
-# so plotting corresponds to using the print() method on the graphics object created by xyplot
+## so plotting corresponds to using the print() method on the graphics object created by xyplot
 class(out)
 out  # this "prints" the object "out", and the print method does plotting for a trellis object
 print(out) # same thing
 
-# we can take a look at the elements of the trellis object and potentially manipulate them
+## we can take a look at the elements of the trellis object and potentially manipulate them
 dim(out)
 length(out)
 out[1,1]  # interesting... it plots the first subpanel when I "print" that component
@@ -419,13 +419,13 @@ names(out)
 out$axis
 out$x.limits
 
-# using formulas in the graphics package
+## using formulas in the graphics package
 par(mfrow=c(1,2)); plot(mpg ~ disp + hp , data = mtcars)
 
-# conditioning plots via colors/symbols
+## conditioning plots via colors/symbols
 
-# using the graphics package
-# this takes more work as we have to do the mapping of Species to either pch or col
+## using the graphics package
+## this takes more work as we have to do the mapping of Species to either pch or col
 mapping <- data.frame(Species = unique(iris$Species), pch = c(1, 2, 4), col = c('red', 'purple', 'green')) # create mapping of Species to plotting feature
 mapping$col <- as.character(mapping$col) # arggh, automatic coercion bites us again
 iris2 <- merge(iris, mapping, all.x = TRUE) # bring mapping info into iris dataset
@@ -434,11 +434,11 @@ with(iris2, plot(Sepal.Length, Petal.Length, pch = pch))
 with(iris2, plot(Sepal.Length, Petal.Length, col = iris2$col))
 legend(x = 4.5, y = 7, legend = unique(iris$Species), col = mapping$col, pch = 1)
 
-# lattice example
-# notice how much easier this is
+## lattice example
+## notice how much easier this is
 xyplot(Petal.Length ~ Sepal.Length, groups = Species, data = iris, auto.key = TRUE)
 
-# manipulating a single panel
+## manipulating a single panel
 
 xyplot(Petal.Length ~ Sepal.Length | Species, iris, layout = c(2, 2))
 trellis.focus("panel", 1, 2) # do something with the 1,2 panel
@@ -465,7 +465,7 @@ for(i in 1:9) plot(x,y) # this is much better, though repeating the axis titles 
 dev.off()
 
 
-# changing windows
+## changing windows
 x <- rnorm(10); y <- rnorm(10)
 plot(x, y)
 X11()  # open a second graphics window (use quartz() on Mac, windows() on Windows)
@@ -481,7 +481,7 @@ hist(x)
 # 6.1 Vector vs. raster
 ##############################
 
-# examples of how vectorized formats scale better than rasterized
+## examples of how vectorized formats scale better than rasterized
 n=200
 x <- seq(0, 1, len = n)
 fx <- sin(2*pi*x)
@@ -499,9 +499,9 @@ plot(x, y, xlab = "generic x", ylab = "generic y", main = expression(paste(sin(x
 lines(x, fx, col = 'red', lwd = 2)
 dev.off()
 
-# now trying opening these files outside of R and increasing the size of the window (i.e., zooming in) - the pdf file should scale gracefully, while the JPEG file looks bad when you increase the size of the window
+## now trying opening these files outside of R and increasing the size of the window (i.e., zooming in) - the pdf file should scale gracefully, while the JPEG file looks bad when you increase the size of the window
 
-# two approaches to scatterplots with very many observations
+## two approaches to scatterplots with very many observations
 
 library(hexbin)
 x <- rnorm(10000); y <- rnorm(10000)
@@ -525,7 +525,7 @@ plot(x, y, xlab = "generic x", ylab = "generic y", main = expression(paste(sin(x
 lines(x, fx, col = 'red', lwd = 2)
 dev.off()
 
-# try editing the eps or pdf files as text files (e.g., with emacs) to replace 'noise' with 'error' - sometimes this comes in handy to monkey around with things.
+## try editing the eps or pdf files as text files (e.g., with emacs) to replace 'noise' with 'error' - sometimes this comes in handy to monkey around with things.
 
 
 ###########################
@@ -552,7 +552,7 @@ pie(rep(1, n), col = rainbow(n, v = .75)) # reduce brightness
 
 library(colorspace)
 pie(rep(1, n), col = rainbow_hcl(n, c = 70, l = 70)) # colors in the HCL colorspace
-# none of these colors stand out more than others, unlike the RGB rainbow or HSV rainbow above
+## none of these colors stand out more than others, unlike the RGB rainbow or HSV rainbow above
 
 #############################
 # 7.2 Color sequences
@@ -565,13 +565,13 @@ gr <- expand.grid(xs, ys)
 U <- chol(exp(-rdist(gr)/6))  
 par(mfrow = c(2, 2))
 
-# rainbow color sequence 
+## rainbow color sequence 
 image.plot(1:n, 1:n, matrix(crossprod(U, rnorm(n^2)), n, n), col = rainbow(32))
 
-# heat.colors
+## heat.colors
 image.plot(1:n, 1:n, matrix(crossprod(U, rnorm(n^2)), n, n), col = heat.colors(32))
 
-# temp.colors
+## temp.colors
 temp.colors <- function(n=25){
   m <- floor(n/2)
   blues <- hsv(h=.65, s=seq(1,0,length=m+1)[1:m])
@@ -580,13 +580,13 @@ temp.colors <- function(n=25){
 }
 
 image.plot(1:n, 1:n, matrix(crossprod(U, rnorm(n^2)), n, n), col = temp.colors(33), zlim = c(-2.5, 2.5))
- # here I force zlim to be symmetric about zero and use an odd number (33) of levels so that the midpoint is white
+ ## here I force zlim to be symmetric about zero and use an odd number (33) of levels so that the midpoint is white
            
-# tim.colors
+## tim.colors
 image.plot(1:n, 1:n, matrix(crossprod(U, rnorm(n^2)), n, n), col = tim.colors(32))
 
-# which color schemes seem good and bad and in which cases might each be appealing?
-# my answer to this question is at the bottom of this file
+## which color schemes seem good and bad and in which cases might each be appealing?
+## my answer to this question is at the bottom of this file
 
 
 ##################################
@@ -626,22 +626,22 @@ par(mfrow=c(2, 1))
 showpal(palette()) # show default palette colors
 
 showpal(dichromat(palette()))  # here's how those look with standard colorblindness
-# notice red and green similarity
+## notice red and green similarity
 
 n <- 20; xs <- ys <- 1:n; gr <- expand.grid(xs, ys); U <- chol(exp(-rdist(gr)/6)) 
 par(mfrow = c(1, 2))
 vals <- matrix(crossprod(U, rnorm(n^2)), n, n)
-# how does tim.colors fair with color-blindness?
+## how does tim.colors fair with color-blindness?
 image.plot(1:n, 1:n, vals, col = tim.colors(32)) # I like tim.colors for spatial images
 image.plot(1:n, 1:n, vals, col = dichromat(tim.colors(32))) # actually not too bad
 
 
 #######################
 
-# which color schemes seem good and bad and in which cases might each be appealing?
+## which color schemes seem good and bad and in which cases might each be appealing?
 
-# I think the rainbow color sequence is bad - notice there are some rather sharp distinctions between adjacent colors in the legend, and the sequence does not seem very smooth; even worse the lowest  values are reddish and the highest values are also reddish - it's very hard to distinguish extreme high values from extreme lows
+## I think the rainbow color sequence is bad - notice there are some rather sharp distinctions between adjacent colors in the legend, and the sequence does not seem very smooth; even worse the lowest  values are reddish and the highest values are also reddish - it's very hard to distinguish extreme high values from extreme lows
 
-# heat.colors isn't bad, but I like tim.colors better - it has a wider range of colors, yet the  variation is pretty smooth and goes from blue extreme on one end to red on the other
+## heat.colors isn't bad, but I like tim.colors better - it has a wider range of colors, yet the  variation is pretty smooth and goes from blue extreme on one end to red on the other
 
-# temp.colors is very good when the midpoint is neutral (shown as white) and we want to show positive and negative values in two different colors with equal intensity depending on the magnitude - this is a 'diverging' color scheme
+## temp.colors is very good when the midpoint is neutral (shown as white) and we want to show positive and negative values in two different colors with equal intensity depending on the magnitude - this is a 'diverging' color scheme
