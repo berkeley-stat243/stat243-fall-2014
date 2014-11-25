@@ -5062,7 +5062,7 @@ Convex programming minimizes
 \end_inset
 
 .
- Also note that we can always have 
+ Note that we can always have 
 \begin_inset Formula $h_{j}(x)\leq b_{j}$
 \end_inset
 
