@@ -131,27 +131,22 @@ sunspot.month would be good for melt/cast and ggplot
 \end_layout
 
 \begin_layout Chunk
-
 <<read-chunk, echo=FALSE>>= 
 \end_layout
 
 \begin_layout Chunk
-
 read_chunk('unit15-graphics.R') 
 \end_layout
 
 \begin_layout Chunk
-
 require(ggplot2, quietly=TRUE)
 \end_layout
 
 \begin_layout Chunk
-
 require(lattice, quietly=TRUE)
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -683,17 +678,14 @@ Most of you know how to create a multi-panel plot:
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk1, eval=FALSE>>=
 \end_layout
 
 \begin_layout Chunk
-
 par(mfrow=c(4, 2)) # 4 rows, 2 columns of subplots
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -723,27 +715,22 @@ lines
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk2, eval=FALSE>>=
 \end_layout
 
 \begin_layout Chunk
-
 par(mai = c(.5, .5, .1, .1)) # manipulate inner margins of subplots
 \end_layout
 
 \begin_layout Chunk
-
 par(mgp = c(1.8, .7, 0)) # manipulate spacing of axis ticks, labels, text
 \end_layout
 
 \begin_layout Chunk
-
 par(omi = c(0, 0, .3, 0)) # manipulate outer margin of full plot
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -767,27 +754,22 @@ par()
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk3, eval=FALSE>>=
 \end_layout
 
 \begin_layout Chunk
-
 oldpar = par(no.readonly = TRUE)
 \end_layout
 
 \begin_layout Chunk
-
 par(cex = 3); plot(x, y)
 \end_layout
 
 \begin_layout Chunk
-
 par(oldpar); plot(x, y) 
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -981,32 +963,26 @@ It can be handy to put axis labels in the outer margin of a multi-panel
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk4, eval=FALSE>>=
 \end_layout
 
 \begin_layout Chunk
-
 x = rnorm(10); y = rnorm(10); par(mfrow = c(2, 2))
 \end_layout
 
 \begin_layout Chunk
-
 for(i in 1:4) plot(x, y, xlab = '', ylab = '')
 \end_layout
 
 \begin_layout Chunk
-
 mtext("my x variable", 1, line = -1, outer = TRUE)
 \end_layout
 
 \begin_layout Chunk
-
 mtext("my y variable", 2, line = -1, outer = TRUE)
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -1143,17 +1119,14 @@ xlab =
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk6, eval=FALSE>>=
 \end_layout
 
 \begin_layout Chunk
-
 plot(x, y, type= 'n')
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -1200,48 +1173,39 @@ axis()
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk7, fig.width=4, fig.height=4>>=
 \end_layout
 
 \begin_layout Chunk
-
 x = rnorm(10); y = rnorm(10); z = rnorm(10, 0, 5) 
 \end_layout
 
 \begin_layout Chunk
-
 plot(x, y, yaxt = 'n', bty = 'n', col = 'blue')
 \end_layout
 
 \begin_layout Chunk
-
 box() # add box in black
 \end_layout
 
 \begin_layout Chunk
-
 axis(side = 2, col = 'blue') # add y-axis, but in blue
 \end_layout
 
 \begin_layout Chunk
-
 par(new = TRUE) # this tells R to overplot the next plot on the current
 \end_layout
 
 \begin_layout Chunk
-
 plot(x, z, col = 'red', bty = 'n', ann = FALSE, xaxt = 'n', yaxt = 'n')
  
 \end_layout
 
 \begin_layout Chunk
-
 axis(side = 4, col = 'red') # add right-side y axis
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -1255,32 +1219,26 @@ Let's consider other ways to pack information on another dimension into
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk8, fig.width=6, fig.height=3.5>>=
 \end_layout
 
 \begin_layout Chunk
-
 par(mfrow = c(1,2))
 \end_layout
 
 \begin_layout Chunk
-
 groups = sample(1:3, 10, replace = TRUE) # simulated strata
 \end_layout
 
 \begin_layout Chunk
-
 plot(x, y, col = groups)
 \end_layout
 
 \begin_layout Chunk
-
 plot(x, y, pch = groups)
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -1311,27 +1269,22 @@ identify()
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk9, eval=FALSE>>=
 \end_layout
 
 \begin_layout Chunk
-
 plot(x, y)
 \end_layout
 
 \begin_layout Chunk
-
 identify(x, y) # now left-click on individual points and 
 \end_layout
 
 \begin_layout Chunk
-
 # R will tell you the index of the point 
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -1359,27 +1312,22 @@ expression()
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk10, tidy=FALSE, fig.width=4, fig.height=4>>=
 \end_layout
 
 \begin_layout Chunk
-
 par(mai = c(1, 1, .1, .1))
 \end_layout
 
 \begin_layout Chunk
-
 plot(x, y, xlab = expression(lambda), 
 \end_layout
 
 \begin_layout Chunk
-
 ylab = expression(paste(E[lambda]^(2-Lambda), "(deviance)-",Var(phi) )))
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -1390,42 +1338,34 @@ Here's an example of using a variable within an expression.
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk11, tidy=FALSE, fig.width=3, fig.height=3, tidy=FALSE>>=
 \end_layout
 
 \begin_layout Chunk
-
 plot(1:10, type='n', xlab='', ylab='', main = "plot math & numbers")
 \end_layout
 
 \begin_layout Chunk
-
 theta <- 1.23 
 \end_layout
 
 \begin_layout Chunk
-
 mtext(bquote(hat(theta) == .(theta)), side = 3, line= 0.25) 
 \end_layout
 
 \begin_layout Chunk
-
 # alternative:
 \end_layout
 
 \begin_layout Chunk
-
 mtext(substitute(paste('Estimate: ', hat(theta) == thetaVal), 
 \end_layout
 
 \begin_layout Chunk
-
   list(thetaVal = theta)), side = 1, line= 2)
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -1515,37 +1455,30 @@ layout()
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk12, eval=FALSE, tidy=FALSE>>=
 \end_layout
 
 \begin_layout Chunk
-
 layout(matrix(c(1, 1, 0, 2), nr = 2, byrow = TRUE))
 \end_layout
 
 \begin_layout Chunk
-
 layout.show(n = 2)
 \end_layout
 
 \begin_layout Chunk
-
 layout(matrix(c(1, 1, 1, 1, 
 \end_layout
 
 \begin_layout Chunk
-
                 4, 3, 2, 2), nr = 2, byrow = TRUE))
 \end_layout
 
 \begin_layout Chunk
-
 layout.show(n = 4)
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -1571,32 +1504,26 @@ layout()
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk13, eval=FALSE>>=
 \end_layout
 
 \begin_layout Chunk
-
 split.screen(figs = c(2, 3))
 \end_layout
 
 \begin_layout Chunk
-
 screen(3)
 \end_layout
 
 \begin_layout Chunk
-
 plot(x, y)
 \end_layout
 
 \begin_layout Chunk
-
 hist(x) # so we need to change screens manually
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -1632,107 +1559,86 @@ yu
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk14, fig.width=7, fig.height=7, tidy=FALSE>>=
 \end_layout
 
 \begin_layout Chunk
-
 split.screen(figs = matrix(
 \end_layout
 
 \begin_layout Chunk
-
 c(0, .4, 0, .5, 
 \end_layout
 
 \begin_layout Chunk
-
 .7, 1, .7, 1, 
 \end_layout
 
 \begin_layout Chunk
-
 .7, 1, .4, .7, 
 \end_layout
 
 \begin_layout Chunk
-
 .2, 1, 0, .4, 
 \end_layout
 
 \begin_layout Chunk
-
 0, .4, .7, 1), nc = 4, byrow = TRUE))
 \end_layout
 
 \begin_layout Chunk
-
 screen(1); plot(x, y); 
 \end_layout
 
 \begin_layout Chunk
-
 screen(2); hist(x); 
 \end_layout
 
 \begin_layout Chunk
-
 screen(3); hist(y); 
 \end_layout
 
 \begin_layout Chunk
-
 screen(4); plot(1:length(x), x, type = 'l')
 \end_layout
 
 \begin_layout Chunk
-
 screen(5)
 \end_layout
 
 \begin_layout Chunk
-
 split.screen(figs = matrix(c(0, .5, 0, 1, 
 \end_layout
 
 \begin_layout Chunk
-
                             .5, 1, 0, 1), nr = 2, byrow = TRUE)) 
 \end_layout
 
 \begin_layout Chunk
-
 # you can continue subdividing, but need to be careful 
 \end_layout
 
 \begin_layout Chunk
-
 # that the margins don't get too big for the remaining 
 \end_layout
 
 \begin_layout Chunk
-
 # space (and that text is not too large)
 \end_layout
 
 \begin_layout Chunk
-
 screen(6); par(mai = c(.05, .05, .05, .05), cex = .7); hist(x); 
 \end_layout
 
 \begin_layout Chunk
-
 screen(7); par(mai = c(.05, .05, .05, .05), cex = .7); hist(y)
 \end_layout
 
 \begin_layout Chunk
-
 close.screen(all = TRUE)
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -1793,32 +1699,26 @@ persp()
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk15, eval=FALSE, tidy=FALSE>>=
 \end_layout
 
 \begin_layout Chunk
-
 n = 20; xs = ys = 1:n; gr = expand.grid(xs, ys); 
 \end_layout
 
 \begin_layout Chunk
-
 U = chol(exp(-rdist(gr)/6)) 
 \end_layout
 
 \begin_layout Chunk
-
 image.plot(1:n, 1:n, matrix(crossprod(U, rnorm(n^2)), n, n), 
 \end_layout
 
 \begin_layout Chunk
-
    col = tim.colors(32)) 
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -1883,22 +1783,18 @@ ggmap
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk16, eval=FALSE>>=
 \end_layout
 
 \begin_layout Chunk
-
 plot(x, y)
 \end_layout
 
 \begin_layout Chunk
-
 map('state', add = TRUE) # adds state boundaries
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -2353,12 +2249,10 @@ aesthetic
 \end_layout
 
 \begin_layout Chunk
-
 <<layersExample, tidy=FALSE, fig.height=4, fig.width=4>>=
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -2373,12 +2267,10 @@ Here's another example where we layer on a bunch of features and create
 \end_layout
 
 \begin_layout Chunk
-
 <<errorbars, fig.height=4, fig.width=6>>=
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -2387,27 +2279,22 @@ Here's a bit more syntax for modifying labels and axis limits and what-not.
 \end_layout
 
 \begin_layout Chunk
-
 <<cleaning, eval=FALSE, tidy=FALSE>>=
 \end_layout
 
 \begin_layout Chunk
-
 ggplot(data = cpds, aes(x = year, y = vturn)) + geom_point() + 
 \end_layout
 
 \begin_layout Chunk
-
   xlab(label = "The X Label") +  ylab(label = "The Y Lab") + 
 \end_layout
 
 \begin_layout Chunk
-
   xlim(1980, 1989) + ggtitle(label = "The Title")  
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -2416,12 +2303,10 @@ Density plots
 \end_layout
 
 \begin_layout Chunk
-
 <<density, fig.height=3, fig.width=4>>=
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -2435,12 +2320,10 @@ In addition to seeing how to do scatterplots, we also see how to do built-in
 \end_layout
 
 \begin_layout Chunk
-
 <<scatter, fig.height=3, fig.width=4, tidy=FALSE>>=
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -2481,12 +2364,10 @@ This is a powerful approach to dealing with multivariate data and is often
 \end_layout
 
 \begin_layout Chunk
-
 <<conditioning, fig.height=7, fig.width=7, tidy=FALSE>>=
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -2498,12 +2379,10 @@ In ggplot2, here's how we condition by using different colors or symbols
 \end_layout
 
 \begin_layout Chunk
-
 <<conditioning2, fig.height=5, fig.width=7, tidy=FALSE>>=
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -2524,12 +2403,10 @@ Here are contour plots:
 \end_layout
 
 \begin_layout Chunk
-
 <<contour, fig.height=3, fig.width=4, tidy=FALSE>>=
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -2538,12 +2415,10 @@ and here are image plots, which show surfaces based on variations in color:
 \end_layout
 
 \begin_layout Chunk
-
 <<image, fig.height=3, fig.width=4, tidy=FALSE>>=
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -2619,37 +2494,30 @@ panel()
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk50, eval=FALSE>>=
 \end_layout
 
 \begin_layout Chunk
-
 library(MASS)
 \end_layout
 
 \begin_layout Chunk
-
 out = xyplot(time ~ dist, data = hills, panel = function(x, y, ...){
 \end_layout
 
 \begin_layout Chunk
-
   panel.xyplot(x, y, ...)
 \end_layout
 
 \begin_layout Chunk
-
   panel.lmline(x, y, type = 'l')
 \end_layout
 
 \begin_layout Chunk
-
   panel.loess(x, y, ...)
 \end_layout
 
 \begin_layout Chunk
-
 })
 \begin_inset Newline newline
 \end_inset
@@ -2658,32 +2526,26 @@ out = xyplot(time ~ dist, data = hills, panel = function(x, y, ...){
 \end_layout
 
 \begin_layout Chunk
-
 splom( ~ hills, 
 \end_layout
 
 \begin_layout Chunk
-
   panel = function(x, y, ...){
 \end_layout
 
 \begin_layout Chunk
-
   panel.xyplot(x, y, ...)
 \end_layout
 
 \begin_layout Chunk
-
   panel.loess(x, y, ...)
 \end_layout
 
 \begin_layout Chunk
-
 })
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -2692,27 +2554,22 @@ We can manipulate subpanels in a lattice graphic:
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk51, eval=FALSE>>=
 \end_layout
 
 \begin_layout Chunk
-
 xyplot(Petal.Length ~ Sepal.Length | Species, iris, layout = c(2, 2))
 \end_layout
 
 \begin_layout Chunk
-
 trellis.focus("panel", 1, 2) 
 \end_layout
 
 \begin_layout Chunk
-
 do.call("panel.lmline", trellis.panelArgs())
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -3184,27 +3041,22 @@ g the intensity of red, green and blue.
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk52, eval=FALSE>>=
 \end_layout
 
 \begin_layout Chunk
-
 rgb(0.5, 0.5, 0) # specified on scales of [0, 1]
 \end_layout
 
 \begin_layout Chunk
-
 plot(x, y, col = rgb(0.5, 0.5, 0))
 \end_layout
 
 \begin_layout Chunk
-
 col2rgb('yellowgreen') # on scale of {0,...,255}
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -3287,11 +3139,6 @@ The
 colorspace
 \emph default
  package provides tools for manipulating colors.
-\end_layout
-
-\begin_layout Standard
-principles in Murrell's piece in JCGS 2013#1 Murrell points out colorspace
- and
 \end_layout
 
 \begin_layout Subsection
@@ -3405,12 +3252,10 @@ rgb()
 \end_layout
 
 \begin_layout Chunk
-
 <<overplotting, fig.height=3.5, fig.width=6, tidy=FALSE>>=
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 
@@ -3440,28 +3285,23 @@ dichromat
 \end_layout
 
 \begin_layout Chunk
-
 <<chunk101, eval=FALSE>>=
 \end_layout
 
 \begin_layout Chunk
-
 showpal = function(colors){ n = length(colors); plot(1:n, rep(1, n), col
  = colors, pch = 16, cex = 4) } 
 \end_layout
 
 \begin_layout Chunk
-
 showpal(palette())
 \end_layout
 
 \begin_layout Chunk
-
 showpal(dichromat(palette))
 \end_layout
 
 \begin_layout Chunk
-
 @
 \end_layout
 

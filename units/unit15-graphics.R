@@ -1,6 +1,6 @@
 ##########################################################################
 ### Demo code for Unit 15 of Stat243, "Graphics"
-### Chris Paciorek, December 2013
+### Chris Paciorek, December 2014
 ##########################################################################
 
 
@@ -71,7 +71,7 @@ mtext("generic y variable", 2, line = -1, outer = TRUE)
 # 2.3 Adding information to a plot
 #####################################
 
-plot(x, y, type = "n") # notice how little is plotted
+plot(x, y, type = "n") # plot with nothing in it
 
 ## adding customized axes; I'm also throwing in examples of other functionality (e.g., cex.lab, cex.axis) - so some of this will look funny but you should get a sense for how to control various things
 x = rnorm(10); y = rnorm(10); z = rnorm(10, 0, 5)
@@ -220,7 +220,7 @@ persp(x, y, z, theta = 135, phi = 30, col = "green3", scale = FALSE,
 ## importing a GIS shapefile and using RColorBrewer to devise a sequential color scheme for coloring census tracts
 
 library(spdep)
-## download and unzip capeCod.zip from bspace - this will create a bunch of cbg00barncnty* files
+## unzip data/capeCod.zip  - this will create a bunch of cbg00barncnty* files
 ccPoly = readShapePoly('cbg00barncnty')  # read in the shape file (it's actually multiple related files)
 plot(ccPoly,border='grey')  # see the boundaries in the file - that's Cape Cod in Massachusetts
 ccdat=read.table('uppercapebreast.dat',header=TRUE) # data containing breast cancer rates by census tract, indexed by the OBJECTID field in the shapefile
@@ -500,18 +500,6 @@ lines(x, fx, col = 'red', lwd = 2)
 dev.off()
 
 ## now trying opening these files outside of R and increasing the size of the window (i.e., zooming in) - the pdf file should scale gracefully, while the JPEG file looks bad when you increase the size of the window
-
-## two approaches to scatterplots with very many observations
-
-library(hexbin)
-x <- rnorm(10000); y <- rnorm(10000)
-
-plot(x, y) # too many points, lots of overplotting!
-
-bin <- hexbin(x,y)
-plot(bin) 
-
-smoothScatter(x, y) # pretty cool
 
 
 ############################
