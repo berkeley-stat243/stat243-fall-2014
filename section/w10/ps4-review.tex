@@ -1,0 +1,135 @@
+\documentclass{article}
+
+%% for inline R code: if the inline code is not correctly parsed, you will see a message
+\newcommand{\rinline}[1]{SOMETHING WRONG WITH knitr}
+%% begin.rcode setup, include=FALSE, cache=FALSE
+% opts_chunk$set(fig.path='figure/latex-', cache.path='cache/latex-')
+% read_chunk('ps4.R')
+%% end.rcode
+
+\title{Code review for problem set 4}
+\date{October 27, 2014}
+\author{Jarrod Millman\\ Statistics 243\\ UC Berkeley}
+
+\begin{document}
+
+\maketitle
+
+For section today, I will ask you to form a few small ($<5$ people) groups.
+In your groups, you should discuss the following questions and then I will
+randomly ask one of the groups to informally summarize some of the ideas
+they discussed.  When presenting feel free to draw on the board or ask
+me and/or the other students questions about parts you are unclear about.
+
+\begin{enumerate}
+\setcounter{enumi}{3}
+
+\item Random walks
+
+For question 4, you were asked to implement a random walk function. Consider
+the following code snippet from Chris' example solution.
+
+%% begin.rcode  q4.sol, eval=FALSE
+%% end.rcode
+
+Look through this implementation and make sure you understand how it works.
+In particular, make sure you can explain how this code is generating the
+random steps.  Here are some specific questions you may wish to consider:
+
+\begin{itemize}
+\item What purpose does \texttt{cumsum} serve?
+\item If \texttt{cumsum} didn't exist, how would you modify this code snippet
+ so that it still worked?  Which of these implementations makes the code easier
+ to understand and debug?  Are there any implications for speed and memory use?
+\item R has many functions for drawing random samples.  Which of these other
+ functions might be useful if \texttt{sample} didn't exist?  Would you prefer
+ using one of these other functions over \texttt{sample}?  For example, are
+ any of them more or less similar to how you think about the underlying mathematical
+ model?  Are there any implications for speed and memory use?
+\end{itemize}
+
+\item Memory use
+
+For extra credit on question 5, you were asked to rewrite a function in
+order to reduce its memory use.  For this exercise, please consider the following
+portion of the original code:
+
+%% begin.rcode  q5.orig, eval=FALSE
+%% end.rcode
+
+As well as the corresponding part of Chris' example solution:
+
+%% begin.rcode  q5.sol1, eval=FALSE
+%% end.rcode
+
+Make sure you can explain why this works and why it is uses less memory.
+Are there any trade-offs (perhaps in terms of speed, generality, or readability)
+that were made for the sake of reducing memory use?
+
+Now consider the following alternative solutions:
+
+\begin{enumerate}
+
+\item
+
+%% begin.rcode  q5.sol2, eval=FALSE
+%% end.rcode
+
+\item
+
+%% begin.rcode  q5.sol3, eval=FALSE
+%% end.rcode
+
+\item
+
+%% begin.rcode  q5.sol4, eval=FALSE
+%% end.rcode
+
+\end{enumerate}
+
+Do they all produce the same result?
+Are there similarities among the different solutions?
+Do these solutions make different trade-offs from each other or from
+Chris' example solution?
+When looking over the different solutions are there some that you prefer?
+If so, why?
+
+\item Linear algebra and loops
+
+Finally, for question 6, you were asked to rewrite a function to minimize
+its computation time.  There were several things that you could do, but the
+biggest reduction came from rewriting this portion of the code:
+
+%% begin.rcode  q6.orig, eval=FALSE
+%% end.rcode
+
+Here is a possible solution:
+
+%% begin.rcode  q6.sol, eval=FALSE
+%% end.rcode
+
+Does this perform the same computation?  Is it more or less readable than
+the original?  Is one of the two implementations easier to understand?  Why?
+
+In the proposed solution, what other commands could you use to replace the
+body of the loop without adding or changing the loop?  For example, Chris'
+example solution used \texttt{outer(theta.old[, z],theta.old[, z])}.  Are
+there some that you prefer?  Why?  For example, are some of them easier for
+you to read and understand?  Are some closer to the underlying mathematical
+expression that you would use?  Are they all equivalent in terms of space
+and time complexity?  
+
+Finally, consider the following alternative loop:
+
+%% begin.rcode  q6.alt1, eval=FALSE
+%% end.rcode
+
+Does it perform the same computation?  Explain.
+Assuming it is correct, are there any cases when this loop might be
+preferred over the other proposed loop (or \emph{vice versa})?
+
+
+\end{enumerate}
+
+\end{document}
+
