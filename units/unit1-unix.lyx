@@ -747,9 +747,9 @@ MemTotal
 /proc/cpuinfo 
 \emph default
 [or use 
-\emph on
+\family typewriter
 nproc --all
-\emph default
+\family default
 ]
 \end_layout
 
