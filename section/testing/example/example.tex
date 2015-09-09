@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage[margin=2cm]{geometry}
+
+% set up headers and footers
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{Stat 243}
+\chead{PS example}
+\rhead{Fall 2014}
+\lfoot{Jarrod Millman}
+\cfoot{SID: 0123456789}
+\rfoot{\thepage}
+
+%% for inline R code:
+%%  if the inline code is not correctly parsed, you will see a message
+\newcommand{\rinline}[1]{SOMETHING WRONG WITH knitr}
+%% begin.rcode setup, include=FALSE, cache=FALSE
+% opts_chunk$set(fig.path='figure/latex-', cache.path='cache/latex-')
+% read_chunk('example.r')
+%% end.rcode
+
+\begin{document}
+
+%% I prefer putting info in headers and footers
+%\title{Example of \LaTeX and \texttt{knitr}}
+%\author{Jarrod Millman\\
+%        SID: 0123456789}
+%\maketitle
+\thispagestyle{fancy}
+
+\section{Getting started}
+
+First I create two variables with R:
+
+%% begin.rcode  p1
+%% end.rcode
+
+Now I plot them:
+
+%% begin.rcode  p2, out.width='.49\\linewidth', fig.show='hold'
+%% end.rcode
+
+\section{A simple function}
+
+%% begin.rcode  p3
+%% end.rcode
+
+\section{Session information}
+
+%% begin.rcode  session
+%% end.rcode
+
+\end{document} 

@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if [ $# -ne 1 ]
+then
+  echo "Usage: `basename $0` {arg}"
+  exit 1
+fi
+
+#R --no-save --no-restore -e "require(knitr); knit('$1')"
+Rscript -e "require(knitr); infile.pieces = strsplit('$1', .Platform[['file.sep']])[[1]]; infile = infile.pieces[length(infile.pieces)]; knit(input='$1', output=gsub('.tex', '-out.tex', infile))"
